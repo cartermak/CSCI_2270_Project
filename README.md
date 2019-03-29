@@ -1,2 +1,2 @@
-# CSCI_2270_Project
-Data Structures project for Carter Mak and William Walker
+# CSCI 2270 Project
+Carter Mak and William Walker
