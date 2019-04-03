@@ -33,5 +33,10 @@ Carter Mak and William Walker
 ### Shit to maybe use
 - Ultralight UI for integrating HTML UI with C++
 
-### Misc notes
-- Emphasize that our application is relatively small-scale but is constructed in a way that would perform well with larger data sets
+
+### File Saving
+- 
+- Store a file for each struct instance and its properties
+- Come up with some system for file naming, e.g. 1x109140151x12345 -> *machine 1* *part #109140151* *request identifier 12345*
+- Need to construct the naming system to form a clear file heiarchy
+- Only save the specific files being edited
