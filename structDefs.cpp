@@ -20,13 +20,13 @@ const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...
 // part inventory
 struct Part
 {
-    int partNum;
-    int count;
-    string name;
-    string description;
-    Request *head;
-    Part *next;
-    MachinePart *machines[NUM_OF_MACHINES];
+    int partNum;                            // Part number
+    int count;                              // Count of part in inventory
+    string name;                            // Part name
+    string description;                     // Description of part
+    Request *head;                          // Head to linked list of requests
+    Part *next;                             // Next field for chaining collisions
+    MachinePart *machines[NUM_OF_MACHINES]; // Array of MachinePart pointers to hold this part on each machine
 };
 // machine tracking
 struct MachinePart
@@ -40,9 +40,9 @@ struct MachinePart
 struct Replacement
 {
     tm date;
-    Replacement *next;
     string mechanic;
     string notes;
+    Replacement *next;
 };
 // for ordering tracking
 struct Request
