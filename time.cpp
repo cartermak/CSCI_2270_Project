@@ -3,36 +3,7 @@
 #include <iostream>
 #include <string>
 using namespace std;
-// sorted chronologically per part per machine
-struct Replacement {
-    tm date;
-    Replacement* next;
-    string mechanic;
-};
-// for ordering tracking
-struct Request {
-    tm date;
-    string mechanic;
-    bool isOrdered;
-    bool isFulfilled;
-    Request* next;
-};
-// part inventory
-struct Part {
-    int partNum;
-    int count;
-    string name;
-    string description;
-    Request* head;
-};
-// machine tracking
-struct MachinePart {
-    MachinePart* next;
-    tm date;
-    int count;
-    int partNum;
-    Replacement* head;
-};
+
 
 int main() {
     MachinePart temp;
