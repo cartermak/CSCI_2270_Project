@@ -1,0 +1,2 @@
+mainTest.o: mainTest.cpp project.hpp
+structDefs.o: structDefs.cpp
