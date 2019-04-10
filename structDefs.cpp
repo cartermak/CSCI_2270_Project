@@ -26,7 +26,7 @@ struct Part
     string description;
     Request *head;
     Part *next;
-    MachinePart machines[NUM_OF_MACHINES];
+    MachinePart *machines[NUM_OF_MACHINES];
 };
 // machine tracking
 struct MachinePart
@@ -49,6 +49,7 @@ struct Request
 {
     tm date;
     string mechanic;
+    string notes;
     bool isOrded;
     bool isFulfilled;
     Request *next;
