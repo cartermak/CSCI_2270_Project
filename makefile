@@ -1,15 +1,15 @@
 CC=gcc
-CXX=g++
+CXX=g++ -Wall -Wextra -std=c++11
 RM=rm -f
 
 
-SRCS=mainTest.cpp
+SRCS=mainTest.cpp 
 OBJS=$(subst .cpp,.o,$(SRCS))
 
-all: test
+all: a.out
 
-test: $(OBJS)
-	$(CXX) $(LDFLAGS) -o test $(OBJS) $(LDLIBS) 
+a.out: $(OBJS)
+	$(CXX) $(LDFLAGS) -o a.out $(OBJS) $(LDLIBS) 
 
 depend: .depend
 
