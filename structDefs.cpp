@@ -5,15 +5,17 @@ Instructor: Ashutosh Trivedi
 TA: Divya Athoopalil
 */
 
-#include <iostream>
-#include <string>
 #include <ctime>
+#include <iostream>
 #include <queue>
+#include <string>
 #include <vector>
 using namespace std;
 
-const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...should definitely go in our header file.
+const int NUM_OF_MACHINES =
+    10; // This might not be the right way to do this...should definitely go in our header file.
 
+// sorted chronologically per part per machine
 struct Replacement
 {
     tm date;         // Date of replacement
@@ -28,13 +30,13 @@ struct MachinePart
     string notes;                          // Notes field for the part (e.g. "This screw has screwed me so many times")
     std::vector<Replacement> replacements; // Vector of repacements
 };
-// sorted chronologically per part per machine
 // for ordering tracking
 struct Request
 {
     tm dateRequested; // Date the order was requested by a mechanic
     tm dateOrdered;   // Date the order was placed (e.g. by Nate)
-    tm dateFulfilled; // Date the order was fulfilled (receieved at the Connection)
+    tm dateFulfilled; // Date the order was fulfilled (receieved at the
+                      // Connection)
     string mechanic;  // Mechanic who placed the order
     string notes;     // Notes about the order (e.g. hurry it the fuck up)
 };
