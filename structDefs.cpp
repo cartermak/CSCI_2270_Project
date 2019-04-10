@@ -26,16 +26,16 @@ struct Part
     int count;                              // Count of part in inventory
     string name;                            // Part name
     string description;                     // Description of part
-    vector<Request> requests;               // Vector of order requests
+    std::vector<Request> requests;          // Vector of order requests
     MachinePart *machines[NUM_OF_MACHINES]; // Array of MachinePart pointers to hold this part on each machine
 };
 // machine parts (stored in array for each part in hash table)
 struct MachinePart
 {
-    int count;                        // Number of this part on this machine
-    int partNum;                      // Part number (may or may not use this)
-    string notes;                     // Notes field for the part (e.g. "This screw has screwed me so many times")
-    vector<Replacement> replacements; // Vector of repacements
+    int count;                             // Number of this part on this machine
+    int partNum;                           // Part number (may or may not use this)
+    string notes;                          // Notes field for the part (e.g. "This screw has screwed me so many times")
+    std::vector<Replacement> replacements; // Vector of repacements
 };
 // sorted chronologically per part per machine
 struct Replacement
