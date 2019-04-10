@@ -1,5 +1,5 @@
-#include <ctime>
 /*
+----------
 Carter Mak and William Walker
 CSCI 2270 Data Structures
 Instructor: Ashutosh Trivedi
@@ -7,6 +7,7 @@ TA: Divya Athoopalil
 ----------
 Last edit:
 Carter Mak, April 9
+----------
 */
 
 #include <iostream>
@@ -25,7 +26,7 @@ struct Part
     string description;
     Request *head;
     Part *next;
-    MachinePart machines[NUM_OF_MACHINES];
+    MachinePart *machines[NUM_OF_MACHINES];
 };
 // machine tracking
 struct MachinePart
@@ -48,6 +49,7 @@ struct Request
 {
     tm date;
     string mechanic;
+    string notes;
     bool isOrded;
     bool isFulfilled;
     Request *next;
