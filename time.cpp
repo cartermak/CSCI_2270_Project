@@ -13,7 +13,7 @@ struct Replacement {
 struct Request {
     tm date;
     string mechanic;
-    bool isOrded;
+    bool isOrdered;
     bool isFulfilled;
     Request* next;
 };
