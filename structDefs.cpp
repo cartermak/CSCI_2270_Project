@@ -10,16 +10,17 @@ Carter Mak, April 9
 ----------
 */
 
+#include <ctime>
 #include <iostream>
 #include <string>
-#include <ctime>
 using namespace std;
 
-const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...should definitely go in our header file.
+const int NUM_OF_MACHINES =
+    10;  // This might not be the right way to do this...should definitely go in
+         // our header file.
 
 // part inventory
-struct Part
-{
+struct Part {
     int partNum;
     int count;
     string name;
@@ -29,24 +30,21 @@ struct Part
     MachinePart *machines[NUM_OF_MACHINES];
 };
 // machine tracking
-struct MachinePart
-{
+struct MachinePart {
     int count;
     int partNum;
     string notes;
     Replacement *head;
 };
 // sorted chronologically per part per machine
-struct Replacement
-{
+struct Replacement {
     tm date;
     Replacement *next;
     string mechanic;
     string notes;
 };
 // for ordering tracking
-struct Request
-{
+struct Request {
     tm date;
     string mechanic;
     string notes;
@@ -55,7 +53,4 @@ struct Request
     Request *next;
 };
 
-int main()
-{
-    return 0;
-}
+int main() { return 0; }
