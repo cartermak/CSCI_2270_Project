@@ -1,0 +1,1 @@
+mainTest.o: mainTest.cpp project.hpp
