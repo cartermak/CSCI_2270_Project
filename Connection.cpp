@@ -101,5 +101,8 @@ int main()
     cout << "Find Part" << endl;
     v = c.findPart(1);
     cout << v->name << " " << v->description << endl;
+    tm t = getCurrentTime();
+    time_t time = mktime(&t);
+    cout << ctime(&time) << endl;
     return 0;
 }
