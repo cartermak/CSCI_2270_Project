@@ -45,17 +45,19 @@ Connection::~Connection()
         delete partsTable[i];
     }
 }
-Part *Connection::findPart(int partNumber)
-{
-    Part v;
-    v.partNum = partNumber;
-    int index = hashFunction(partNumber);
-    vector<Part>::iterator it;
-    it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
-    int i = std::distance(partsTable[index]->inventory.begin(), it);
-    Part *p = &partsTable[index]->inventory.at(i);
-    return p;
-}
+
+//deprecated/integrated into searchPart
+// Part *Connection::findPart(int partNumber)
+// {
+//     Part v;
+//     v.partNum = partNumber;
+//     int index = hashFunction(partNumber);
+//     vector<Part>::iterator it;
+//     it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
+//     int i = std::distance(partsTable[index]->inventory.begin(), it);
+//     Part *p = &partsTable[index]->inventory.at(i);
+//     return p;
+// }
 
 Part *Connection::searchPart(int partNumber)
 {
