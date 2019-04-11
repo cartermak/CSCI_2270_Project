@@ -63,7 +63,16 @@ Part *Connection::searchPart(int partNumber)
     if (!partsTable[index])
         return NULL;
     Part *temp = partsTable[index];
-
+    if (temp->partNum != partNumber)
+    {
+        Part v;
+        v.partNum = partNumber;
+        int index = hashFunction(partNumber);
+        vector<Part>::iterator it;
+        it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
+        int i = std::distance(partsTable[index]->inventory.begin(), it);
+        temp = &partsTable[index]->inventory.at(i);
+    }
     return temp;
 }
 
@@ -81,8 +90,15 @@ bool Connection::addPart(int partNumber, int count, string name, string descript
     {
         Part *p = new Part(partNumber, count, name, description);
         int index = hashFunction(partNumber);
-        partsTable[index] = p;
-        partsTable[index]->inventory.push_back(*p);
+        if (partsTable[index])
+        {
+            partsTable[index]->inventory.push_back(*p);
+        }
+        else
+        {
+            partsTable[index] = p;
+        }
+
         return true;
     }
     return false;
@@ -98,9 +114,9 @@ int main()
     cout << "Search Part" << endl;
     Part *v = c.searchPart(1);
     cout << v->name << " " << v->description << endl;
-    cout << "Find Part" << endl;
-    v = c.findPart(1);
-    cout << v->name << " " << v->description << endl;
+    // cout << "Find Part" << endl;
+    // v = c.findPart(1);
+    // cout << v->name << " " << v->description << endl;
     tm t = getCurrentTime();
     time_t time = mktime(&t);
     cout << ctime(&time) << endl;
