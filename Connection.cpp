@@ -8,6 +8,7 @@ TA: Divya Athoopalil
 #include <iostream>
 #include <string>
 #include <ctime>
+#include <chrono>
 #include <queue>
 #include <vector>
 #include <algorithm> //for finding in a vector
@@ -24,7 +25,12 @@ bool operator==(const Part one, const Part two)
 {
     return one.partNum == two.partNum;
 }
-
+tm getCurrentTime()
+{
+    auto start = std::chrono::system_clock::now();
+    std::time_t end_time = std::chrono::system_clock::to_time_t(start);
+    return *localtime(&end_time);
+}
 Connection::Connection()
 {
     for (int i = 0; i < HASH_TABLE_SIZE; i++)
