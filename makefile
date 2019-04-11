@@ -3,7 +3,7 @@ CXX=g++ -Wall -Wextra -std=c++11
 RM=rm -f
 
 
-SRCS=mainTest.cpp 
+SRCS=Connection.cpp  hashFunction.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: a.out

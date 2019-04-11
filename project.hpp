@@ -46,7 +46,9 @@ struct Part
     string name;                            // Part name
     string description;                     // Description of part
     std::vector<Request> requests;          // Vector of order requests
-    MachinePart *machines[NUM_OF_MACHINES]; // Array of MachinePart pointers to hold this part on each machine
+    MachinePart *machines[NUM_OF_MACHINES]; //Array of MachineParts for each machine
+    Part *next;                             // for chaining in hash table
+    Part(int partNumber, int count, string name, string description) : partNum(partNumber), count(count), name(name), description(description), next(NULL) {}
 };
 
 // 8=============================================================================D
@@ -62,6 +64,8 @@ class Connection
 
     // Return boolean true if part is successfully added, otherwise false (e.g. part already exists)
     bool addPart(int partNumber, int count, string name, string description);
+
+    Part* searchPart(int partNumber, string name);
 
   private:
     Part *partsTable[HASH_TABLE_SIZE]; // Statically allocated hash table
