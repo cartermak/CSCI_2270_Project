@@ -10,7 +10,7 @@ TA: Divya Athoopalil
 #include <ctime>
 #include <queue>
 #include <vector>
-
+#include <algorithm> //for finding in a vector
 #include "project.hpp"
 
 using namespace std;
@@ -20,6 +20,10 @@ Constructor and Destructor.
 No input arguments.
 Might need to add things to the desctructor eventually, but the hash table is statically allocated and the vectors should (?) automagically be destructed.
 */
+bool operator==(const Part one, const Part two)
+{
+    return one.partNum == two.partNum;
+}
 
 Connection::Connection()
 {
@@ -32,41 +36,35 @@ Connection::~Connection()
 {
     for (int i = 0; i < HASH_TABLE_SIZE; i++)
     {
-        Part *temp = partsTable[i];
-        Part *prev = NULL;
-        while (temp)
-        {
-            for (int j = 0; j < NUM_OF_MACHINES; j++)
-            {
-                delete temp->machines[j];
-            }
-            prev = temp;
-            temp = temp->next;
-            delete prev;
-            prev = NULL;
-        }
+        delete partsTable[i];
     }
 }
-Part *Connection::searchPart(int partNumber, string name)
+Part *Connection::findPart(int partNumber)
+{
+    Part v;
+    v.partNum = partNumber;
+    int index = hashFunction(partNumber);
+    vector<Part>::iterator it;
+    it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
+    int i = std::distance(partsTable[index]->inventory.begin(), it);
+    Part *p = &partsTable[index]->inventory.at(i);
+    return p;
+}
+
+Part *Connection::searchPart(int partNumber)
 {
     int index = hashFunction(partNumber);
     if (!partsTable[index])
         return NULL;
     Part *temp = partsTable[index];
-    while (temp)
-    {
-        if (temp->name == name)
-            break;
-        temp = temp->next;
-    }
+
     return temp;
 }
 
-
-
 bool Connection::addPart(int partNumber, int count, string name, string description)
 {
-    Part *tmp = searchPart(partNumber, name);
+    Part *tmp = searchPart(partNumber);
+    // cout << "Part found" << tmp << endl;
     if (tmp)
     {
         cout << "Part already in inventory, incrementing count" << endl;
@@ -77,19 +75,8 @@ bool Connection::addPart(int partNumber, int count, string name, string descript
     {
         Part *p = new Part(partNumber, count, name, description);
         int index = hashFunction(partNumber);
-        if (partsTable[index])
-        {
-            Part *temp = partsTable[index];
-            while (temp->next)
-            {
-                temp = temp->next;
-            }
-            temp->next = p;
-        }
-        else
-        {
-            partsTable[index] = p;
-        }
+        partsTable[index] = p;
+        partsTable[index]->inventory.push_back(*p);
         return true;
     }
     return false;
@@ -99,5 +86,14 @@ bool Connection::addPart(int partNumber, int count, string name, string descript
 // Temporary main
 int main()
 {
+    Connection c;
+    c.addPart(1, 1, "test", "this is a thing");
+    cout << "Part added" << endl;
+    cout << "Search Part" << endl;
+    Part *v = c.searchPart(1);
+    cout << v->name << " " << v->description << endl;
+    cout << "Find Part" << endl;
+    v = c.findPart(1);
+    cout << v->name << " " << v->description << endl;
     return 0;
 }

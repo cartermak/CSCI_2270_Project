@@ -41,14 +41,15 @@ struct Request
 // part inventory
 struct Part
 {
-    int partNum;                            // Part number
-    int count;                              // Count of part in inventory
-    string name;                            // Part name
-    string description;                     // Description of part
-    std::vector<Request> requests;          // Vector of order requests
-    MachinePart *machines[NUM_OF_MACHINES]; //Array of MachineParts for each machine
-    Part *next;                             // for chaining in hash table
-    Part(int partNumber, int count, string name, string description) : partNum(partNumber), count(count), name(name), description(description), next(NULL) {}
+    int partNum;                           // Part number
+    int count;                             // Count of part in inventory
+    string name;                           // Part name
+    string description;                    // Description of part
+    std::vector<Request> requests;         // Vector of order requests
+    MachinePart machines[NUM_OF_MACHINES]; //Array of MachineParts for each machine
+    vector<Part> inventory;                // for chaining in hash table
+    Part() : partNum(0), count(0), name(""), description("") {}
+    Part(int partNumber, int count, string name, string description) : partNum(partNumber), count(count), name(name), description(description) {}
 };
 
 // 8=============================================================================D
@@ -64,8 +65,10 @@ class Connection
 
     // Return boolean true if part is successfully added, otherwise false (e.g. part already exists)
     bool addPart(int partNumber, int count, string name, string description);
-
-    Part* searchPart(int partNumber, string name);
+    //finds pointer to part in inventory
+    Part *searchPart(int partNumber);
+    // same as searchPart, but uses some neat vector stuff
+    Part *findPart(int partNumber);
 
   private:
     Part *partsTable[HASH_TABLE_SIZE]; // Statically allocated hash table
