@@ -12,10 +12,11 @@ TA: Divya Athoopalil
 #include <vector>
 #include <chrono>
 #include <algorithm>
+#include <ratio>
 using namespace std;
 
 const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...should definitely go in our header file.
-time_t getCurrentTime();
+chrono::time_point<chrono::_V2::system_clock, chrono::nanoseconds> getCurrentTime();
 struct Replacement
 {
     time_t date;     // Date of replacement
