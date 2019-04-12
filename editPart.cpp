@@ -5,11 +5,6 @@ Instructor: Ashutosh Trivedi
 TA: Divya Athoopalil
 */
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <queue>
-#include <vector>
 #include "project.hpp"
 
 using namespace std;
@@ -23,21 +18,28 @@ string name        = "";
 string description = "";
 */
 
-void Connection::editPart(int partNum, int count, string name, string description)
+bool Connection::editPart(int partNum, int count, string name, string description)
 {
+    Part* curr = findPart(partNum);
+
+    if(curr==NULL)
+    {
+        return false;
+    }
+    
     int index = hashFunction(partNum);
     
     if(count != -1)
     {
-        // Edit count
+        curr->count = count;
     }
     if(name!="")
     {
-        // Edit name
+        curr->name = name;
     }
     if(description!="")
     {
-        // Edit description
+        curr->description = description;
     }
-    return;
+    return true;
 }
