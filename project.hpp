@@ -71,6 +71,7 @@ class Connection
     Part *searchPart(int partNumber);
     // same as searchPart, but uses some neat vector stuff
     Part *findPart(int partNumber);
+    bool editPart(int partNum, int count, string name, string description);
 
   private:
     Part *partsTable[HASH_TABLE_SIZE]; // Statically allocated hash table
