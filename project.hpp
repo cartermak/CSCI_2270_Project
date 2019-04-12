@@ -10,13 +10,15 @@ TA: Divya Athoopalil
 #include <ctime>
 #include <queue>
 #include <vector>
+#include <chrono>
+#include <algorithm>
 using namespace std;
 
 const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...should definitely go in our header file.
-
+time_t getCurrentTime();
 struct Replacement
 {
-    tm date;         // Date of replacement
+    time_t date;     // Date of replacement
     string mechanic; // Mechanic who replaced it
     string notes;    // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody wasn't killed by a bowling pin")
 };
@@ -32,11 +34,11 @@ struct MachinePart
 // for ordering tracking
 struct Request
 {
-    tm dateRequested; // Date the order was requested by a mechanic
-    tm dateOrdered;   // Date the order was placed (e.g. by Nate)
-    tm dateFulfilled; // Date the order was fulfilled (receieved at the Connection)
-    string mechanic;  // Mechanic who placed the order
-    string notes;     // Notes about the order (e.g. hurry it the fuck up)
+    time_t dateRequested; // Date the order was requested by a mechanic
+    time_t dateOrdered;   // Date the order was placed (e.g. by Nate)
+    time_t dateFulfilled; // Date the order was fulfilled (receieved at the Connection)
+    string mechanic;      // Mechanic who placed the order
+    string notes;         // Notes about the order (e.g. hurry it the fuck up)
 };
 // part inventory
 struct Part

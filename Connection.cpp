@@ -5,13 +5,7 @@ Instructor: Ashutosh Trivedi
 TA: Divya Athoopalil
 */
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <chrono>
-#include <queue>
-#include <vector>
-#include <algorithm> //for finding in a vector
+//for finding in a vector
 #include "project.hpp"
 
 using namespace std;
@@ -25,11 +19,11 @@ bool operator==(const Part one, const Part two)
 {
     return one.partNum == two.partNum;
 }
-tm getCurrentTime()
+time_t getCurrentTime()
 {
     auto start = std::chrono::system_clock::now();
     std::time_t end_time = std::chrono::system_clock::to_time_t(start);
-    return *localtime(&end_time);
+    return end_time;
 }
 Connection::Connection()
 {
@@ -116,11 +110,13 @@ int main()
     cout << "Search Part" << endl;
     Part *v = c.searchPart(1);
     cout << v->name << " " << v->description << endl;
-    // cout << "Find Part" << endl;
-    // v = c.findPart(1);
-    // cout << v->name << " " << v->description << endl;
-    tm t = getCurrentTime();
-    time_t time = mktime(&t);
-    cout << ctime(&time) << endl;
+    time_t time = getCurrentTime();
+    cout << ctime(&time);
+    cout << endl
+         << endl;
+    time_t t = getCurrentTime();
+    time_t o = 1000000;
+    time_t result = t - o;
+    cout << ctime(&result);
     return 0;
 }

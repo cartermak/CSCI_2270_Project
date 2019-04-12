@@ -5,12 +5,6 @@ Instructor: Ashutosh Trivedi
 TA: Divya Athoopalil
 */
 
-#include <iostream>
-#include <string>
-#include <ctime>
-#include <queue>
-#include <vector>
-
 #include "project.hpp"
 
 using namespace std;
