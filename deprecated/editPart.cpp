@@ -9,6 +9,8 @@ TA: Divya Athoopalil
 
 using namespace std;
 
+// deprecated - copied into Connection.cpp
+
 /*
 This function is used to edit the count, name, and/or description of a part.
 
