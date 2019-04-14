@@ -9,6 +9,8 @@ TA: Divya Athoopalil
 
 using namespace std;
 
+// deprecated - copied into Connection.cpp
+
 /*
 Input:
     -key: part number of int type to be hashed.
