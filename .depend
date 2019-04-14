@@ -1,2 +1,2 @@
 Connection.o: Connection.cpp project.hpp
-hashFunction.o: hashFunction.cpp project.hpp
+mainMenu.o: mainMenu.cpp project.hpp
