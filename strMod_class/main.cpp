@@ -3,33 +3,59 @@
 #include <vector>
 #include <fstream>
 
-class strMod
-{
-  public:
-    strMod()
-    {
-    }
-    strMod(int b)
-    {
-        b = a;
-        
-        // for (char &c : instr)
-        // {
-        //     str.push_back(c);
-        // }
-    }
-    ~strMod()
-    {
-    }
-    
+using namespace std;
 
-  private:
-    int a;
+class strmod
+{
+public:
+  strmod()
+  {
+  }
+  strmod(string instr)
+  {
+    for (char &c : instr)
+    {
+      str.push_back(c);
+    }
+  }
+  ~strmod()
+  {
+  }
+  void setStr(string instr)
+  {
+    str.clear();
+    for (char &c : instr)
+    {
+      str.push_back(c);
+    }
+  }
+  string getStr()
+  {
+    string outstr;
+    for (vector<char>::iterator i = str.begin(); i < str.end(); i++)
+    {
+      outstr.push_back(*i);
+    }
+    return outstr;
+  }
+
+private:
+  vector<char> str;
 };
 
 int main()
 {
-    strMod x(3);
-    
-    return 0;
+  strmod x("asdf motherfucker");
+
+  string outstr = x.getStr();
+
+  cout << outstr << endl;
+
+  x.setStr("fdsa mafusa fucka");
+
+  outstr = x.getStr();
+
+  cout << outstr << endl;
+
+  return 0;
 }
