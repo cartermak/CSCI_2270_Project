@@ -46,7 +46,7 @@ struct Request
     char notes[NOTES_VEC_SIZE];   // Notes about the order (e.g. hurry it the fuck up)
     int count;                    // Number of parts to order
     Request() : dateRequested(0), dateOrdered(0), dateFulfilled(0), mechanic(""), notes(""), count(0) {}
-    Request(time_t dateRequested, time_t dateOrdered, time_t dateFulfilled, string mechanic, string notes, int count) : dateRequested(dateRequested), dateOrdered(dateOrdered), dateFulfilled(dateFulfilled), mechanic(mechanic), notes(notes), count(count) {}
+    Request(time_t dateRequested, time_t dateOrdered, time_t dateFulfilled, int count) : dateRequested(dateRequested), dateOrdered(dateOrdered), dateFulfilled(dateFulfilled), count(count) {}
 };
 
 // part inventory
