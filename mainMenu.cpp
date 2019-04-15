@@ -33,7 +33,7 @@ int main()
 
             if (curr)
             {
-                cout << "Number of '" << curr->name << "' in inventory: " << curr->count << endl; // print part name and quantity
+                cout << "Number of '" << curr->name.getStr() << "' in inventory: " << curr->count << endl; // print part name and quantity
                 cout << "   Place an order for this part? (y/n): ";
                 getline(cin, temp);
                 if (temp != "y")
@@ -179,8 +179,8 @@ void addPartHelper(Connection &classObj, int partNum)
 
 void printPartData(Part* curr)
 {
-    cout << "\nPart: " << curr->name << endl;
-    cout << "   Description: " << curr->description << endl;
+    cout << "\nPart: " << curr->name.getStr() << endl;
+    cout << "   Description: " << curr->description.getStr() << endl;
     cout << "   Number in inventory: " << curr->count << endl;
     
     bool checker = true;
@@ -196,11 +196,11 @@ void printPartData(Part* curr)
             }
 
             cout << endl;
-            cout << "      " << i->count << " requested by " << i->mechanic << ", " << ctime(&i->dateRequested);
+            cout << "      " << i->count << " requested by " << i->mechanic.getStr() << ", " << ctime(&i->dateRequested);
             
-            if(i->notes!="")
+            if(i->notes.getStr()!="")
             {
-                cout << "      Notes: " << i->notes << endl;
+                cout << "      Notes: " << i->notes.getStr() << endl;
             }
 
             if(i->dateOrdered)

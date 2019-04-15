@@ -128,11 +128,11 @@ bool Connection::editPart(Part *curr, int count, string name, string description
     }
     if (name != "")
     {
-        curr->name = name;
+        curr->name.setStr(name);
     }
     if (description != "")
     {
-        curr->description = description;
+        curr->description.setStr(description);
     }
     return true;
 }
@@ -171,29 +171,6 @@ bool Connection::orderPart(Part *curr, int count, string mechanic, string notes)
 {
     time_t currentTime = getCurrentTime();
     Request newRequest(currentTime, 0, 0, mechanic, notes, count); // Create new struct
-    curr->requests.push_back(newRequest);                               // Add request to list
+    curr->requests.push_back(newRequest);                          // Add request to list
     return true;
 }
-
-//----------------------------------------------------------------------------------------------------
-// Temporary main
-/*
-int main()
-{
-    Connection c;
-    c.addPart(1, 1, "test", "this is a thing");
-    cout << "Part added" << endl;
-    cout << "Search Part" << endl;
-    Part *v = c.searchPart(1);
-    cout << v->name << " " << v->description << endl;
-    time_t time = getCurrentTime();
-    cout << ctime(&time);
-    cout << endl
-         << endl;
-    time_t t = getCurrentTime();
-    time_t o = 1000000;
-    time_t result = t - o;
-    cout << ctime(&result);
-    return 0;
-}
-*/
