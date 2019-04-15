@@ -8,8 +8,6 @@
 #include <algorithm>
 using namespace std;
 
-
-
 struct testStruct
 {
     int key;
@@ -67,41 +65,7 @@ void printStruct(testStruct curr)
 
 int main()
 {
-    testStruct A;
-
-    A.key = 123;
-    A.name = "test name one";
-    A.testVec.push_back(1);
-    A.testVec.push_back(2);
-    A.testVec.push_back(3);
-    A.testVec.push_back(4);
-    A.testVec.push_back(5);
-
-    printStruct(A);
-
-    testStruct B;
-
-    B.key = 321;
-    B.name = "test name two";
-    B.testVec.push_back(2);
-    B.testVec.push_back(2);
-    B.testVec.push_back(3);
-    B.testVec.push_back(4);
-    B.testVec.push_back(5);
-
-    printStruct(B);
-
-    testClass AA;
-    AA.addStruct(A);
-    AA.addStruct(B);
-
     string filename = "test";
-
-    ofstream outStream;
-
-    outStream.open(filename, ios::binary);
-    outStream.write((char *)&AA, sizeof(AA));
-    outStream.close();
 
     testClass BB;
 
@@ -109,6 +73,8 @@ int main()
     inStream.open(filename, ios::binary);
     inStream.read((char *)&BB, sizeof(BB));
     inStream.close();
+
+    cout << "test" << endl;
 
     printStruct(BB.getStruct(0));
     printStruct(BB.getStruct(1));

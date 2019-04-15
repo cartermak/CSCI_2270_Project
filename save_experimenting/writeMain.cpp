@@ -8,8 +8,6 @@
 #include <algorithm>
 using namespace std;
 
-
-
 struct testStruct
 {
     int key;
@@ -102,16 +100,6 @@ int main()
     outStream.open(filename, ios::binary);
     outStream.write((char *)&AA, sizeof(AA));
     outStream.close();
-
-    testClass BB;
-
-    ifstream inStream;
-    inStream.open(filename, ios::binary);
-    inStream.read((char *)&BB, sizeof(BB));
-    inStream.close();
-
-    printStruct(BB.getStruct(0));
-    printStruct(BB.getStruct(1));
 
     return 0;
 }
