@@ -15,20 +15,23 @@ TA: Divya Athoopalil
 #include <algorithm>
 using namespace std;
 
-const int NUM_OF_MACHINES = 10; // This might not be the right way to do this...should definitely go in our header file.
+const int NOTES_VEC_SIZE = 1000; // Size of char array for notes fields
+const int MECH_VEC_SIZE = 30;    // Size of char array for mechanics' names
+
 time_t getCurrentTime();
+
 struct Replacement
 {
-    time_t date;     // Date of replacement
-    string mechanic; // Mechanic who replaced it
-    string notes;    // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody wasn't killed by a bowling pin")
+    time_t date;                  // Date of replacement
+    char mechanic[MECH_VEC_SIZE]; // Mechanic who replaced it
+    char notes[NOTES_VEC_SIZE];   // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody wasn't killed by a bowling pin")
 };
 // machine parts (stored in array for each part in hash table)
 struct MachinePart
 {
     int count;                             // Number of this part on this machine
     int partNum;                           // Part number (may or may not use this)
-    string notes;                          // Notes field for the part (e.g. "This screw has screwed me so many times")
+    char notes[NOTES_VEC_SIZE];            // Notes field for the part (e.g. "This screw has screwed me so many times")
     std::vector<Replacement> replacements; // Vector of repacements
     MachinePart() : count(0), partNum(0), notes("") {}
 };
@@ -36,26 +39,29 @@ struct MachinePart
 // for ordering tracking
 struct Request
 {
-    time_t dateRequested; // Date the order was requested by a mechanic
-    time_t dateOrdered;   // Date the order was placed (e.g. by Nate)
-    time_t dateFulfilled; // Date the order was fulfilled (receieved at the Connection)
-    string mechanic;      // Mechanic who placed the order
-    string notes;         // Notes about the order (e.g. hurry it the fuck up)
-    int count;            // Number of parts to order
+    time_t dateRequested;         // Date the order was requested by a mechanic
+    time_t dateOrdered;           // Date the order was placed (e.g. by Nate)
+    time_t dateFulfilled;         // Date the order was fulfilled (receieved at the Connection)
+    char mechanic[MECH_VEC_SIZE]; // Mechanic who placed the order
+    char notes[NOTES_VEC_SIZE];   // Notes about the order (e.g. hurry it the fuck up)
+    int count;                    // Number of parts to order
     Request() : dateRequested(0), dateOrdered(0), dateFulfilled(0), mechanic(""), notes(""), count(0) {}
     Request(time_t dateRequested, time_t dateOrdered, time_t dateFulfilled, string mechanic, string notes, int count) : dateRequested(dateRequested), dateOrdered(dateOrdered), dateFulfilled(dateFulfilled), mechanic(mechanic), notes(notes), count(count) {}
 };
+
 // part inventory
+const int NUM_OF_MACHINES = 10;
+const int PART_NAME_SIZE = 50;
 struct Part
 {
     int partNum;                           // Part number
     int count;                             // Count of part in inventory
-    string name;                           // Part name
-    string description;                    // Description of part
+    char name[PART_NAME_SIZE];             // Part name
+    char description[NOTES_VEC_SIZE];      // Description of part
     std::vector<Request> requests;         // Vector of order requests
-    MachinePart machines[NUM_OF_MACHINES]; //Array of MachineParts for each machine
+    MachinePart machines[NUM_OF_MACHINES]; // Array of MachineParts for each machine
     Part() : partNum(0), count(0), name(""), description("") {}
-    Part(int partNumber, int count, string name, string description) : partNum(partNumber), count(count), name(name), description(description) {}
+    Part(int partNumber, int count) : partNum(partNumber), count(count) {}
 };
 
 // 8=============================================================================D
@@ -79,10 +85,10 @@ class Connection
     Part *findPart(int partNumber);
 
     // Allows easy editing of part fields
-    bool editPart(Part* curr    , int count, string name, string description);
+    bool editPart(Part *curr, int count, string name, string description);
 
     // Place an order for a part
-    bool orderPart(Part* curr, int count, string mechanic, string notes);
+    bool orderPart(Part *curr, int count, string mechanic, string notes);
 
     // Fields to store general info
     time_t timeOpened; // Field to store when the struct was instantiated
