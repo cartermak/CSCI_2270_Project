@@ -4,7 +4,7 @@ using namespace std;
 
 void printMainMenu();
 void addPartHelper(Connection &classObj, int partNum);
-void printPartData(Part* curr);
+void printPartData(Part *curr);
 
 int main()
 {
@@ -16,10 +16,9 @@ int main()
 
     // Declare various things
     string switc; // Damnit, Will
-    string temp, fileName, mechanic, notes;
-    int partNum,count;
-    Part* curr;
-
+    string temp, fileName, mechanic, notes, priority;
+    int partNum, count;
+    Part *curr;
 
     while (true)
     {
@@ -30,8 +29,8 @@ int main()
         {
         case 1:
             cout << "Enter Part Number: ";
-            getline(cin, temp);                 // User input for part #
-            partNum = stoi(temp);           // Part number
+            getline(cin, temp);           // User input for part #
+            partNum = stoi(temp);         // Part number
             curr = A.searchPart(partNum); // Load a pointer to the part
 
             if (curr)
@@ -76,7 +75,10 @@ int main()
             cout << "   Enter any notes: ";
             getline(cin, notes);
 
-            if (A.orderPart(curr, count, mechanic, notes))
+            cout << "   Enter the priority of this order: ";
+            getline(cin, priority);
+
+            if (A.orderPart(curr, count, mechanic, notes, stoi(priority)))
             {
                 cout << "Part ordered!" << endl;
             }
@@ -88,30 +90,30 @@ int main()
             break;
         case 2:
             cout << "Add a part\n   Enter Part Number: ";
-            getline(cin,temp);
+            getline(cin, temp);
             partNum = stoi(temp);
             // search for number in inventory
             curr = A.searchPart(partNum);
 
-            if(curr)
+            if (curr)
             {
                 cout << "Part already exists." << endl;
                 break;
             }
 
-            addPartHelper(A,partNum);
+            addPartHelper(A, partNum);
 
             cout << "Part successfully added!" << endl;
 
             break;
         case 3:
             cout << "Show a part in the inventory\n   Enter Part Number: ";
-            getline(cin,temp);
+            getline(cin, temp);
             partNum = stoi(temp);
 
             curr = A.searchPart(partNum);
 
-            if(curr)
+            if (curr)
             {
                 printPartData(curr);
             }
@@ -119,7 +121,6 @@ int main()
             {
                 cout << "Error: part cannot be found in the inventory." << endl;
             }
-            
 
             // Shows Part data
             // Give option to edit data. If yes, call editPart
@@ -135,6 +136,7 @@ int main()
             break;
         case 6:
             cout << "Goodbye!" << endl;
+            A.printRequestQueue();
             return 0;
         }
     }
@@ -180,19 +182,19 @@ void addPartHelper(Connection &classObj, int partNum)
     return;
 }
 
-void printPartData(Part* curr)
+void printPartData(Part *curr)
 {
     cout << "\nPart: " << curr->name.getStr() << endl;
     cout << "   Description: " << curr->description.getStr() << endl;
     cout << "   Number in inventory: " << curr->count << endl;
-    
+
     bool checker = true;
 
-    for(vector<Request>::iterator i = curr->requests.begin();i<curr->requests.end();i++)
+    for (vector<Request>::iterator i = curr->requests.begin(); i < curr->requests.end(); i++)
     {
-        if(!i->dateFulfilled) // If order isn't fulfilled (dateFulfilled is initialized as 0)
+        if (!i->dateFulfilled) // If order isn't fulfilled (dateFulfilled is initialized as 0)
         {
-            if(checker)
+            if (checker)
             {
                 checker = false;
                 cout << "   Open Requests: " << endl;
@@ -200,13 +202,13 @@ void printPartData(Part* curr)
 
             cout << endl;
             cout << "      " << i->count << " requested by " << i->mechanic.getStr() << ", " << ctime(&i->dateRequested);
-            
-            if(i->notes.getStr()!="")
+
+            if (i->notes.getStr() != "")
             {
                 cout << "      Notes: " << i->notes.getStr() << endl;
             }
 
-            if(i->dateOrdered)
+            if (i->dateOrdered)
             {
                 cout << "      Order placed, " << ctime(&i->dateOrdered);
             }
@@ -218,7 +220,7 @@ void printPartData(Part* curr)
         }
     }
 
-    if(checker)
+    if (checker)
     {
         cout << "   This part has no open orders." << endl;
     }

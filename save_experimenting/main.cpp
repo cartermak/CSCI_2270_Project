@@ -11,7 +11,8 @@ using namespace std;
 struct testStruct
 {
     int key;
-    string name;
+    char name[40];
+    int *t;
     vector<int> testVec;
 };
 
@@ -31,6 +32,8 @@ class testClass
         if (quantity < 3)
         {
             structs[quantity++] = A;
+            int y = 8;
+            A.t = &y;
         }
         else
         {
@@ -54,6 +57,7 @@ void printStruct(testStruct curr)
 
     cout << "Key: " << curr.key << endl;
     cout << "Name: " << curr.name << endl;
+    cout << "Pointer " << curr.t << endl;
 
     for (vector<int>::iterator i = curr.testVec.begin(); i < curr.testVec.end(); i++)
     {
@@ -65,44 +69,45 @@ void printStruct(testStruct curr)
 
 int main()
 {
-    // testStruct A;
+    testStruct A;
 
-    // A.key = 123;
-    // A.name = "test name one";
-    // A.testVec.push_back(1);
-    // A.testVec.push_back(2);
-    // A.testVec.push_back(3);
-    // A.testVec.push_back(4);
-    // A.testVec.push_back(5);
+    A.key = 123;
+    A.name = "test name one";
+    A.testVec.push_back(1);
+    A.testVec.push_back(2);
+    A.testVec.push_back(3);
+    A.testVec.push_back(4);
+    A.testVec.push_back(5);
 
-    // printStruct(A);
+    printStruct(A);
 
-    // testStruct B;
+    testStruct B;
 
-    // B.key = 321;
-    // B.name = "test name two";
-    // B.testVec.push_back(2);
-    // B.testVec.push_back(2);
-    // B.testVec.push_back(3);
-    // B.testVec.push_back(4);
-    // B.testVec.push_back(5);
+    B.key = 321;
+    strcpy(B.name,"test name two");
+    B.testVec.push_back(2);
+    B.testVec.push_back(2);
+    B.testVec.push_back(3);
+    B.testVec.push_back(4);
+    B.testVec.push_back(5);
 
-    // printStruct(B);
+    printStruct(B);
 
-    // testClass AA;
-    // AA.addStruct(A);
-    // AA.addStruct(B);
+    testClass AA;
+    AA.addStruct(A);
+    AA.addStruct(B);
 
     string filename = "test";
 
-    // ofstream outStream;
+    ofstream outStream;
 
-    // outStream.open(filename, ios::binary);
-    // outStream.write((char *)&AA, sizeof(AA));
-    // outStream.close();
+    outStream.open(filename, ios::binary);
+    outStream.write((char *)&AA, sizeof(AA));
+    outStream.close();
 
     testClass BB;
-
+    bool u = sizeof(AA) == sizeof(BB);
+    cout << u << endl;
     ifstream inStream;
     inStream.open(filename, ios::binary);
     inStream.read((char *)&BB, sizeof(BB));
