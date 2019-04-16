@@ -11,6 +11,9 @@ int main()
     // Instantiate class object
     Connection A;
 
+    // Instantiate a class object for file saving
+    SaveMethod saver("saveFiles/");
+
     // Declare various things
     string switc; // Damnit, Will
     string temp, fileName, mechanic, notes;

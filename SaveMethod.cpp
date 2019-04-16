@@ -1,63 +1,6 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <ctime>
-#include <queue>
-#include <vector>
-#include <chrono>
-#include <sstream>
-#include <algorithm>
-
-#include "strmod.hpp"
 #include "project.hpp"
 
 using namespace std;
-
-const int MAX_LOG_SIZE = 1e9;      // 1e9 characters...if a character is a byte, then like...1GB?
-const time_t MAX_FILE_AGE = 2.6e6; // roughly one month of seconds
-
-struct Save
-{
-    time_t savTime;  // Time the file was saved
-    strmod filename; // Name of the saved file
-    int size;        // Save file size
-};
-
-class SaveLog
-{
-  public:
-    SaveLog();
-    SaveLog(string savDir);
-    ~SaveLog();
-    void printSaveHistory();
-    void addSave(Save A);
-    string loadSave(int savNum);
-
-  private:
-    string savDir;      // Directory to store saved files
-    int logSize;        // I know this sounds like the size of a shit, but it's actually the size of all the logs.
-    vector<Save> saves; // Vector of all saves, in chronological order
-
-    void cleanLog();
-};
-
-class SaveMethod
-{
-  public:
-    SaveMethod(string savDir);
-    ~SaveMethod();
-    void save(Connection A);
-    Connection load(int savNum);
-    void printSaveHistory();
-
-  private:
-    string savDir;
-    const string saveLogFile = "saveLog"; // Filename saving the saveLog class object to store save history
-    SaveLog log;                          // SaveLog class instance to log saves
-
-    void updateSaveLog();
-    void cleanSaveLog();
-};
 
 /*
 Instantiates class
@@ -169,12 +112,13 @@ SaveLog::~SaveLog()
 */
 void SaveLog::cleanLog()
 {
-    
-    while ((logSize > MAX_LOG_SIZE || (int)(getCurrentTime - saves[0].savTime) > MAX_FILE_AGE) && saves.size() > 1)
+
+    while ((logSize > MAX_LOG_SIZE || (long int)getCurrentTime - saves[0].savTime > MAX_FILE_AGE) && saves.size() > 1)
     {
-        logSize -= saves[0].size;                               // Decrement the total log size
-        remove((char *)&(savDir + saves[0].filename.getStr())); // Delete the file
-        saves.erase(saves.begin());                             // Remove the save struct from the directory
+        logSize -= saves[0].size;                              // Decrement the total log size
+        string fullfile = savDir + saves[0].filename.getStr(); // Full file path + name
+        remove((char *)&fullfile);                             // Delete the file
+        saves.erase(saves.begin());                            // Remove the save struct from the directory
     }
 }
 
@@ -183,7 +127,7 @@ Returns the filename of the desired save file, or an empty string if the save in
 */
 string SaveLog::loadSave(int savNum)
 {
-    if (savNum > saves.size()) // If the save number is outside the list of all saves, return an empty string
+    if ((unsigned int)savNum > saves.size()) // If the save number is outside the list of all saves, return an empty string
     {
         return "";
     }
@@ -208,7 +152,7 @@ void SaveLog::printSaveHistory()
 
     cout << "------Current Save Log------" << endl;
 
-    for (vector<Save>::iterator i = saves.end()-1; i>=saves.begin();i--)
+    for (vector<Save>::iterator i = saves.end() - 1; i >= saves.begin(); i--)
     {
         cout << counter++ << ". Saved " << ctime(&i->savTime);
     }
