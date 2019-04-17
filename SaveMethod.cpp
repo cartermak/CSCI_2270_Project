@@ -148,7 +148,16 @@ string SaveLog::loadSave(int savNum)
         return "";
     }
     cout << "NOT EMPTY" << endl;
-    cout << saves[saves.size() - savNum].filename.getStr() << endl;
+    cout << saves.size() - savNum << endl;
+    cout << saves.size() << endl;
+    try
+    {
+        saves[saves.size() - savNum].filename;
+    }
+    catch (exception const &e)
+    {
+        cout << e.what() << endl;
+    }
     return saves[saves.size() - savNum].filename.getStr(); // Return the requested filename
 }
 

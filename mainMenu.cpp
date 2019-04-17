@@ -16,10 +16,11 @@ int main()
     // SaveLog save("saveFiles/log/");
     // Declare various things
     string switc; // Damnit, Will
-    string temp, fileName, mechanic, notes, priority;
-    int partNum, count;
+    string temp, fileName, mechanic, notes;
+    int partNum, count, priority;
     Part *curr;
-    A = saver.load(1);
+    bool t = true;
+    // A = saver.load(1);
     while (true)
     {
         printMainMenu();
@@ -28,11 +29,38 @@ int main()
         switch (stoi(switc))
         {
         case 1:
-            cout << "Enter Part Number: ";
-            getline(cin, temp);           // User input for part #
-            partNum = stoi(temp);         // Part number
-            curr = A.searchPart(partNum); // Load a pointer to the part
 
+            while (t)
+            {
+                cout << "Enter Part Number: ";
+                getline(cin, temp); // User input for part #
+                try
+                {
+                    count = stoi(temp);
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
+            t = true;
+            while (t)
+            {
+
+                try
+                {
+                    partNum = stoi(temp); // Part number
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
+            curr = A.searchPart(partNum); // Load a pointer to the part
             if (curr)
             {
                 cout << "Number of '" << curr->name.getStr() << "' in inventory: " << curr->count << endl; // print part name and quantity
@@ -64,21 +92,44 @@ int main()
                     break;
                 }
             }
-
-            cout << "   Enter number to be ordered: ";
-            getline(cin, temp);
-            count = stoi(temp);
-
+            while (t)
+            {
+                cout << "   Enter number to be ordered: ";
+                getline(cin, temp);
+                try
+                {
+                    count = stoi(temp);
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
             cout << "   Enter your name: ";
             getline(cin, mechanic);
 
             cout << "   Enter any notes: ";
             getline(cin, notes);
+            t = true;
+            while (t)
+            {
+                cout << "   Enter the priority of this order: ";
+                getline(cin, temp);
+                try
+                {
+                    priority = stoi(temp);
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
 
-            cout << "   Enter the priority of this order: ";
-            getline(cin, priority);
-
-            if (A.orderPart(curr, count, mechanic, notes, stoi(priority)))
+            if (A.orderPart(curr, count, mechanic, notes, priority))
             {
                 cout << "Part ordered!" << endl;
             }
@@ -89,9 +140,23 @@ int main()
 
             break;
         case 2:
-            cout << "Add a part\n   Enter Part Number: ";
-            getline(cin, temp);
-            partNum = stoi(temp);
+            t = true;
+            while (t)
+            {
+                cout << "Add a part\n   Enter Part Number: ";
+                getline(cin, temp);
+                try
+                {
+                    partNum = stoi(temp);
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
+
             // search for number in inventory
             curr = A.searchPart(partNum);
 
@@ -107,9 +172,23 @@ int main()
 
             break;
         case 3:
-            cout << "Show a part in the inventory\n   Enter Part Number: ";
-            getline(cin, temp);
-            partNum = stoi(temp);
+
+            t = true;
+            while (t)
+            {
+                cout << "Show a part in the inventory\n   Enter Part Number: ";
+                getline(cin, temp);
+                try
+                {
+                    partNum = stoi(temp);
+                    t = false;
+                }
+                catch (exception const &e)
+                {
+                    cout << e.what() << endl;
+                    t = true;
+                }
+            }
 
             curr = A.searchPart(partNum);
 
