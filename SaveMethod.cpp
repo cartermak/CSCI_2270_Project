@@ -1,7 +1,11 @@
 #include "project.hpp"
 
 using namespace std;
-
+bool IsPathExist(const std::string &s)
+{
+    struct stat buffer;
+    return (stat(s.c_str(), &buffer) == 0);
+}
 /*
 Instantiates class
 Input:
@@ -12,6 +16,7 @@ SaveMethod::SaveMethod(string savDir)
     this->savDir = savDir; // load save directory
 
     // Load the save log into memory
+    log = SaveLog(savDir);
     ifstream i(savDir + saveLogFile, ios::binary);
     i.read((char *)&log, sizeof(log));
     i.close();
@@ -41,7 +46,7 @@ void SaveMethod::save(Connection A)
     time_t currentTime = getCurrentTime(); // Get the current time
     Save currentSave;                      // Instantiate a Save struct
     currentSave.savTime = currentTime;     // Write the current time to the new Save struct
-
+    // cout << "We got here" << endl;
     // Get string for the save time
     stringstream s;
     s << currentTime;
@@ -51,14 +56,14 @@ void SaveMethod::save(Connection A)
     currentSave.filename.setStr(filename);   // Write the save file name to the Save struct
 
     // ---Save the actual class---
-
+    // cout << "Maybe here" << endl;
     ofstream o(savDir + filename, ios::binary);
     o.write((char *)&A, sizeof(A));
     currentSave.size = o.tellp();
     o.close();
-
+    cout << "HERE?" << endl;
     log.addSave(currentSave); // Log the new save
-
+    cout << "HERE" << endl;
     updateSaveLog();
 }
 
@@ -67,8 +72,9 @@ Loads a class object
 */
 Connection SaveMethod::load(int savNum)
 {
+    cout << "We are here" << endl;
     string filename = log.loadSave(savNum);
-
+    cout << filename << endl;
     if (filename.empty())
     {
         cerr << "Error: File could not be found in directory " << savDir << endl;
@@ -97,6 +103,16 @@ SaveLog::SaveLog()
 SaveLog::SaveLog(string savDir)
 {
     this->savDir = savDir;
+    cout << savDir + "saveLog/" << endl;
+    if (!IsPathExist(savDir + "saveLog/"))
+    {
+        cout << "IT WORKED" << endl;
+    }
+    ifstream ingest(savDir + "saveLog/", ios::binary);
+    if (!ingest.is_open())
+        cout << "ERROR" << endl;
+    ingest.read((char *)this, sizeof(SaveLog));
+    ingest.close();
 }
 
 SaveLog::~SaveLog()
@@ -131,7 +147,8 @@ string SaveLog::loadSave(int savNum)
     {
         return "";
     }
-
+    cout << "NOT EMPTY" << endl;
+    cout << saves[saves.size() - savNum].filename.getStr() << endl;
     return saves[saves.size() - savNum].filename.getStr(); // Return the requested filename
 }
 
@@ -139,8 +156,8 @@ void SaveLog::addSave(Save A)
 {
     logSize += A.size;
 
-    cleanLog();
-
+    // cleanLog();
+    cout << "HERE" << endl;
     saves.push_back(A);
 
     cleanLog();

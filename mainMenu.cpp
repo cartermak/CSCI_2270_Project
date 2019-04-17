@@ -13,13 +13,13 @@ int main()
 
     // Instantiate a class object for file saving
     SaveMethod saver("saveFiles/");
-
+    // SaveLog save("saveFiles/log/");
     // Declare various things
     string switc; // Damnit, Will
     string temp, fileName, mechanic, notes, priority;
     int partNum, count;
     Part *curr;
-
+    A = saver.load(1);
     while (true)
     {
         printMainMenu();
@@ -136,6 +136,7 @@ int main()
             break;
         case 6:
             cout << "Goodbye!" << endl;
+            saver.save(A);
             A.printRequestQueue();
             return 0;
         }
