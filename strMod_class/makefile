@@ -3,7 +3,7 @@ CXX=g++ -Wall -Wextra -std=c++11
 RM=rm -f
 
 
-SRCS=Connection.cpp mainMenu.cpp strmod.cpp SaveMethod.cpp
+SRCS=main.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: a.out

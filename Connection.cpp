@@ -128,11 +128,11 @@ bool Connection::editPart(Part *curr, int count, string name, string description
     }
     if (name != "")
     {
-        curr->name = name;
+        curr->name.setStr(name);
     }
     if (description != "")
     {
-        curr->description = description;
+        curr->description.setStr(description);
     }
     return true;
 }
@@ -167,33 +167,34 @@ Output:
     Returns a boolean true if the part was successfully ordered.
     Currently no reason for it not to work, but it's there just in case.
 */
-bool Connection::orderPart(Part *curr, int count, string mechanic, string notes)
+bool Connection::orderPart(Part *curr, int count, string mechanic, string notes, int priority)
 {
     time_t currentTime = getCurrentTime();
-    Request newRequest(currentTime, 0, 0, mechanic, notes, count); // Create new struct
-    curr->requests.push_back(newRequest);                               // Add request to list
+    Request newRequest(currentTime, 0, 0, mechanic, notes, count, priority, curr->partNum); // Create new struct
+    curr->requests.push_back(newRequest);                                                   // Add request to list
+    pq.push(newRequest);
     return true;
 }
 
-//----------------------------------------------------------------------------------------------------
-// Temporary main
-/*
-int main()
+void Connection::printRequest(Request r)
 {
-    Connection c;
-    c.addPart(1, 1, "test", "this is a thing");
-    cout << "Part added" << endl;
-    cout << "Search Part" << endl;
-    Part *v = c.searchPart(1);
-    cout << v->name << " " << v->description << endl;
-    time_t time = getCurrentTime();
-    cout << ctime(&time);
-    cout << endl
-         << endl;
-    time_t t = getCurrentTime();
-    time_t o = 1000000;
-    time_t result = t - o;
-    cout << ctime(&result);
-    return 0;
+    cout << "Request for: ";
+    cout << r.count << " of " << r.partNumber << " by " << r.mechanic.getStr();
+    cout << " with notes " << r.notes.getStr() << " is ";
+    if (!r.dateOrdered)
+        cout << "not ordered ";
+    else if (!r.dateFulfilled)
+        cout << "not fulfilled ";
+    else
+        cout << "fulfilled! ";
+    cout << endl;
 }
-*/
+
+void Connection::printRequestQueue()
+{
+    while (!pq.empty())
+    {
+        printRequest(pq.top());
+        pq.pop();
+    }
+}
