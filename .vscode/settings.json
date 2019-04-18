@@ -4,5 +4,11 @@
         "iostream": "cpp",
         "ostream": "cpp",
         "iosfwd": "cpp"
+    },
+    "files.exclude": {
+        "**/.classpath": true,
+        "**/.project": true,
+        "**/.settings": true,
+        "**/.factorypath": true
     }
 }
