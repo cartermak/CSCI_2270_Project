@@ -9,6 +9,7 @@ public class SwingListenerDemo {
    private JFrame mainFrame;
    private JLabel headerLabel;
    private JLabel statusLabel;
+   // private JLabel closeLabel;
    private JPanel controlPanel;
 
    public SwingListenerDemo() {
@@ -28,15 +29,12 @@ public class SwingListenerDemo {
       headerLabel = new JLabel("", JLabel.CENTER);
       statusLabel = new JLabel("", JLabel.CENTER);
       statusLabel.setSize(350, 100);
+      // closeLabel = new JLabel("",JLabel.CENTER);
+      // closeLabel.setSize(350,100);
 
       mainFrame.addWindowListener(new WindowAdapter() {
          public void windowClosing(WindowEvent windowEvent) {
-            headerLabel.setText("Would you like to save");
-            try {
-               Thread.sleep(100);
-            } catch (InterruptedException e) {
-               System.exit(0);
-            }
+            // closeLabel.setText("Would you like to save");
             System.exit(0);
          }
       });
@@ -46,6 +44,7 @@ public class SwingListenerDemo {
       mainFrame.add(headerLabel);
       mainFrame.add(controlPanel);
       mainFrame.add(statusLabel);
+      // mainFrame.add(closeLabel);
       mainFrame.setVisible(true);
    }
 
@@ -55,9 +54,11 @@ public class SwingListenerDemo {
       JPanel panel = new JPanel();
       panel.setBackground(Color.magenta);
       JButton okButton = new JButton("OK");
-
+      JButton nokButton = new JButton("Not OK");
       okButton.addActionListener(new CustomActionListener());
+      nokButton.addActionListener(new CustomActionListener1());
       panel.add(okButton);
+      panel.add(nokButton);
       controlPanel.add(panel);
       mainFrame.setVisible(true);
    }
@@ -65,6 +66,12 @@ public class SwingListenerDemo {
    class CustomActionListener implements ActionListener {
       public void actionPerformed(ActionEvent e) {
          statusLabel.setText("Ok Button Clicked.");
+      }
+   }
+
+   class CustomActionListener1 implements ActionListener {
+      public void actionPerformed(ActionEvent e) {
+         statusLabel.setText("Not ok Button Clicked");
       }
    }
 }
