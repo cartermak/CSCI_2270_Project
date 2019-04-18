@@ -15,6 +15,7 @@ TA: Divya Athoopalil
 #include <string>
 #include <vector>
 #include <sys/stat.h>
+#include <jni.h>
 using namespace std;
 
 time_t getCurrentTime();

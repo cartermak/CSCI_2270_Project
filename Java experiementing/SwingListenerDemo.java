@@ -1,11 +1,14 @@
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.concurrent.TimeUnit;
+// import java.util.concurrent.TimeUnit;
 
 import javax.swing.*;
 
 public class SwingListenerDemo {
+   static{
+      System.loadLibrary("a.out");
+   }
    private JFrame mainFrame;
    private JLabel headerLabel;
    private JLabel statusLabel;
