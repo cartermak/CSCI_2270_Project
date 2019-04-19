@@ -1,6 +1,6 @@
-#include "SwingListenerDemo.h"
+#include "HelloWorld.h"
 #include "project.hpp"
-void HelloWorld_displayHelloWorld(struct HHelloWorld *t) {
-    printf("Hello World!\n");
-    return;
+JNIEXPORT void JNICALL Java_HelloWorld_displayHelloWorld(JNIEnv *, jobject)
+{
+    cout << "Hello World" << endl;
 }
