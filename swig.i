@@ -4,4 +4,5 @@
 %{
     #include "project.hpp"
 %}
+typedef long time_t;
 %include"project.hpp"
