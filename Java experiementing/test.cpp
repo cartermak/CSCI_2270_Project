@@ -1,6 +1,6 @@
-#include "HelloWorld.h"
+#include "Simple.h"
 #include "project.hpp"
-JNIEXPORT void JNICALL Java_HelloWorld_displayHelloWorld(JNIEnv *, jobject)
+JNIEXPORT void JNICALL Java_Simple_displayHelloWorld(JNIEnv *, jobject)
 {
     cout << "Hello World" << endl;
 }
