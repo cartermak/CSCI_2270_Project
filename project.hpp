@@ -148,9 +148,10 @@ public:
   void printSaveHistory();
   void addSave(Save A);
   string loadSave(int savNum);
+  void setDir(string savDir);
 
 private:
-  string savDir;      // Directory to store saved files
+  strmod savDir;      // Directory to store saved files
   int logSize;        // I know this sounds like the size of a shit, but it's actually the size of all the logs.
   vector<Save> saves; // Vector of all saves, in chronological order
 

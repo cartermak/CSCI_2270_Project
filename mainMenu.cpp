@@ -20,9 +20,21 @@ int main()
     int partNum, count;
     Part *curr;
 
+    /*
+    Menu to load a save file
+    */
+
+    cout << "Would you like to load a previous save? (y/n): ";
+    getline(cin, temp);
+    if (temp == "y")
+    {
+        saver.printSaveHistory();
+    }
+
     while (true)
     {
         printMainMenu();
+        saver.save(A);
 
         getline(cin, switc);
         switch (stoi(switc))

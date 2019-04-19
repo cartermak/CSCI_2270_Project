@@ -5,7 +5,7 @@ using namespace std;
 /*
 Instantiates class
 Input:
-    savDir: string, directory containing save files. Must end in "/" or "/", depending on operating system
+    savDir: string, directory containing save files. Must end in "/" or "\", depending on operating system
 */
 SaveMethod::SaveMethod(string savDir)
 {
@@ -15,6 +15,9 @@ SaveMethod::SaveMethod(string savDir)
     ifstream i(savDir + saveLogFile, ios::binary);
     i.read((char *)&log, sizeof(log));
     i.close();
+
+    // log.setDir(savDir);
+
 }
 
 SaveMethod::~SaveMethod()
@@ -60,6 +63,8 @@ void SaveMethod::save(Connection A)
     log.addSave(currentSave); // Log the new save
 
     updateSaveLog();
+
+    cout << "Added a save." << endl;
 }
 
 /*
@@ -96,7 +101,8 @@ SaveLog::SaveLog()
 }
 SaveLog::SaveLog(string savDir)
 {
-    this->savDir = savDir;
+    this->savDir.setStr(savDir);
+    logSize = 0;
 }
 
 SaveLog::~SaveLog()
@@ -112,13 +118,15 @@ SaveLog::~SaveLog()
 */
 void SaveLog::cleanLog()
 {
-
-    while ((logSize > MAX_LOG_SIZE || (long int)getCurrentTime - saves[0].savTime > MAX_FILE_AGE) && saves.size() > 1)
+    if (saves.size() > 1000000)
     {
-        logSize -= saves[0].size;                              // Decrement the total log size
-        string fullfile = savDir + saves[0].filename.getStr(); // Full file path + name
-        remove((char *)&fullfile);                             // Delete the file
-        saves.erase(saves.begin());                            // Remove the save struct from the directory
+        while (logSize > MAX_LOG_SIZE || (long int)getCurrentTime - saves[0].savTime > MAX_FILE_AGE)
+        {
+            logSize -= saves[0].size;                                       // Decrement the total log size
+            string fullfile = savDir.getStr() + saves[0].filename.getStr(); // Full file path + name
+            remove((char *)&fullfile);                                      // Delete the file
+            saves.erase(saves.begin());                                     // Remove the save struct from the directory
+        }
     }
 }
 
@@ -152,10 +160,18 @@ void SaveLog::printSaveHistory()
 
     cout << "------Current Save Log------" << endl;
 
-    for (vector<Save>::iterator i = saves.end() - 1; i >= saves.begin(); i--)
+    cout << "Size of saves: " << saves.size() << endl;
+
+    for (vector<Save>::iterator i = saves.begin(); i < saves.end(); i++)
     {
-        cout << counter++ << ". Saved " << ctime(&i->savTime);
+        cout << counter++ << ". Saved " << endl;
     }
 
     cout << "----------------------------" << endl;
+}
+
+void SaveLog::setDir(string savDir)
+{
+    this->savDir.setStr(savDir);
+    return;
 }
