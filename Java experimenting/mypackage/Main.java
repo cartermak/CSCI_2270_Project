@@ -114,7 +114,7 @@ public class Main {
                 int count = 0;
                 int partNum = 0;
                 try {
-                    partNum = Integer.parseInt(n.getText());
+                    partNum = Integer.parseInt(ordering.getText());
                 } catch (Exception z) {
 
                     System.out.println(z.getLocalizedMessage());
