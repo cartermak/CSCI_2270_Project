@@ -151,6 +151,8 @@ void SaveLog::addSave(Save A)
 
     saves.push_back(A);
 
+    cout << "Added a save with file name: " << saves.end()->filename.getStr() << endl;
+
     cleanLog();
 }
 
@@ -161,6 +163,8 @@ void SaveLog::printSaveHistory()
     cout << "------Current Save Log------" << endl;
 
     cout << "Size of saves: " << saves.size() << endl;
+
+    cout << "The savDir is: " << savDir.getStr() << endl;
 
     for (vector<Save>::iterator i = saves.begin(); i < saves.end(); i++)
     {

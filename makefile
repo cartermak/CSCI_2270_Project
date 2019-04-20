@@ -1,5 +1,5 @@
 CC=gcc
-CXX=g++ -Wall -Wextra -std=c++11
+CXX=g++ -Wall -Wextra -std=c++11 -g
 RM=rm -f
 
 

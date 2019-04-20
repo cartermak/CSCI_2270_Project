@@ -25,7 +25,8 @@ int main()
     */
 
     cout << "Would you like to load a previous save? (y/n): ";
-    getline(cin, temp);
+    // getline(cin, temp);
+    temp = "y";
     if (temp == "y")
     {
         saver.printSaveHistory();
