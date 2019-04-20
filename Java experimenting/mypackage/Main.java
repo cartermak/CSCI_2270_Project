@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.awt.*;
-// import cz.admh.*;
 public class Main {
     public void addorder() {
 
@@ -13,58 +12,52 @@ public class Main {
     private static JDialog d;
 
     public static void main(String[] args) {
-        // System.load(
-        //         "/mnt/5932357A1CFE5229/OneDrive - University of Colorado at Boulder Office 365/OneDrive - UCB-O365/2019/CSCI 2270/Project/CSCI_2270_Project/Java experimenting/mypackage/sources/share.so");
+        // import library from jar
         try {
             NativeUtils.loadLibraryFromJar("/share.so");
         } catch (Exception temp){
             System.out.println(temp.getLocalizedMessage());
         }
+        // new panels
         JPanel search = new JPanel(true);
         JPanel f = new JPanel();// creating instance of JFrame
         JPanel k = new JPanel();
+        // layout for ordering panel
         GroupLayout group = new GroupLayout(k);
         group.setAutoCreateGaps(true);
         group.setAutoCreateContainerGaps(true);
         k.setLayout(group);
+        // new layout for adding panel
         GroupLayout gr = new GroupLayout(f);
         gr.setAutoCreateContainerGaps(true);
         gr.setAutoCreateGaps(true);
         f.setLayout(gr);
+        // new layout for searching
         GroupLayout se = new GroupLayout(search);
         se.setAutoCreateContainerGaps(true);
         se.setAutoCreateGaps(true);
-        // search.setLayout(se);
-        // k.setLayout(new FlowLayout());
+        // mother frame
         JFrame t = new JFrame("Connection Parts Inventory");
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        // constructing new connection
         Connection C = new Connection();
-        int partNumberfortest = 0;
+        
         // add a part panel
         JLabel l = new JLabel("Please enter new part information");
-        l.setBounds(365, 60, 200, 40);
         JLabel num = new JLabel("Part #");
-        num.setBounds(120, 100, 100, 40);
         JLabel cnt = new JLabel("Count");
-        cnt.setBounds(320, 100, 100, 40);
         JLabel nme = new JLabel("Part Name");
-        nme.setBounds(520, 100, 100, 40);
         JLabel descrip = new JLabel("Description");
-        descrip.setBounds(720, 100, 100, 40);
         JLabel o = new JLabel();
-        o.setBounds(10, 300, 100, 40);
+
         // textFields
         JTextField n = new JTextField(10);
-        n.setBounds(120, 125, 100, 40);
         JTextField countT = new JTextField(10);
-        countT.setBounds(320, 125, 100, 40);
         JTextField nameT = new JTextField(10);
-        nameT.setBounds(520, 125, 100, 40);
         JTextField descripT = new JTextField(10);
-        descripT.setBounds(720, 125, 100, 40);
+        
         // buttons
-        JButton b = new JButton("Add Part");// creating instance of JButton
-        b.setBounds(450, 200, 200, 40);
+        JButton b = new JButton("Add Part");
         b.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int partNum = 0;
@@ -88,9 +81,9 @@ public class Main {
                                 "Part already in inventory, would you like to increment its count?");
                         if (a == JOptionPane.YES_OPTION) {
                             System.out.println("HECK YEAH");
-                            final int partNumberfortest = partNum;
+                          
                             boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
-                            // String yes = w.getStr();
+                        
                             try {
 
                             } catch (Exception c) {
@@ -103,9 +96,9 @@ public class Main {
                                 o.setText("Failed to add Part");
                         }
                     } else {
-                        final int partNumberfortest = partNum;
+                        
                         boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
-                        // String yes = w.getStr();
+                        
                         try {
 
                         } catch (Exception c) {
@@ -125,6 +118,7 @@ public class Main {
                 descripT.setText("");
             }
         });
+        // ordering panel/dialogs
         JButton print = new JButton("Order");
         JTextField ordering = new JTextField(10);
         JButton high = new JButton("Add Part");
@@ -192,7 +186,6 @@ public class Main {
                 descripT.setText("");
             }
         });
-        print.setBounds(160, 850, 100, 40);
         print.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent action) {
                 String partName = ordering.getText();
@@ -215,7 +208,7 @@ public class Main {
                         d.add(nameT);
                         d.add(descrip);
                         d.add(descripT);
-                        // d.add(print);
+                        
                         d.add(high);
                         d.setSize(300, 300);
                         d.setVisible(true);
@@ -243,13 +236,10 @@ public class Main {
             }
         });
 
-
+        // search panel
         JButton query = new JButton("Search");
         JLabel status = new JLabel("");
-        JTextField searching = new JTextField(10);
-        // String data[][] = { {"","",""}};
-        
-        
+        JTextField searching = new JTextField(10);        
         query.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent re){
                 String Number = searching.getText();
@@ -267,8 +257,7 @@ public class Main {
                     String count = Integer.toString(h.getCount());
                     String name = h.getName().getStr();
                     String description = h.getDescription().getStr();
-                    // String data[][] = {{Number,name,count,description}};
-                    // String column[] = {"Part Number","Part Name","# in inventory","Description"};
+                   
                     
                     JPanel uriel = new JPanel();
                     DefaultTableModel model = (DefaultTableModel) jt.getModel();
@@ -306,7 +295,7 @@ public class Main {
         });
 
         
-
+        //setting grouplayouts
         gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
                 .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
                 .addComponent(descripT).addComponent(b)
@@ -315,45 +304,22 @@ public class Main {
         gr.setVerticalGroup(gr.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(l).addComponent(num)
                 .addComponent(n).addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT)
                 .addComponent(descrip).addComponent(descripT).addComponent(b));
-        // labels
-        // f.add(l);
-        // f.add(num);
-        // f.add(n);
-        // f.add(cnt);
-        // f.add(countT);
-        // f.add(nme);
-        // f.add(nameT);
-        // f.add(descrip);
-        // f.add(descripT);
-
-        // buttons
-        // f.add(b);// adding button in JFrame
+    
         f.add(o);
         JLabel two = new JLabel("Enter a Part Number");
         se.setHorizontalGroup(se.createSequentialGroup().addComponent(two).addComponent(searching).addComponent(query).addComponent(status));
         se.setVerticalGroup(se.createParallelGroup().addComponent(two).addComponent(searching).addComponent(query).addComponent(status));
-        // search.add(new JLabel("Enter a Part Number"));
-        // search.add(searching);
-        // search.add(query);
-        // search.add(status);
+        
         // order a part panel
         JLabel order = new JLabel("Place an order: Please enter a part number");
         group.setHorizontalGroup(
                 group.createSequentialGroup().addComponent(order).addComponent(ordering).addComponent(print));
         group.setVerticalGroup(group.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(order)
                 .addComponent(ordering).addComponent(print));
-        // k.pack();
-        // k.setVisible(true);
-        // k.add(order);
-        // k.add(ordering);
-        // k.add(print);
+        
 
-        JRadioButton r1 = new JRadioButton("Yes");
-        JRadioButton r2 = new JRadioButton("No");
-        ButtonGroup bg = new ButtonGroup();
-        bg.add(r1);
-        bg.add(r2);
-
+        
+        // adding to mother frame
         JTabbedPane tp = new JTabbedPane();
         tp.setBounds(0, 0, 1000, 1000);
         tp.add("Add a Part", f);
@@ -367,7 +333,7 @@ public class Main {
                               // 500
                               // height
         t.setLayout(null);// using no layout managers
-        // t.pack();
+        
         t.setVisible(true);// making the frame visible
     }
 }
