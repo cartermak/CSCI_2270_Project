@@ -3,7 +3,7 @@ package mypackage;
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.*;
-
+// import cz.admh.*;
 public class Main {
     public void addorder() {
 
@@ -12,8 +12,13 @@ public class Main {
     private static JDialog d;
 
     public static void main(String[] args) {
-        System.load(
-                "/mnt/5932357A1CFE5229/OneDrive - University of Colorado at Boulder Office 365/OneDrive - UCB-O365/2019/CSCI 2270/Project/CSCI_2270_Project/Java experimenting/mypackage/sources/share.so");
+        // System.load(
+        //         "/mnt/5932357A1CFE5229/OneDrive - University of Colorado at Boulder Office 365/OneDrive - UCB-O365/2019/CSCI 2270/Project/CSCI_2270_Project/Java experimenting/mypackage/sources/share.so");
+        try {
+            NativeUtils.loadLibraryFromJar("/share.so");
+        } catch (Exception temp){
+            System.out.println(temp.getLocalizedMessage());
+        }
         JPanel f = new JPanel();// creating instance of JFrame
         f.setLayout(new BoxLayout(f, BoxLayout.PAGE_AXIS));
         JPanel k = new JPanel();

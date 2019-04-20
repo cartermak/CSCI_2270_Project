@@ -10,5 +10,8 @@
         "**/.project": true,
         "**/.settings": true,
         "**/.factorypath": true
-    }
+    },
+    "java.dependency.syncWithFolderExplorer": false,
+    "java.dependency.packagePresentation": "flat",
+    "maven.view": "hierarchical"
 }
