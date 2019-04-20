@@ -1,6 +1,7 @@
 package mypackage;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.event.*;
 import java.awt.*;
 // import cz.admh.*;
@@ -19,8 +20,8 @@ public class Main {
         } catch (Exception temp){
             System.out.println(temp.getLocalizedMessage());
         }
+        JPanel search = new JPanel(true);
         JPanel f = new JPanel();// creating instance of JFrame
-        f.setLayout(new BoxLayout(f, BoxLayout.PAGE_AXIS));
         JPanel k = new JPanel();
         GroupLayout group = new GroupLayout(k);
         group.setAutoCreateGaps(true);
@@ -30,6 +31,10 @@ public class Main {
         gr.setAutoCreateContainerGaps(true);
         gr.setAutoCreateGaps(true);
         f.setLayout(gr);
+        GroupLayout se = new GroupLayout(search);
+        se.setAutoCreateContainerGaps(true);
+        se.setAutoCreateGaps(true);
+        // search.setLayout(se);
         // k.setLayout(new FlowLayout());
         JFrame t = new JFrame("Connection Parts Inventory");
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,6 +145,8 @@ public class Main {
                 } catch (Exception f) {
                     System.out.println(f.getLocalizedMessage());
                 }
+                if(nameT.getText() == "") nameT.setText("Name");
+                if(descripT.getText() == "") descripT.setText("Description");
                 boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
                 if (y) {
                     JOptionPane.showMessageDialog(k, "Added Successfully");
@@ -236,6 +243,70 @@ public class Main {
             }
         });
 
+
+        JButton query = new JButton("Search");
+        JLabel status = new JLabel("");
+        JTextField searching = new JTextField(10);
+        // String data[][] = { {"","",""}};
+        
+        
+        query.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent re){
+                String Number = searching.getText();
+                int u = 0;
+                JTable jt = new JTable(new DefaultTableModel(new Object[]{"Part Number","Part Name","# in inventory","Description"},0));
+                jt.setBounds(20,20,450,70);
+                try {
+                    u = Integer.parseInt(Number);
+                } catch (Exception poll) {
+                    System.out.println(poll.getLocalizedMessage());
+                }
+                Part h = C.searchPart(u);
+                if(h!= null){
+                    status.setText("Part Found!");
+                    String count = Integer.toString(h.getCount());
+                    String name = h.getName().getStr();
+                    String description = h.getDescription().getStr();
+                    // String data[][] = {{Number,name,count,description}};
+                    // String column[] = {"Part Number","Part Name","# in inventory","Description"};
+                    
+                    JPanel uriel = new JPanel();
+                    DefaultTableModel model = (DefaultTableModel) jt.getModel();
+                    model.addRow(new Object[]{"Part Number","Part Name","# in inventory","Description"});
+                    model.addRow(new Object[]{Number,name,count,description});
+                    jt.setPreferredSize(new Dimension(500, 100));
+                    uriel.add(jt);
+                    UIManager.put("OptionPane.minimumSize",new Dimension(600, 120));  
+                    JOptionPane.showMessageDialog(search, uriel, "Part Found", JOptionPane.INFORMATION_MESSAGE);
+                    // jt.addColumn(column);
+                    searching.setText("");
+                }
+                if(h==null){
+                    status.setText("Part not Found");
+                    Component test[] = query.getComponents();
+                    boolean eh = false;
+                    for(int i=0;i<test.length;i++){
+                        if(test[i] instanceof JTable){
+                            
+                            eh = true;
+                            break;
+                        }
+                    }
+                    if(eh){
+                        System.out.println("Testing");
+                        query.remove(jt);
+                        query.revalidate();
+                        query.repaint();
+                    }
+                    eh = false;
+                    
+                }
+                searching.setText("");
+            }
+        });
+
+        
+
         gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
                 .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
                 .addComponent(descripT).addComponent(b)
@@ -258,7 +329,13 @@ public class Main {
         // buttons
         // f.add(b);// adding button in JFrame
         f.add(o);
-
+        JLabel two = new JLabel("Enter a Part Number");
+        se.setHorizontalGroup(se.createSequentialGroup().addComponent(two).addComponent(searching).addComponent(query).addComponent(status));
+        se.setVerticalGroup(se.createParallelGroup().addComponent(two).addComponent(searching).addComponent(query).addComponent(status));
+        // search.add(new JLabel("Enter a Part Number"));
+        // search.add(searching);
+        // search.add(query);
+        // search.add(status);
         // order a part panel
         JLabel order = new JLabel("Place an order: Please enter a part number");
         group.setHorizontalGroup(
@@ -278,12 +355,13 @@ public class Main {
         bg.add(r2);
 
         JTabbedPane tp = new JTabbedPane();
-        tp.setBounds(0, 0, 1000, 400);
+        tp.setBounds(0, 0, 1000, 1000);
         tp.add("Add a Part", f);
         tp.add("Order a Part", k);
+        tp.add("Search for a Part",search);
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.add(tp);
-        t.setSize(1000, 1000);// 400
+        t.setSize(1000, 400);// 400
                               // width
                               // and
                               // 500
