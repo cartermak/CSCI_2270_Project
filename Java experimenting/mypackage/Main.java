@@ -17,7 +17,15 @@ public class Main {
         JPanel f = new JPanel();// creating instance of JFrame
         f.setLayout(new BoxLayout(f, BoxLayout.PAGE_AXIS));
         JPanel k = new JPanel();
-        k.setLayout(new FlowLayout());
+        GroupLayout group = new GroupLayout(k);
+        group.setAutoCreateGaps(true);
+        group.setAutoCreateContainerGaps(true);
+        k.setLayout(group);
+        GroupLayout gr = new GroupLayout(f);
+        gr.setAutoCreateContainerGaps(true);
+        gr.setAutoCreateGaps(true);
+        f.setLayout(gr);
+        // k.setLayout(new FlowLayout());
         JFrame t = new JFrame("Connection Parts Inventory");
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         Connection C = new Connection();
@@ -101,10 +109,13 @@ public class Main {
                     }
 
                 }
-
+                n.setText("");
+                countT.setText("");
+                nameT.setText("");
+                descripT.setText("");
             }
         });
-        JButton print = new JButton("Test");
+        JButton print = new JButton("Order");
         JTextField ordering = new JTextField(10);
         JButton high = new JButton("Add Part");
         high.addActionListener(new ActionListener() {
@@ -130,6 +141,10 @@ public class Main {
                 } else
                     System.out.println("Yikes");
                 d.setVisible(false);
+
+                countT.setText("");
+                nameT.setText("");
+                descripT.setText("");
             }
         });
         JButton button = new JButton("Place Order");
@@ -153,12 +168,16 @@ public class Main {
                     System.out.println(poll.getLocalizedMessage());
                 }
                 Part h = C.searchPart(u);
-                boolean y = C.orderPart(h, c, nameT.getText(), descripT.getText(), 0);
+                boolean y = C.orderPart(h, c, nameT.getText(), descripT.getText(), 1);
                 if (y) {
-                    JOptionPane.showMessageDialog(k, "Added Successfully");
+                    JOptionPane.showMessageDialog(k, "Added Order Successfully");
                 } else
                     System.out.println("Yikes");
                 Main.d.setVisible(false);
+                ordering.setText("");
+                countT.setText("");
+                nameT.setText("");
+                descripT.setText("");
             }
         });
         print.setBounds(160, 850, 100, 40);
@@ -171,7 +190,6 @@ public class Main {
                 } catch (Exception poll) {
                     System.out.println(poll.getLocalizedMessage());
                 }
-
                 Part h = C.searchPart(u);
                 if (h == null) {
                     int b = JOptionPane.showConfirmDialog(k, "Part is not in inventory, would you like to add it?");
@@ -189,48 +207,64 @@ public class Main {
                         d.add(high);
                         d.setSize(300, 300);
                         d.setVisible(true);
+                        Part asd = C.searchPart(u);
+                        int cont = 0;
+                        cont += asd.getCount();
+                        strmod you = asd.getName();
+                        String your = you.getStr();
+                        d = new JDialog(t, "Ordering " + your, true);
+                        d.setLayout(new FlowLayout());
+                        d.add(new JLabel("Part found! there are " + cont + "in the inventory"));
+                        d.add(new JLabel("Number to be ordered"));
+                        d.add(countT);
+                        d.add(new JLabel("Mechanic's Name"));
+                        d.add(nameT);
+                        d.add(new JLabel("Any notes"));
+                        d.add(descripT);
+                        d.add(button);
+                        d.setSize(300, 300);
+                        d.setVisible(true);
+
                     }
                 }
-                Part asd = C.searchPart(u);
-                int cont = 0;
-                cont += asd.getCount();
-                strmod you = asd.getName();
-                String your = you.getStr();
-                d = new JDialog(t, "Ordering " + your, true);
-                d.setLayout(new FlowLayout());
-                d.add(new JLabel("Part found! there are " + cont + "in the inventory"));
-                d.add(new JLabel("Number to be ordered"));
-                d.add(countT);
-                d.add(new JLabel("Mechanic's Name"));
-                d.add(nameT);
-                d.add(new JLabel("Any notes"));
-                d.add(descripT);
-                d.add(button);
-                d.setSize(300, 300);
-                d.setVisible(true);
 
             }
         });
+
+        gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
+                .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
+                .addComponent(descripT).addComponent(b)
+
+        );
+        gr.setVerticalGroup(gr.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(l).addComponent(num)
+                .addComponent(n).addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT)
+                .addComponent(descrip).addComponent(descripT).addComponent(b));
         // labels
-        f.add(l);
-        f.add(num);
-        f.add(n);
-        f.add(cnt);
-        f.add(countT);
-        f.add(nme);
-        f.add(nameT);
-        f.add(descrip);
-        f.add(descripT);
+        // f.add(l);
+        // f.add(num);
+        // f.add(n);
+        // f.add(cnt);
+        // f.add(countT);
+        // f.add(nme);
+        // f.add(nameT);
+        // f.add(descrip);
+        // f.add(descripT);
 
         // buttons
-        f.add(b);// adding button in JFrame
+        // f.add(b);// adding button in JFrame
         f.add(o);
 
         // order a part panel
         JLabel order = new JLabel("Place an order: Please enter a part number");
-        k.add(order);
-        k.add(ordering);
-        k.add(print);
+        group.setHorizontalGroup(
+                group.createSequentialGroup().addComponent(order).addComponent(ordering).addComponent(print));
+        group.setVerticalGroup(group.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(order)
+                .addComponent(ordering).addComponent(print));
+        // k.pack();
+        // k.setVisible(true);
+        // k.add(order);
+        // k.add(ordering);
+        // k.add(print);
 
         JRadioButton r1 = new JRadioButton("Yes");
         JRadioButton r2 = new JRadioButton("No");
@@ -250,6 +284,7 @@ public class Main {
                               // 500
                               // height
         t.setLayout(null);// using no layout managers
+        // t.pack();
         t.setVisible(true);// making the frame visible
     }
 }
