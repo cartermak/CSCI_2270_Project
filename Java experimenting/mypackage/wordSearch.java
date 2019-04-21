@@ -39,8 +39,8 @@ public class wordSearch {
     this(testJNI.new_wordSearch(), true);
   }
 
-  public Part searchPart(String words, SWIGTYPE_p_std__vectorT_Part_p_t commonParts) {
-    long cPtr = testJNI.wordSearch_searchPart(swigCPtr, this, words, SWIGTYPE_p_std__vectorT_Part_p_t.getCPtr(commonParts));
+  public Part searchPart(String words, PartPVector commonParts) {
+    long cPtr = testJNI.wordSearch_searchPart(swigCPtr, this, words, PartPVector.getCPtr(commonParts), commonParts);
     return (cPtr == 0) ? null : new Part(cPtr, false);
   }
 

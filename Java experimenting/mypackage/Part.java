@@ -69,13 +69,13 @@ public class Part {
     return (cPtr == 0) ? null : new strmod(cPtr, false);
   }
 
-  public void setRequests(SWIGTYPE_p_std__vectorT_Request_t value) {
-    testJNI.Part_requests_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_Request_t.getCPtr(value));
+  public void setRequests(RequestVector value) {
+    testJNI.Part_requests_set(swigCPtr, this, RequestVector.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__vectorT_Request_t getRequests() {
+  public RequestVector getRequests() {
     long cPtr = testJNI.Part_requests_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_Request_t(cPtr, false);
+    return (cPtr == 0) ? null : new RequestVector(cPtr, false);
   }
 
   public void setMachines(MachinePart value) {

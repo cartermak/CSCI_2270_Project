@@ -86,7 +86,7 @@ Part *wordSearch::searchPart(string words, vector<Part *> &commonParts)
   {
     findCommonPtrs(commonParts, maybeParts[i]);
   }
-
+  return NULL;
   /*
   At this point, the commonParts vector contains pointers to the parts which match the user's query/ies.
   The following are only print statements for diagnostics; return at this point to avoid printing.
@@ -168,14 +168,16 @@ wordNode *wordSearch::addNodeHelper(wordNode *currNode, string word, Part *part)
   curr = new wordNode;
   curr->word = word;
   curr->parts.push_back(part);
-
-  if (isL)
+  if (curr != root)
   {
-    prev->left = curr;
-  }
-  else
-  {
-    prev->right = curr;
+    if (isL)
+    {
+      prev->left = curr;
+    }
+    else
+    {
+      prev->right = curr;
+    }
   }
   return currNode;
 }

@@ -60,13 +60,13 @@ public class MachinePart {
     return (cPtr == 0) ? null : new strmod(cPtr, false);
   }
 
-  public void setReplacements(SWIGTYPE_p_std__vectorT_Replacement_t value) {
-    testJNI.MachinePart_replacements_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_Replacement_t.getCPtr(value));
+  public void setReplacements(ReplacementVector value) {
+    testJNI.MachinePart_replacements_set(swigCPtr, this, ReplacementVector.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__vectorT_Replacement_t getReplacements() {
+  public ReplacementVector getReplacements() {
     long cPtr = testJNI.MachinePart_replacements_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_Replacement_t(cPtr, false);
+    return (cPtr == 0) ? null : new ReplacementVector(cPtr, false);
   }
 
   public MachinePart() {

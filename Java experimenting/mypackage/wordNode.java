@@ -43,13 +43,13 @@ public class wordNode {
     return testJNI.wordNode_word_get(swigCPtr, this);
   }
 
-  public void setParts(SWIGTYPE_p_std__vectorT_Part_p_t value) {
-    testJNI.wordNode_parts_set(swigCPtr, this, SWIGTYPE_p_std__vectorT_Part_p_t.getCPtr(value));
+  public void setParts(PartPVector value) {
+    testJNI.wordNode_parts_set(swigCPtr, this, PartPVector.getCPtr(value), value);
   }
 
-  public SWIGTYPE_p_std__vectorT_Part_p_t getParts() {
+  public PartPVector getParts() {
     long cPtr = testJNI.wordNode_parts_get(swigCPtr, this);
-    return (cPtr == 0) ? null : new SWIGTYPE_p_std__vectorT_Part_p_t(cPtr, false);
+    return (cPtr == 0) ? null : new PartPVector(cPtr, false);
   }
 
   public void setLeft(wordNode value) {
