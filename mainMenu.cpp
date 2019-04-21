@@ -18,7 +18,7 @@ int main()
     // Declare various things
     string switc; // Damnit, Will
     string temp, fileName, mechanic, notes, priority;
-    int partNum, count;
+    int partNum, count, numOff, numOn, machineNum;
     Part *curr;
 
     /*
@@ -166,9 +166,30 @@ int main()
             // Give option to edit data. If yes, call editPart
             break;
         case 4:
-            cout << "Enter Machine #" << endl;
-            cout << "Enter Part number to replace" << endl;
-            cout << "Enter # of parts to be replaced" << endl;
+            cout << "Replace a part on a machine:\n";
+            cout << "   Enter Machine #:\n   >> ";
+            getline(cin, temp);
+            machineNum = stoi(temp);
+
+            cout << "   Enter Part number to replace:\n   >> ";
+            getline(cin, temp);
+            partNum = stoi(temp);
+
+            cout << "   Enter quantity of parts removed:\n   >> ";
+            getline(cin, temp);
+            numOff = stoi(temp);
+
+            cout << "   Enter quantity of parts added:\n   >>";
+            getline(cin, temp);
+            numOn = stoi(temp);
+
+            cout << "   Enter your name:\n   >>";
+            getline(cin, mechanic);
+
+            cout << "   Enter any notes:\n   >>";
+            getline(cin, notes);
+
+            A.addReplacement(machineNum, partNum, numOff, numOn, mechanic, notes);
             break;
         case 5:
             cout << "Enter Machine #" << endl;
