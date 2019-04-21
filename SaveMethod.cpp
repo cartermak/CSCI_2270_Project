@@ -16,8 +16,7 @@ SaveMethod::SaveMethod(string savDir)
     i.read((char *)&log, sizeof(log));
     i.close();
 
-    // log.setDir(savDir);
-
+    log.setDir(savDir);
 }
 
 SaveMethod::~SaveMethod()
@@ -60,11 +59,13 @@ void SaveMethod::save(Connection A)
     currentSave.size = o.tellp();
     o.close();
 
+    cout << "The filename in the Save struct is: " << currentSave.filename.getStr() << endl;
+
+    cout << "The size field in the Save struct is: " << currentSave.size << endl;
+
     log.addSave(currentSave); // Log the new save
 
     updateSaveLog();
-
-    cout << "Added a save." << endl;
 }
 
 /*
@@ -147,13 +148,11 @@ void SaveLog::addSave(Save A)
 {
     logSize += A.size;
 
-    cleanLog();
+    // cleanLog();
 
     saves.push_back(A);
 
-    cout << "Added a save with file name: " << saves.end()->filename.getStr() << endl;
-
-    cleanLog();
+    // cleanLog();
 }
 
 void SaveLog::printSaveHistory()
@@ -174,8 +173,8 @@ void SaveLog::printSaveHistory()
     cout << "----------------------------" << endl;
 }
 
-void SaveLog::setDir(string savDir)
+void SaveLog::setDir(string strIn)
 {
-    this->savDir.setStr(savDir);
+    this->savDir.setStr(strIn);
     return;
 }
