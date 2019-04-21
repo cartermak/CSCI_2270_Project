@@ -9,8 +9,8 @@
 package mypackage;
 
 public class test {
-  public static SWIGTYPE_p_time_t getCurrentTime() {
-    return new SWIGTYPE_p_time_t(testJNI.getCurrentTime(), true);
+  public static int getCurrentTime() {
+    return testJNI.getCurrentTime();
   }
 
   public static int getNUM_OF_MACHINES() {
@@ -29,8 +29,8 @@ public class test {
     return testJNI.MAX_LOG_SIZE_get();
   }
 
-  public static SWIGTYPE_p_time_t getMAX_FILE_AGE() {
-    return new SWIGTYPE_p_time_t(testJNI.MAX_FILE_AGE_get(), true);
+  public static int getMAX_FILE_AGE() {
+    return testJNI.MAX_FILE_AGE_get();
   }
 
 }

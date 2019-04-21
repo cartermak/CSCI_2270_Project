@@ -35,12 +35,12 @@ public class Replacement {
     }
   }
 
-  public void setDate(SWIGTYPE_p_time_t value) {
-    testJNI.Replacement_date_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setDate(int value) {
+    testJNI.Replacement_date_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getDate() {
-    return new SWIGTYPE_p_time_t(testJNI.Replacement_date_get(swigCPtr, this), true);
+  public int getDate() {
+    return testJNI.Replacement_date_get(swigCPtr, this);
   }
 
   public void setMechanic(strmod value) {

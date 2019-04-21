@@ -8,16 +8,16 @@
 
 package mypackage;
 
-public class SaveLog {
+public class wordSearch {
   private transient long swigCPtr;
   protected transient boolean swigCMemOwn;
 
-  protected SaveLog(long cPtr, boolean cMemoryOwn) {
+  protected wordSearch(long cPtr, boolean cMemoryOwn) {
     swigCMemOwn = cMemoryOwn;
     swigCPtr = cPtr;
   }
 
-  protected static long getCPtr(SaveLog obj) {
+  protected static long getCPtr(wordSearch obj) {
     return (obj == null) ? 0 : obj.swigCPtr;
   }
 
@@ -29,34 +29,27 @@ public class SaveLog {
     if (swigCPtr != 0) {
       if (swigCMemOwn) {
         swigCMemOwn = false;
-        testJNI.delete_SaveLog(swigCPtr);
+        testJNI.delete_wordSearch(swigCPtr);
       }
       swigCPtr = 0;
     }
   }
 
-  public SaveLog() {
-    this(testJNI.new_SaveLog__SWIG_0(), true);
+  public wordSearch() {
+    this(testJNI.new_wordSearch(), true);
   }
 
-  public SaveLog(String savDir) {
-    this(testJNI.new_SaveLog__SWIG_1(savDir), true);
+  public Part searchPart(String words, SWIGTYPE_p_std__vectorT_Part_p_t commonParts) {
+    long cPtr = testJNI.wordSearch_searchPart(swigCPtr, this, words, SWIGTYPE_p_std__vectorT_Part_p_t.getCPtr(commonParts));
+    return (cPtr == 0) ? null : new Part(cPtr, false);
   }
 
-  public void printSaveHistory() {
-    testJNI.SaveLog_printSaveHistory(swigCPtr, this);
+  public void addPart(Part part) {
+    testJNI.wordSearch_addPart(swigCPtr, this, Part.getCPtr(part), part);
   }
 
-  public void addSave(Save A) {
-    testJNI.SaveLog_addSave(swigCPtr, this, Save.getCPtr(A), A);
-  }
-
-  public String loadSave(int savNum) {
-    return testJNI.SaveLog_loadSave(swigCPtr, this, savNum);
-  }
-
-  public void setDir(String savDir) {
-    testJNI.SaveLog_setDir(swigCPtr, this, savDir);
+  public void printTree() {
+    testJNI.wordSearch_printTree(swigCPtr, this);
   }
 
 }

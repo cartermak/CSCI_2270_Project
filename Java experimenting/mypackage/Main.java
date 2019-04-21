@@ -82,7 +82,7 @@ public class Main {
                         if (a == JOptionPane.YES_OPTION) {
                             System.out.println("HECK YEAH");
                           
-                            boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
+                            Part y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
                         
                             try {
 
@@ -90,14 +90,14 @@ public class Main {
                                 System.out.println(c.getLocalizedMessage());
                             }
 
-                            if (y)
+                            if (y != null)
                                 o.setText("Success!");
                             else
                                 o.setText("Failed to add Part");
                         }
                     } else {
                         
-                        boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
+                        Part y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
                         
                         try {
 
@@ -105,7 +105,7 @@ public class Main {
                             System.out.println(c.getLocalizedMessage());
                         }
 
-                        if (y)
+                        if (y != null)
                             o.setText("Success!");
                         else
                             o.setText("Failed to add Part");
@@ -141,8 +141,8 @@ public class Main {
                 }
                 if(nameT.getText() == "") nameT.setText("Name");
                 if(descripT.getText() == "") descripT.setText("Description");
-                boolean y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
-                if (y) {
+                Part y = C.addPart(partNum, count, nameT.getText(), descripT.getText());
+                if (y != null) {
                     JOptionPane.showMessageDialog(k, "Added Successfully");
                 } else
                     System.out.println("Yikes");

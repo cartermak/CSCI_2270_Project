@@ -35,28 +35,28 @@ public class Request {
     }
   }
 
-  public void setDateRequested(SWIGTYPE_p_time_t value) {
-    testJNI.Request_dateRequested_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setDateRequested(int value) {
+    testJNI.Request_dateRequested_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getDateRequested() {
-    return new SWIGTYPE_p_time_t(testJNI.Request_dateRequested_get(swigCPtr, this), true);
+  public int getDateRequested() {
+    return testJNI.Request_dateRequested_get(swigCPtr, this);
   }
 
-  public void setDateOrdered(SWIGTYPE_p_time_t value) {
-    testJNI.Request_dateOrdered_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setDateOrdered(int value) {
+    testJNI.Request_dateOrdered_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getDateOrdered() {
-    return new SWIGTYPE_p_time_t(testJNI.Request_dateOrdered_get(swigCPtr, this), true);
+  public int getDateOrdered() {
+    return testJNI.Request_dateOrdered_get(swigCPtr, this);
   }
 
-  public void setDateFulfilled(SWIGTYPE_p_time_t value) {
-    testJNI.Request_dateFulfilled_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setDateFulfilled(int value) {
+    testJNI.Request_dateFulfilled_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getDateFulfilled() {
-    return new SWIGTYPE_p_time_t(testJNI.Request_dateFulfilled_get(swigCPtr, this), true);
+  public int getDateFulfilled() {
+    return testJNI.Request_dateFulfilled_get(swigCPtr, this);
   }
 
   public void setMechanic(strmod value) {
@@ -105,8 +105,8 @@ public class Request {
     this(testJNI.new_Request__SWIG_0(), true);
   }
 
-  public Request(SWIGTYPE_p_time_t dateRequested, SWIGTYPE_p_time_t dateOrdered, SWIGTYPE_p_time_t dateFulfilled, String mechanic, String notes, int count, int priority, int partNum) {
-    this(testJNI.new_Request__SWIG_1(SWIGTYPE_p_time_t.getCPtr(dateRequested), SWIGTYPE_p_time_t.getCPtr(dateOrdered), SWIGTYPE_p_time_t.getCPtr(dateFulfilled), mechanic, notes, count, priority, partNum), true);
+  public Request(int dateRequested, int dateOrdered, int dateFulfilled, String mechanic, String notes, int count, int priority, int partNum) {
+    this(testJNI.new_Request__SWIG_1(dateRequested, dateOrdered, dateFulfilled, mechanic, notes, count, priority, partNum), true);
   }
 
 }

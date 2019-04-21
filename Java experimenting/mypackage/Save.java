@@ -35,12 +35,12 @@ public class Save {
     }
   }
 
-  public void setSavTime(SWIGTYPE_p_time_t value) {
-    testJNI.Save_savTime_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setSavTime(int value) {
+    testJNI.Save_savTime_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getSavTime() {
-    return new SWIGTYPE_p_time_t(testJNI.Save_savTime_get(swigCPtr, this), true);
+  public int getSavTime() {
+    return testJNI.Save_savTime_get(swigCPtr, this);
   }
 
   public void setFilename(strmod value) {

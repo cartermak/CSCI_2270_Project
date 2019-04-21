@@ -39,8 +39,9 @@ public class Connection {
     this(testJNI.new_Connection(), true);
   }
 
-  public boolean addPart(int partNumber, int count, String name, String description) {
-    return testJNI.Connection_addPart(swigCPtr, this, partNumber, count, name, description);
+  public Part addPart(int partNumber, int count, String name, String description) {
+    long cPtr = testJNI.Connection_addPart(swigCPtr, this, partNumber, count, name, description);
+    return (cPtr == 0) ? null : new Part(cPtr, false);
   }
 
   public Part searchPart(int partNumber) {
@@ -69,12 +70,12 @@ public class Connection {
     testJNI.Connection_printRequest(swigCPtr, this, Request.getCPtr(r), r);
   }
 
-  public void setTimeOpened(SWIGTYPE_p_time_t value) {
-    testJNI.Connection_timeOpened_set(swigCPtr, this, SWIGTYPE_p_time_t.getCPtr(value));
+  public void setTimeOpened(int value) {
+    testJNI.Connection_timeOpened_set(swigCPtr, this, value);
   }
 
-  public SWIGTYPE_p_time_t getTimeOpened() {
-    return new SWIGTYPE_p_time_t(testJNI.Connection_timeOpened_get(swigCPtr, this), true);
+  public int getTimeOpened() {
+    return testJNI.Connection_timeOpened_get(swigCPtr, this);
   }
 
 }

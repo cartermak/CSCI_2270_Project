@@ -8,48 +8,32 @@
  * interface file instead.
  * ----------------------------------------------------------------------------- */
 
+
 #ifndef SWIGJAVA
 #define SWIGJAVA
 #endif
 
+
+
 #ifdef __cplusplus
 /* SwigValueWrapper is described in swig.swg */
-template <typename T>
-class SwigValueWrapper
-{
-  struct SwigMovePointer
-  {
+template<typename T> class SwigValueWrapper {
+  struct SwigMovePointer {
     T *ptr;
-    SwigMovePointer(T *p) : ptr(p) {}
+    SwigMovePointer(T *p) : ptr(p) { }
     ~SwigMovePointer() { delete ptr; }
-    SwigMovePointer &operator=(SwigMovePointer &rhs)
-    {
-      T *oldptr = ptr;
-      ptr = 0;
-      delete oldptr;
-      ptr = rhs.ptr;
-      rhs.ptr = 0;
-      return *this;
-    }
+    SwigMovePointer& operator=(SwigMovePointer& rhs) { T* oldptr = ptr; ptr = 0; delete oldptr; ptr = rhs.ptr; rhs.ptr = 0; return *this; }
   } pointer;
-  SwigValueWrapper &operator=(const SwigValueWrapper<T> &rhs);
-  SwigValueWrapper(const SwigValueWrapper<T> &rhs);
-
+  SwigValueWrapper& operator=(const SwigValueWrapper<T>& rhs);
+  SwigValueWrapper(const SwigValueWrapper<T>& rhs);
 public:
-  SwigValueWrapper() : pointer(0) {}
-  SwigValueWrapper &operator=(const T &t)
-  {
-    SwigMovePointer tmp(new T(t));
-    pointer = tmp;
-    return *this;
-  }
-  operator T &() const { return *pointer.ptr; }
+  SwigValueWrapper() : pointer(0) { }
+  SwigValueWrapper& operator=(const T& t) { SwigMovePointer tmp(new T(t)); pointer = tmp; return *this; }
+  operator T&() const { return *pointer.ptr; }
   T *operator&() { return pointer.ptr; }
 };
 
-template <typename T>
-T SwigValueInit()
-{
+template <typename T> T SwigValueInit() {
   return T();
 }
 #endif
@@ -61,112 +45,112 @@ T SwigValueInit()
 
 /* template workaround for compilers that cannot correctly implement the C++ standard */
 #ifndef SWIGTEMPLATEDISAMBIGUATOR
-#if defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x560)
-#define SWIGTEMPLATEDISAMBIGUATOR template
-#elif defined(__HP_aCC)
+# if defined(__SUNPRO_CC) && (__SUNPRO_CC <= 0x560)
+#  define SWIGTEMPLATEDISAMBIGUATOR template
+# elif defined(__HP_aCC)
 /* Needed even with `aCC -AA' when `aCC -V' reports HP ANSI C++ B3910B A.03.55 */
 /* If we find a maximum version that requires this, the test would be __HP_aCC <= 35500 for A.03.55 */
-#define SWIGTEMPLATEDISAMBIGUATOR template
-#else
-#define SWIGTEMPLATEDISAMBIGUATOR
-#endif
+#  define SWIGTEMPLATEDISAMBIGUATOR template
+# else
+#  define SWIGTEMPLATEDISAMBIGUATOR
+# endif
 #endif
 
 /* inline attribute */
 #ifndef SWIGINLINE
-#if defined(__cplusplus) || (defined(__GNUC__) && !defined(__STRICT_ANSI__))
-#define SWIGINLINE inline
-#else
-#define SWIGINLINE
-#endif
+# if defined(__cplusplus) || (defined(__GNUC__) && !defined(__STRICT_ANSI__))
+#   define SWIGINLINE inline
+# else
+#   define SWIGINLINE
+# endif
 #endif
 
 /* attribute recognised by some compilers to avoid 'unused' warnings */
 #ifndef SWIGUNUSED
-#if defined(__GNUC__)
-#if !(defined(__cplusplus)) || (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
-#define SWIGUNUSED __attribute__((__unused__))
-#else
-#define SWIGUNUSED
-#endif
-#elif defined(__ICC)
-#define SWIGUNUSED __attribute__((__unused__))
-#else
-#define SWIGUNUSED
-#endif
+# if defined(__GNUC__)
+#   if !(defined(__cplusplus)) || (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4))
+#     define SWIGUNUSED __attribute__ ((__unused__))
+#   else
+#     define SWIGUNUSED
+#   endif
+# elif defined(__ICC)
+#   define SWIGUNUSED __attribute__ ((__unused__))
+# else
+#   define SWIGUNUSED
+# endif
 #endif
 
 #ifndef SWIG_MSC_UNSUPPRESS_4505
-#if defined(_MSC_VER)
-#pragma warning(disable : 4505) /* unreferenced local function has been removed */
-#endif
+# if defined(_MSC_VER)
+#   pragma warning(disable : 4505) /* unreferenced local function has been removed */
+# endif
 #endif
 
 #ifndef SWIGUNUSEDPARM
-#ifdef __cplusplus
-#define SWIGUNUSEDPARM(p)
-#else
-#define SWIGUNUSEDPARM(p) p SWIGUNUSED
-#endif
+# ifdef __cplusplus
+#   define SWIGUNUSEDPARM(p)
+# else
+#   define SWIGUNUSEDPARM(p) p SWIGUNUSED
+# endif
 #endif
 
 /* internal SWIG method */
 #ifndef SWIGINTERN
-#define SWIGINTERN static SWIGUNUSED
+# define SWIGINTERN static SWIGUNUSED
 #endif
 
 /* internal inline SWIG method */
 #ifndef SWIGINTERNINLINE
-#define SWIGINTERNINLINE SWIGINTERN SWIGINLINE
+# define SWIGINTERNINLINE SWIGINTERN SWIGINLINE
 #endif
 
 /* exporting methods */
 #if defined(__GNUC__)
-#if (__GNUC__ >= 4) || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
-#ifndef GCC_HASCLASSVISIBILITY
-#define GCC_HASCLASSVISIBILITY
-#endif
-#endif
+#  if (__GNUC__ >= 4) || (__GNUC__ == 3 && __GNUC_MINOR__ >= 4)
+#    ifndef GCC_HASCLASSVISIBILITY
+#      define GCC_HASCLASSVISIBILITY
+#    endif
+#  endif
 #endif
 
 #ifndef SWIGEXPORT
-#if defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__)
-#if defined(STATIC_LINKED)
-#define SWIGEXPORT
-#else
-#define SWIGEXPORT __declspec(dllexport)
-#endif
-#else
-#if defined(__GNUC__) && defined(GCC_HASCLASSVISIBILITY)
-#define SWIGEXPORT __attribute__((visibility("default")))
-#else
-#define SWIGEXPORT
-#endif
-#endif
+# if defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__)
+#   if defined(STATIC_LINKED)
+#     define SWIGEXPORT
+#   else
+#     define SWIGEXPORT __declspec(dllexport)
+#   endif
+# else
+#   if defined(__GNUC__) && defined(GCC_HASCLASSVISIBILITY)
+#     define SWIGEXPORT __attribute__ ((visibility("default")))
+#   else
+#     define SWIGEXPORT
+#   endif
+# endif
 #endif
 
 /* calling conventions for Windows */
 #ifndef SWIGSTDCALL
-#if defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__)
-#define SWIGSTDCALL __stdcall
-#else
-#define SWIGSTDCALL
-#endif
+# if defined(_WIN32) || defined(__WIN32__) || defined(__CYGWIN__)
+#   define SWIGSTDCALL __stdcall
+# else
+#   define SWIGSTDCALL
+# endif
 #endif
 
 /* Deal with Microsoft's attempt at deprecating C standard runtime functions */
 #if !defined(SWIG_NO_CRT_SECURE_NO_DEPRECATE) && defined(_MSC_VER) && !defined(_CRT_SECURE_NO_DEPRECATE)
-#define _CRT_SECURE_NO_DEPRECATE
+# define _CRT_SECURE_NO_DEPRECATE
 #endif
 
 /* Deal with Microsoft's attempt at deprecating methods in the standard C++ library */
 #if !defined(SWIG_NO_SCL_SECURE_NO_DEPRECATE) && defined(_MSC_VER) && !defined(_SCL_SECURE_NO_DEPRECATE)
-#define _SCL_SECURE_NO_DEPRECATE
+# define _SCL_SECURE_NO_DEPRECATE
 #endif
 
 /* Deal with Apple's deprecated 'AssertMacros.h' from Carbon-framework */
 #if defined(__APPLE__) && !defined(__ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES)
-#define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
+# define __ASSERT_MACROS_DEFINE_VERSIONS_WITHOUT_UNDERSCORES 0
 #endif
 
 /* Intel's compiler complains if a variable which was never initialised is
@@ -175,32 +159,32 @@ T SwigValueInit()
  * See: https://github.com/swig/swig/issues/192 for more discussion.
  */
 #ifdef __INTEL_COMPILER
-#pragma warning disable 592
+# pragma warning disable 592
 #endif
+
 
 /* Fix for jlong on some versions of gcc on Windows */
 #if defined(__GNUC__) && !defined(__INTEL_COMPILER)
-typedef long long __int64;
+  typedef long long __int64;
 #endif
 
 /* Fix for jlong on 64-bit x86 Solaris */
 #if defined(__x86_64)
-#ifdef _LP64
-#undef _LP64
-#endif
+# ifdef _LP64
+#   undef _LP64
+# endif
 #endif
 
 #include <jni.h>
 #include <stdlib.h>
 #include <string.h>
-#include "project.hpp"
+
 
 /* Support for throwing Java exceptions */
-typedef enum
-{
-  SWIG_JavaOutOfMemoryError = 1,
-  SWIG_JavaIOException,
-  SWIG_JavaRuntimeException,
+typedef enum {
+  SWIG_JavaOutOfMemoryError = 1, 
+  SWIG_JavaIOException, 
+  SWIG_JavaRuntimeException, 
   SWIG_JavaIndexOutOfBoundsException,
   SWIG_JavaArithmeticException,
   SWIG_JavaIllegalArgumentException,
@@ -209,26 +193,26 @@ typedef enum
   SWIG_JavaUnknownError
 } SWIG_JavaExceptionCodes;
 
-typedef struct
-{
+typedef struct {
   SWIG_JavaExceptionCodes code;
   const char *java_exception;
 } SWIG_JavaExceptions_t;
 
-static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionCodes code, const char *msg)
-{
+
+static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionCodes code, const char *msg) {
   jclass excep;
   static const SWIG_JavaExceptions_t java_exceptions[] = {
-      {SWIG_JavaOutOfMemoryError, "java/lang/OutOfMemoryError"},
-      {SWIG_JavaIOException, "java/io/IOException"},
-      {SWIG_JavaRuntimeException, "java/lang/RuntimeException"},
-      {SWIG_JavaIndexOutOfBoundsException, "java/lang/IndexOutOfBoundsException"},
-      {SWIG_JavaArithmeticException, "java/lang/ArithmeticException"},
-      {SWIG_JavaIllegalArgumentException, "java/lang/IllegalArgumentException"},
-      {SWIG_JavaNullPointerException, "java/lang/NullPointerException"},
-      {SWIG_JavaDirectorPureVirtual, "java/lang/RuntimeException"},
-      {SWIG_JavaUnknownError, "java/lang/UnknownError"},
-      {(SWIG_JavaExceptionCodes)0, "java/lang/UnknownError"}};
+    { SWIG_JavaOutOfMemoryError, "java/lang/OutOfMemoryError" },
+    { SWIG_JavaIOException, "java/io/IOException" },
+    { SWIG_JavaRuntimeException, "java/lang/RuntimeException" },
+    { SWIG_JavaIndexOutOfBoundsException, "java/lang/IndexOutOfBoundsException" },
+    { SWIG_JavaArithmeticException, "java/lang/ArithmeticException" },
+    { SWIG_JavaIllegalArgumentException, "java/lang/IllegalArgumentException" },
+    { SWIG_JavaNullPointerException, "java/lang/NullPointerException" },
+    { SWIG_JavaDirectorPureVirtual, "java/lang/RuntimeException" },
+    { SWIG_JavaUnknownError,  "java/lang/UnknownError" },
+    { (SWIG_JavaExceptionCodes)0,  "java/lang/UnknownError" }
+  };
   const SWIG_JavaExceptions_t *except_ptr = java_exceptions;
 
   while (except_ptr->code != code && except_ptr->code)
@@ -240,1613 +224,1736 @@ static void SWIGUNUSED SWIG_JavaThrowException(JNIEnv *jenv, SWIG_JavaExceptionC
     jenv->ThrowNew(excep, msg);
 }
 
+
 /* Contract support */
 
-#define SWIG_contract_assert(nullreturn, expr, msg)                        \
-  if (!(expr))                                                             \
-  {                                                                        \
-    SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, msg); \
-    return nullreturn;                                                     \
-  }                                                                        \
-  else
+#define SWIG_contract_assert(nullreturn, expr, msg) if (!(expr)) {SWIG_JavaThrowException(jenv, SWIG_JavaIllegalArgumentException, msg); return nullreturn; } else
+
 
 #include <string>
+
 
 #include <typeinfo>
 #include <stdexcept>
 
+
 #include <vector>
 #include <stdexcept>
 
+
+    #include "project.hpp"
+
+
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_getCurrentTime(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    result = getCurrentTime();
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1strmod_1_1SWIG_10(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (strmod *)new strmod();
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1strmod_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1)
-  {
-    jlong jresult = 0;
-    std::string arg1;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    if (!jarg1)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1_pstr)
-      return 0;
-    (&arg1)->assign(arg1_pstr);
-    jenv->ReleaseStringUTFChars(jarg1, arg1_pstr);
-    result = (strmod *)new strmod(arg1);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1strmod(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    strmod *arg1 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(strmod **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_strmod_1setStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2)
-  {
-    strmod *arg1 = (strmod *)0;
-    std::string arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(strmod **)&jarg1;
-    if (!jarg2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return;
-    }
-    const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2_pstr)
-      return;
-    (&arg2)->assign(arg2_pstr);
-    jenv->ReleaseStringUTFChars(jarg2, arg2_pstr);
-    (arg1)->setStr(arg2);
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_strmod_1apdStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2)
-  {
-    strmod *arg1 = (strmod *)0;
-    std::string arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(strmod **)&jarg1;
-    if (!jarg2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return;
-    }
-    const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0);
-    if (!arg2_pstr)
-      return;
-    (&arg2)->assign(arg2_pstr);
-    jenv->ReleaseStringUTFChars(jarg2, arg2_pstr);
-    (arg1)->apdStr(arg2);
-  }
-
-  SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_strmod_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jstring jresult = 0;
-    strmod *arg1 = (strmod *)0;
-    std::string result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(strmod **)&jarg1;
-    result = (arg1)->getStr();
-    jresult = jenv->NewStringUTF((&result)->c_str());
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1date_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Replacement *arg1 = (Replacement *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Replacement **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->date = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1date_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Replacement *arg1 = (Replacement *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Replacement **)&jarg1;
-    result = ((arg1)->date);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1mechanic_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Replacement *arg1 = (Replacement *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Replacement **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->mechanic = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1mechanic_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Replacement *arg1 = (Replacement *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Replacement **)&jarg1;
-    result = (strmod *)&((arg1)->mechanic);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Replacement *arg1 = (Replacement *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Replacement **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->notes = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Replacement *arg1 = (Replacement *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Replacement **)&jarg1;
-    result = (strmod *)&((arg1)->notes);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Replacement(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Replacement *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Replacement *)new Replacement();
-    *(Replacement **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Replacement(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Replacement *arg1 = (Replacement *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Replacement **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    MachinePart *arg1 = (MachinePart *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->count = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MachinePart_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    MachinePart *arg1 = (MachinePart *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    result = (int)((arg1)->count);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1partNum_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    MachinePart *arg1 = (MachinePart *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->partNum = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MachinePart_1partNum_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    MachinePart *arg1 = (MachinePart *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    result = (int)((arg1)->partNum);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    MachinePart *arg1 = (MachinePart *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(MachinePart **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->notes = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_MachinePart_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    MachinePart *arg1 = (MachinePart *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    result = (strmod *)&((arg1)->notes);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1replacements_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    MachinePart *arg1 = (MachinePart *)0;
-    std::vector<Replacement> *arg2 = (std::vector<Replacement> *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    arg2 = *(std::vector<Replacement> **)&jarg2;
-    if (arg1)
-      (arg1)->replacements = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_MachinePart_1replacements_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    MachinePart *arg1 = (MachinePart *)0;
-    std::vector<Replacement> *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(MachinePart **)&jarg1;
-    result = (std::vector<Replacement> *)&((arg1)->replacements);
-    *(std::vector<Replacement> **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1MachinePart(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    MachinePart *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (MachinePart *)new MachinePart();
-    *(MachinePart **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1MachinePart(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    MachinePart *arg1 = (MachinePart *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(MachinePart **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateRequested_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->dateRequested = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1dateRequested_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Request *arg1 = (Request *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = ((arg1)->dateRequested);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateOrdered_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->dateOrdered = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1dateOrdered_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Request *arg1 = (Request *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = ((arg1)->dateOrdered);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateFulfilled_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->dateFulfilled = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1dateFulfilled_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Request *arg1 = (Request *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = ((arg1)->dateFulfilled);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1mechanic_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Request *arg1 = (Request *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Request **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->mechanic = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1mechanic_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Request *arg1 = (Request *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = (strmod *)&((arg1)->mechanic);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Request *arg1 = (Request *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Request **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->notes = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Request *arg1 = (Request *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = (strmod *)&((arg1)->notes);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->count = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Request *arg1 = (Request *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = (int)((arg1)->count);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1priority_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->priority = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1priority_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Request *arg1 = (Request *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = (int)((arg1)->priority);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1partNumber_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Request *arg1 = (Request *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->partNumber = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1partNumber_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Request *arg1 = (Request *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Request **)&jarg1;
-    result = (int)((arg1)->partNumber);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Request_1_1SWIG_10(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Request *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Request *)new Request();
-    *(Request **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Request_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1, jlong jarg2, jlong jarg3, jstring jarg4, jstring jarg5, jint jarg6, jint jarg7, jint jarg8)
-  {
-    jlong jresult = 0;
-    time_t arg1;
-    time_t arg2;
-    time_t arg3;
-    std::string arg4;
-    std::string arg5;
-    int arg6;
-    int arg7;
-    int arg8;
-    time_t *argp1;
-    time_t *argp2;
-    time_t *argp3;
-    Request *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    argp1 = *(time_t **)&jarg1;
-    if (!argp1)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return 0;
-    }
-    arg1 = *argp1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return 0;
-    }
-    arg2 = *argp2;
-    argp3 = *(time_t **)&jarg3;
-    if (!argp3)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return 0;
-    }
-    arg3 = *argp3;
-    if (!jarg4)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4_pstr)
-      return 0;
-    (&arg4)->assign(arg4_pstr);
-    jenv->ReleaseStringUTFChars(jarg4, arg4_pstr);
-    if (!jarg5)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5_pstr)
-      return 0;
-    (&arg5)->assign(arg5_pstr);
-    jenv->ReleaseStringUTFChars(jarg5, arg5_pstr);
-    arg6 = (int)jarg6;
-    arg7 = (int)jarg7;
-    arg8 = (int)jarg8;
-    result = (Request *)new Request(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8);
-    *(Request **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Request(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Request *arg1 = (Request *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Request **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_NUM_1OF_1MACHINES_1get(JNIEnv *jenv, jclass jcls)
-  {
-    jint jresult = 0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    result = (int)(int)NUM_OF_MACHINES;
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_PART_1NAME_1SIZE_1get(JNIEnv *jenv, jclass jcls)
-  {
-    jint jresult = 0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    result = (int)(int)PART_NAME_SIZE;
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1partNum_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Part *arg1 = (Part *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->partNum = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Part_1partNum_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Part *arg1 = (Part *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (int)((arg1)->partNum);
-    jresult = (jint)result;
-    return jresult;
-  }
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_getCurrentTime(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (time_t)getCurrentTime();
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1strmod_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (strmod *)new strmod();
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1strmod_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (strmod *)new strmod(arg1);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1strmod(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  strmod *arg1 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(strmod **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_strmod_1setStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  strmod *arg1 = (strmod *) 0 ;
+  std::string arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(strmod **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  (&arg2)->assign(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setStr(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_strmod_1apdStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  strmod *arg1 = (strmod *) 0 ;
+  std::string arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(strmod **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  (&arg2)->assign(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->apdStr(arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_strmod_1getStr(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  strmod *arg1 = (strmod *) 0 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(strmod **)&jarg1; 
+  result = (arg1)->getStr();
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1date_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->date = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Replacement_1date_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Replacement *arg1 = (Replacement *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  result = (time_t) ((arg1)->date);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1mechanic_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Replacement **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->mechanic = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1mechanic_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Replacement *arg1 = (Replacement *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  result = (strmod *)& ((arg1)->mechanic);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Replacement **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->notes = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Replacement *arg1 = (Replacement *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  result = (strmod *)& ((arg1)->notes);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Replacement(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Replacement *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Replacement *)new Replacement();
+  *(Replacement **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Replacement(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Replacement **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->count = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MachinePart_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  result = (int) ((arg1)->count);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1partNum_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->partNum = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MachinePart_1partNum_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  result = (int) ((arg1)->partNum);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(MachinePart **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->notes = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_MachinePart_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  result = (strmod *)& ((arg1)->notes);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1replacements_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  std::vector< Replacement > *arg2 = (std::vector< Replacement > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  arg2 = *(std::vector< Replacement > **)&jarg2; 
+  if (arg1) (arg1)->replacements = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_MachinePart_1replacements_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  std::vector< Replacement > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(MachinePart **)&jarg1; 
+  result = (std::vector< Replacement > *)& ((arg1)->replacements);
+  *(std::vector< Replacement > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1MachinePart(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  MachinePart *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (MachinePart *)new MachinePart();
+  *(MachinePart **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1MachinePart(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  MachinePart *arg1 = (MachinePart *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(MachinePart **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateRequested_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->dateRequested = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1dateRequested_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (time_t) ((arg1)->dateRequested);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateOrdered_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->dateOrdered = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1dateOrdered_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (time_t) ((arg1)->dateOrdered);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1dateFulfilled_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->dateFulfilled = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1dateFulfilled_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (time_t) ((arg1)->dateFulfilled);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1mechanic_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Request *arg1 = (Request *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->mechanic = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1mechanic_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (strmod *)& ((arg1)->mechanic);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1notes_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Request *arg1 = (Request *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->notes = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Request_1notes_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (strmod *)& ((arg1)->notes);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->count = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (int) ((arg1)->count);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1priority_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->priority = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1priority_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (int) ((arg1)->priority);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Request_1partNumber_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Request *arg1 = (Request *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->partNumber = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Request_1partNumber_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Request *arg1 = (Request *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Request **)&jarg1; 
+  result = (int) ((arg1)->partNumber);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Request_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Request *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Request *)new Request();
+  *(Request **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Request_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3, jstring jarg4, jstring jarg5, jint jarg6, jint jarg7, jint jarg8) {
+  jlong jresult = 0 ;
+  time_t arg1 ;
+  time_t arg2 ;
+  time_t arg3 ;
+  std::string arg4 ;
+  std::string arg5 ;
+  int arg6 ;
+  int arg7 ;
+  int arg8 ;
+  Request *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (time_t)jarg1; 
+  arg2 = (time_t)jarg2; 
+  arg3 = (time_t)jarg3; 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  (&arg5)->assign(arg5_pstr);
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  arg6 = (int)jarg6; 
+  arg7 = (int)jarg7; 
+  arg8 = (int)jarg8; 
+  result = (Request *)new Request(arg1,arg2,arg3,arg4,arg5,arg6,arg7,arg8);
+  *(Request **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Request(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Request *arg1 = (Request *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Request **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_NUM_1OF_1MACHINES_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(int)NUM_OF_MACHINES;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_PART_1NAME_1SIZE_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(int)PART_NAME_SIZE;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1partNum_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Part *arg1 = (Part *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->partNum = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Part_1partNum_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (int) ((arg1)->partNum);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Part *arg1 = (Part *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->count = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Part_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (int) ((arg1)->count);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Part *arg1 = (Part *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->name = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (strmod *)& ((arg1)->name);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1description_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Part *arg1 = (Part *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->description = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1description_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (strmod *)& ((arg1)->description);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1requests_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  Part *arg1 = (Part *) 0 ;
+  std::vector< Request > *arg2 = (std::vector< Request > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = *(std::vector< Request > **)&jarg2; 
+  if (arg1) (arg1)->requests = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1requests_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  std::vector< Request > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (std::vector< Request > *)& ((arg1)->requests);
+  *(std::vector< Request > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1machines_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Part *arg1 = (Part *) 0 ;
+  MachinePart *arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Part **)&jarg1; 
+  arg2 = *(MachinePart **)&jarg2; 
+  {
+    size_t ii;
+    MachinePart *b = (MachinePart *) arg1->machines;
+    for (ii = 0; ii < (size_t)NUM_OF_MACHINES; ii++) b[ii] = *((MachinePart *) arg2 + ii);
+  }
+  
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1machines_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Part *arg1 = (Part *) 0 ;
+  MachinePart *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Part **)&jarg1; 
+  result = (MachinePart *)(MachinePart *) ((arg1)->machines);
+  *(MachinePart **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Part_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Part *)new Part();
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Part_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jstring jarg3, jstring jarg4) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  int arg2 ;
+  std::string arg3 ;
+  std::string arg4 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  (&arg3)->assign(arg3_pstr);
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  result = (Part *)new Part(arg1,arg2,arg3,arg4);
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Part(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Part *arg1 = (Part *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Part **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordNode_1word_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  wordNode *arg1 = (wordNode *) 0 ;
+  std::string *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  }
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  std::string arg2_str(arg2_pstr);
+  arg2 = &arg2_str;
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  if (arg1) (arg1)->word = *arg2;
+}
+
+
+SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_wordNode_1word_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jstring jresult = 0 ;
+  wordNode *arg1 = (wordNode *) 0 ;
+  std::string *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  result = (std::string *) & ((arg1)->word);
+  jresult = jenv->NewStringUTF(result->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordNode_1parts_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  wordNode *arg1 = (wordNode *) 0 ;
+  std::vector< Part * > *arg2 = (std::vector< Part * > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  arg2 = *(std::vector< Part * > **)&jarg2; 
+  if (arg1) (arg1)->parts = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_wordNode_1parts_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  wordNode *arg1 = (wordNode *) 0 ;
+  std::vector< Part * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  result = (std::vector< Part * > *)& ((arg1)->parts);
+  *(std::vector< Part * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordNode_1left_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  wordNode *arg1 = (wordNode *) 0 ;
+  wordNode *arg2 = (wordNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(wordNode **)&jarg1; 
+  arg2 = *(wordNode **)&jarg2; 
+  if (arg1) (arg1)->left = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_wordNode_1left_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  wordNode *arg1 = (wordNode *) 0 ;
+  wordNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  result = (wordNode *) ((arg1)->left);
+  *(wordNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordNode_1right_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  wordNode *arg1 = (wordNode *) 0 ;
+  wordNode *arg2 = (wordNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(wordNode **)&jarg1; 
+  arg2 = *(wordNode **)&jarg2; 
+  if (arg1) (arg1)->right = arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_wordNode_1right_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  wordNode *arg1 = (wordNode *) 0 ;
+  wordNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordNode **)&jarg1; 
+  result = (wordNode *) ((arg1)->right);
+  *(wordNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1wordNode(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  wordNode *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (wordNode *)new wordNode();
+  *(wordNode **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1wordNode(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  wordNode *arg1 = (wordNode *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(wordNode **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1wordSearch(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  wordSearch *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (wordSearch *)new wordSearch();
+  *(wordSearch **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1wordSearch(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  wordSearch *arg1 = (wordSearch *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(wordSearch **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_wordSearch_1searchPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2, jlong jarg3) {
+  jlong jresult = 0 ;
+  wordSearch *arg1 = (wordSearch *) 0 ;
+  std::string arg2 ;
+  std::vector< Part * > *arg3 = 0 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordSearch **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return 0;
+  (&arg2)->assign(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  arg3 = *(std::vector< Part * > **)&jarg3;
+  if (!arg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< Part * > & reference is null");
+    return 0;
+  } 
+  result = (Part *)(arg1)->searchPart(arg2,*arg3);
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordSearch_1addPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  wordSearch *arg1 = (wordSearch *) 0 ;
+  Part *arg2 = (Part *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(wordSearch **)&jarg1; 
+  arg2 = *(Part **)&jarg2; 
+  (arg1)->addPart(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_wordSearch_1printTree(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  wordSearch *arg1 = (wordSearch *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(wordSearch **)&jarg1; 
+  (arg1)->printTree();
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_HASH_1TABLE_1SIZE_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(int)HASH_TABLE_SIZE;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Compare(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Compare *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Compare *)new Compare();
+  *(Compare **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Compare(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Compare *arg1 = (Compare *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Compare **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Connection(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Connection *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Connection *)new Connection();
+  *(Connection **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Connection(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Connection *arg1 = (Connection *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Connection **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1addPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jstring jarg4, jstring jarg5) {
+  jlong jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  std::string arg4 ;
+  std::string arg5 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  (&arg5)->assign(arg5_pstr);
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (Part *)(arg1)->addPart(arg2,arg3,arg4,arg5);
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1searchPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  int arg2 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (Part *)(arg1)->searchPart(arg2);
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1findPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  int arg2 ;
+  Part *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (Part *)(arg1)->findPart(arg2);
+  *(Part **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1editPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jstring jarg4, jstring jarg5) {
+  jboolean jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  Part *arg2 = (Part *) 0 ;
+  int arg3 ;
+  std::string arg4 ;
+  std::string arg5 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Part **)&jarg2; 
+  arg3 = (int)jarg3; 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  (&arg5)->assign(arg5_pstr);
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (bool)(arg1)->editPart(arg2,arg3,arg4,arg5);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1orderPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jstring jarg4, jstring jarg5, jint jarg6) {
+  jboolean jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  Part *arg2 = (Part *) 0 ;
+  int arg3 ;
+  std::string arg4 ;
+  std::string arg5 ;
+  int arg6 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Part **)&jarg2; 
+  arg3 = (int)jarg3; 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  (&arg5)->assign(arg5_pstr);
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  arg6 = (int)jarg6; 
+  result = (bool)(arg1)->orderPart(arg2,arg3,arg4,arg5,arg6);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequestQueue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  Connection *arg1 = (Connection *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  (arg1)->printRequestQueue();
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Connection *arg1 = (Connection *) 0 ;
+  Request arg2 ;
+  Request *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  argp2 = *(Request **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Request");
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->printRequest(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1timeOpened_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Connection *arg1 = (Connection *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->timeOpened = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Connection_1timeOpened_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  result = (time_t) ((arg1)->timeOpened);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MAX_1LOG_1SIZE_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (int)(int)MAX_LOG_SIZE;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MAX_1FILE_1AGE_1get(JNIEnv *jenv, jclass jcls) {
+  jint jresult = 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (time_t)(time_t)MAX_FILE_AGE;
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1savTime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Save *arg1 = (Save *) 0 ;
+  time_t arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Save **)&jarg1; 
+  arg2 = (time_t)jarg2; 
+  if (arg1) (arg1)->savTime = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Save_1savTime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Save *arg1 = (Save *) 0 ;
+  time_t result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Save **)&jarg1; 
+  result = (time_t) ((arg1)->savTime);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1filename_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Save *arg1 = (Save *) 0 ;
+  strmod *arg2 = (strmod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Save **)&jarg1; 
+  arg2 = *(strmod **)&jarg2; 
+  if (arg1) (arg1)->filename = *arg2;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Save_1filename_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  Save *arg1 = (Save *) 0 ;
+  strmod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Save **)&jarg1; 
+  result = (strmod *)& ((arg1)->filename);
+  *(strmod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Save *arg1 = (Save *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Save **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->size = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Save_1size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Save *arg1 = (Save *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Save **)&jarg1; 
+  result = (int) ((arg1)->size);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Save(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  Save *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (Save *)new Save();
+  *(Save **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Save(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  Save *arg1 = (Save *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(Save **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveLog_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  SaveLog *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (SaveLog *)new SaveLog();
+  *(SaveLog **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveLog_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  SaveLog *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (SaveLog *)new SaveLog(arg1);
+  *(SaveLog **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1SaveLog(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  SaveLog *arg1 = (SaveLog *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(SaveLog **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveLog_1printSaveHistory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  SaveLog *arg1 = (SaveLog *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(SaveLog **)&jarg1; 
+  (arg1)->printSaveHistory();
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveLog_1addSave(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  SaveLog *arg1 = (SaveLog *) 0 ;
+  Save arg2 ;
+  Save *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(SaveLog **)&jarg1; 
+  argp2 = *(Save **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Save");
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->addSave(arg2);
+}
+
+
+SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_SaveLog_1loadSave(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jstring jresult = 0 ;
+  SaveLog *arg1 = (SaveLog *) 0 ;
+  int arg2 ;
+  std::string result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(SaveLog **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (arg1)->loadSave(arg2);
+  jresult = jenv->NewStringUTF((&result)->c_str()); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveLog_1setDir(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jstring jarg2) {
+  SaveLog *arg1 = (SaveLog *) 0 ;
+  std::string arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(SaveLog **)&jarg1; 
+  if(!jarg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return ;
+  } 
+  const char *arg2_pstr = (const char *)jenv->GetStringUTFChars(jarg2, 0); 
+  if (!arg2_pstr) return ;
+  (&arg2)->assign(arg2_pstr);
+  jenv->ReleaseStringUTFChars(jarg2, arg2_pstr); 
+  (arg1)->setDir(arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveMethod(JNIEnv *jenv, jclass jcls, jstring jarg1) {
+  jlong jresult = 0 ;
+  std::string arg1 ;
+  SaveMethod *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  if(!jarg1) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0); 
+  if (!arg1_pstr) return 0;
+  (&arg1)->assign(arg1_pstr);
+  jenv->ReleaseStringUTFChars(jarg1, arg1_pstr); 
+  result = (SaveMethod *)new SaveMethod(arg1);
+  *(SaveMethod **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1SaveMethod(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  SaveMethod *arg1 = (SaveMethod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(SaveMethod **)&jarg1; 
+  delete arg1;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveMethod_1save(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  SaveMethod *arg1 = (SaveMethod *) 0 ;
+  Connection arg2 ;
+  Connection *argp2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(SaveMethod **)&jarg1; 
+  argp2 = *(Connection **)&jarg2; 
+  if (!argp2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Connection");
+    return ;
+  }
+  arg2 = *argp2; 
+  (arg1)->save(arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_SaveMethod_1load(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  SaveMethod *arg1 = (SaveMethod *) 0 ;
+  int arg2 ;
+  Connection result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(SaveMethod **)&jarg1; 
+  arg2 = (int)jarg2; 
+  result = (arg1)->load(arg2);
+  *(Connection **)&jresult = new Connection((const Connection &)result); 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveMethod_1printSaveHistory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  SaveMethod *arg1 = (SaveMethod *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(SaveMethod **)&jarg1; 
+  (arg1)->printSaveHistory();
+}
 
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Part *arg1 = (Part *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->count = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Part_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Part *arg1 = (Part *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (int)((arg1)->count);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1name_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Part *arg1 = (Part *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->name = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1name_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Part *arg1 = (Part *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (strmod *)&((arg1)->name);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1description_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Part *arg1 = (Part *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->description = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1description_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Part *arg1 = (Part *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (strmod *)&((arg1)->description);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1requests_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Part *arg1 = (Part *)0;
-    std::vector<Request> *arg2 = (std::vector<Request> *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = *(std::vector<Request> **)&jarg2;
-    if (arg1)
-      (arg1)->requests = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1requests_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Part *arg1 = (Part *)0;
-    std::vector<Request> *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (std::vector<Request> *)&((arg1)->requests);
-    *(std::vector<Request> **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Part_1machines_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Part *arg1 = (Part *)0;
-    MachinePart *arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Part **)&jarg1;
-    arg2 = *(MachinePart **)&jarg2;
-    {
-      size_t ii;
-      MachinePart *b = (MachinePart *)arg1->machines;
-      for (ii = 0; ii < (size_t)NUM_OF_MACHINES; ii++)
-        b[ii] = *((MachinePart *)arg2 + ii);
-    }
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Part_1machines_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Part *arg1 = (Part *)0;
-    MachinePart *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Part **)&jarg1;
-    result = (MachinePart *)(MachinePart *)((arg1)->machines);
-    *(MachinePart **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Part_1_1SWIG_10(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Part *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Part *)new Part();
-    *(Part **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Part_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jstring jarg3, jstring jarg4)
-  {
-    jlong jresult = 0;
-    int arg1;
-    int arg2;
-    std::string arg3;
-    std::string arg4;
-    Part *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = (int)jarg1;
-    arg2 = (int)jarg2;
-    if (!jarg3)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0);
-    if (!arg3_pstr)
-      return 0;
-    (&arg3)->assign(arg3_pstr);
-    jenv->ReleaseStringUTFChars(jarg3, arg3_pstr);
-    if (!jarg4)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4_pstr)
-      return 0;
-    (&arg4)->assign(arg4_pstr);
-    jenv->ReleaseStringUTFChars(jarg4, arg4_pstr);
-    result = (Part *)new Part(arg1, arg2, arg3, arg4);
-    *(Part **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Part(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Part *arg1 = (Part *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Part **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_HASH_1TABLE_1SIZE_1get(JNIEnv *jenv, jclass jcls)
-  {
-    jint jresult = 0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    result = (int)(int)HASH_TABLE_SIZE;
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Compare(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Compare *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Compare *)new Compare();
-    *(Compare **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Compare(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Compare *arg1 = (Compare *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Compare **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Connection(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Connection *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Connection *)new Connection();
-    *(Connection **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Connection(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Connection *arg1 = (Connection *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Connection **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1addPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jstring jarg4, jstring jarg5)
-  {
-    jboolean jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    int arg2;
-    int arg3;
-    std::string arg4;
-    std::string arg5;
-    bool result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    arg2 = (int)jarg2;
-    arg3 = (int)jarg3;
-    if (!jarg4)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4_pstr)
-      return 0;
-    (&arg4)->assign(arg4_pstr);
-    jenv->ReleaseStringUTFChars(jarg4, arg4_pstr);
-    if (!jarg5)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5_pstr)
-      return 0;
-    (&arg5)->assign(arg5_pstr);
-    jenv->ReleaseStringUTFChars(jarg5, arg5_pstr);
-    result = (bool)(arg1)->addPart(arg2, arg3, arg4, arg5);
-    jresult = (jboolean)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1searchPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    jlong jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    int arg2;
-    Part *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    arg2 = (int)jarg2;
-    result = (Part *)(arg1)->searchPart(arg2);
-    *(Part **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1findPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    jlong jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    int arg2;
-    Part *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    arg2 = (int)jarg2;
-    result = (Part *)(arg1)->findPart(arg2);
-    *(Part **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1editPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jstring jarg4, jstring jarg5)
-  {
-    jboolean jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    Part *arg2 = (Part *)0;
-    int arg3;
-    std::string arg4;
-    std::string arg5;
-    bool result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Connection **)&jarg1;
-    arg2 = *(Part **)&jarg2;
-    arg3 = (int)jarg3;
-    if (!jarg4)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4_pstr)
-      return 0;
-    (&arg4)->assign(arg4_pstr);
-    jenv->ReleaseStringUTFChars(jarg4, arg4_pstr);
-    if (!jarg5)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5_pstr)
-      return 0;
-    (&arg5)->assign(arg5_pstr);
-    jenv->ReleaseStringUTFChars(jarg5, arg5_pstr);
-    result = (bool)(arg1)->editPart(arg2, arg3, arg4, arg5);
-    jresult = (jboolean)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1orderPart(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jstring jarg4, jstring jarg5, jint jarg6)
-  {
-    jboolean jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    Part *arg2 = (Part *)0;
-    int arg3;
-    std::string arg4;
-    std::string arg5;
-    int arg6;
-    bool result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Connection **)&jarg1;
-    arg2 = *(Part **)&jarg2;
-    arg3 = (int)jarg3;
-    if (!jarg4)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0);
-    if (!arg4_pstr)
-      return 0;
-    (&arg4)->assign(arg4_pstr);
-    jenv->ReleaseStringUTFChars(jarg4, arg4_pstr);
-    if (!jarg5)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0);
-    if (!arg5_pstr)
-      return 0;
-    (&arg5)->assign(arg5_pstr);
-    jenv->ReleaseStringUTFChars(jarg5, arg5_pstr);
-    arg6 = (int)jarg6;
-    result = (bool)(arg1)->orderPart(arg2, arg3, arg4, arg5, arg6);
-    jresult = (jboolean)result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequestQueue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    Connection *arg1 = (Connection *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    (arg1)->printRequestQueue();
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Connection *arg1 = (Connection *)0;
-    Request arg2;
-    Request *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Connection **)&jarg1;
-    argp2 = *(Request **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Request");
-      return;
-    }
-    arg2 = *argp2;
-    (arg1)->printRequest(arg2);
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1timeOpened_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Connection *arg1 = (Connection *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->timeOpened = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Connection_1timeOpened_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Connection *arg1 = (Connection *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Connection **)&jarg1;
-    result = ((arg1)->timeOpened);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MAX_1LOG_1SIZE_1get(JNIEnv *jenv, jclass jcls)
-  {
-    jint jresult = 0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    result = (int)(int)MAX_LOG_SIZE;
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_MAX_1FILE_1AGE_1get(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    result = (time_t)MAX_FILE_AGE;
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1savTime_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2)
-  {
-    Save *arg1 = (Save *)0;
-    time_t arg2;
-    time_t *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Save **)&jarg1;
-    argp2 = *(time_t **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null time_t");
-      return;
-    }
-    arg2 = *argp2;
-    if (arg1)
-      (arg1)->savTime = arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Save_1savTime_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Save *arg1 = (Save *)0;
-    time_t result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Save **)&jarg1;
-    result = ((arg1)->savTime);
-    *(time_t **)&jresult = new time_t((const time_t &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1filename_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    Save *arg1 = (Save *)0;
-    strmod *arg2 = (strmod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(Save **)&jarg1;
-    arg2 = *(strmod **)&jarg2;
-    if (arg1)
-      (arg1)->filename = *arg2;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Save_1filename_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jlong jresult = 0;
-    Save *arg1 = (Save *)0;
-    strmod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Save **)&jarg1;
-    result = (strmod *)&((arg1)->filename);
-    *(strmod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_Save_1size_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    Save *arg1 = (Save *)0;
-    int arg2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Save **)&jarg1;
-    arg2 = (int)jarg2;
-    if (arg1)
-      (arg1)->size = arg2;
-  }
-
-  SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Save_1size_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    jint jresult = 0;
-    Save *arg1 = (Save *)0;
-    int result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(Save **)&jarg1;
-    result = (int)((arg1)->size);
-    jresult = (jint)result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Save(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    Save *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (Save *)new Save();
-    *(Save **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Save(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    Save *arg1 = (Save *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(Save **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveLog_1_1SWIG_10(JNIEnv *jenv, jclass jcls)
-  {
-    jlong jresult = 0;
-    SaveLog *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    result = (SaveLog *)new SaveLog();
-    *(SaveLog **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveLog_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jstring jarg1)
-  {
-    jlong jresult = 0;
-    std::string arg1;
-    SaveLog *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    if (!jarg1)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1_pstr)
-      return 0;
-    (&arg1)->assign(arg1_pstr);
-    jenv->ReleaseStringUTFChars(jarg1, arg1_pstr);
-    result = (SaveLog *)new SaveLog(arg1);
-    *(SaveLog **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1SaveLog(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    SaveLog *arg1 = (SaveLog *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(SaveLog **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveLog_1printSaveHistory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    SaveLog *arg1 = (SaveLog *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(SaveLog **)&jarg1;
-    (arg1)->printSaveHistory();
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveLog_1addSave(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    SaveLog *arg1 = (SaveLog *)0;
-    Save arg2;
-    Save *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(SaveLog **)&jarg1;
-    argp2 = *(Save **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Save");
-      return;
-    }
-    arg2 = *argp2;
-    (arg1)->addSave(arg2);
-  }
-
-  SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_SaveLog_1loadSave(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    jstring jresult = 0;
-    SaveLog *arg1 = (SaveLog *)0;
-    int arg2;
-    std::string result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(SaveLog **)&jarg1;
-    arg2 = (int)jarg2;
-    result = (arg1)->loadSave(arg2);
-    jresult = jenv->NewStringUTF((&result)->c_str());
-    return jresult;
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1SaveMethod(JNIEnv *jenv, jclass jcls, jstring jarg1)
-  {
-    jlong jresult = 0;
-    std::string arg1;
-    SaveMethod *result = 0;
-
-    (void)jenv;
-    (void)jcls;
-    if (!jarg1)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
-      return 0;
-    }
-    const char *arg1_pstr = (const char *)jenv->GetStringUTFChars(jarg1, 0);
-    if (!arg1_pstr)
-      return 0;
-    (&arg1)->assign(arg1_pstr);
-    jenv->ReleaseStringUTFChars(jarg1, arg1_pstr);
-    result = (SaveMethod *)new SaveMethod(arg1);
-    *(SaveMethod **)&jresult = result;
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1SaveMethod(JNIEnv *jenv, jclass jcls, jlong jarg1)
-  {
-    SaveMethod *arg1 = (SaveMethod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    arg1 = *(SaveMethod **)&jarg1;
-    delete arg1;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveMethod_1save(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_)
-  {
-    SaveMethod *arg1 = (SaveMethod *)0;
-    Connection arg2;
-    Connection *argp2;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    (void)jarg2_;
-    arg1 = *(SaveMethod **)&jarg1;
-    argp2 = *(Connection **)&jarg2;
-    if (!argp2)
-    {
-      SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Connection");
-      return;
-    }
-    arg2 = *argp2;
-    (arg1)->save(arg2);
-  }
-
-  SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_SaveMethod_1load(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2)
-  {
-    jlong jresult = 0;
-    SaveMethod *arg1 = (SaveMethod *)0;
-    int arg2;
-    Connection result;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(SaveMethod **)&jarg1;
-    arg2 = (int)jarg2;
-    result = (arg1)->load(arg2);
-    *(Connection **)&jresult = new Connection((const Connection &)result);
-    return jresult;
-  }
-
-  SWIGEXPORT void JNICALL Java_mypackage_testJNI_SaveMethod_1printSaveHistory(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_)
-  {
-    SaveMethod *arg1 = (SaveMethod *)0;
-
-    (void)jenv;
-    (void)jcls;
-    (void)jarg1_;
-    arg1 = *(SaveMethod **)&jarg1;
-    (arg1)->printSaveHistory();
-  }
 
 #ifdef __cplusplus
 }
 #endif
+
