@@ -16,6 +16,10 @@ TA: Divya Athoopalil
 #include <vector>
 #include <sys/stat.h>
 #include <jni.h>
+#include <set>
+#include <algorithm>
+#include <functional>
+
 using namespace std;
 
 time_t getCurrentTime();
@@ -86,6 +90,36 @@ struct Part
 
 // 8=============================================================================D
 
+struct wordNode
+{
+  string word;
+  vector<Part *> parts;
+  wordNode *left;
+  wordNode *right;
+};
+
+class wordSearch
+{
+public:
+  wordSearch();
+  ~wordSearch();
+  Part *searchPart(string words, vector<Part *> &commonParts);
+  void addPart(Part *part);
+  void printTree();
+
+private:
+  wordNode *addNodeHelper(wordNode *currNode, string word, Part *part);
+  wordNode *createNode(string word, Part *part);
+  void addNode(string word, Part *part);
+  void destructorHelper(wordNode *curr);
+  wordNode *searchWordHelper(wordNode *currNode, string word);
+  void findCommonPtrs(vector<Part *> &a, vector<Part *> &b);
+  wordNode *root;
+  void printTreeHelper(wordNode *currNode);
+};
+
+// 8=============================================================================D
+
 const int HASH_TABLE_SIZE = 100; // Number of elements in the hash table
 class Compare
 {
@@ -103,7 +137,7 @@ public:
   ~Connection(); // Desctructor
 
   // Return boolean true if part is successfully added, otherwise false (e.g. part already exists)
-  bool addPart(int partNumber, int count, string name, string description);
+  Part *addPart(int partNumber, int count, string name, string description);
 
   //finds pointer to part in inventory
   Part *searchPart(int partNumber);
@@ -149,9 +183,10 @@ public:
   void printSaveHistory();
   void addSave(Save A);
   string loadSave(int savNum);
+  void setDir(string savDir);
 
 private:
-  string savDir;      // Directory to store saved files
+  strmod savDir;      // Directory to store saved files
   int logSize;        // I know this sounds like the size of a shit, but it's actually the size of all the logs.
   vector<Save> saves; // Vector of all saves, in chronological order
 

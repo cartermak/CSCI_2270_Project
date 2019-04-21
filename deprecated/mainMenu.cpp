@@ -3,27 +3,51 @@
 using namespace std;
 
 void printMainMenu();
-void addPartHelper(Connection &classObj, int partNum);
+Part *addPartHelper(Connection &classObj, int partNum);
 void printPartData(Part *curr);
 
 int main()
 {
     // Instantiate class object
     Connection A;
+    wordSearch wordTree;
 
     // Instantiate a class object for file saving
-    SaveMethod saver("saveFiles/");
-    // SaveLog save("saveFiles/log/");
+    // SaveMethod saver("saveFiles/");
+
     // Declare various things
     string switc; // Damnit, Will
     string temp, fileName, mechanic, notes;
     int partNum, count, priority;
     Part *curr;
-    bool t = true;
-    // A = saver.load(1);
+
+    /*
+    Menu to load a save file
+    */
+
+    // cout << "Would you like to load a previous save? (y/n): ";
+    // getline(cin, temp);
+    // if (temp == "y")
+    // {
+    //     saver.printSaveHistory();
+    // }
+    curr = A.addPart(111111111, 1, "A part", "");
+    wordTree.addPart(curr);
+    curr = A.addPart(222222222, 2, "Another fucking part", "description");
+    wordTree.addPart(curr);
+    curr = A.addPart(333333333, 3, "Another motherfucking part", "description");
+    wordTree.addPart(curr);
+    curr = A.addPart(444444444, 4, "Call this fucker a piece", "description");
+    wordTree.addPart(curr);
+    curr = A.addPart(555555555, 5, "Call fucking box", "description");
+    wordTree.addPart(curr);
+
+    wordTree.printTree();
+
     while (true)
     {
         printMainMenu();
+        // saver.save(A);
 
         getline(cin, switc);
         switch (stoi(switc))
@@ -77,8 +101,8 @@ int main()
                 getline(cin, temp);
                 if (temp == "y")
                 {
-                    addPartHelper(A, partNum);
-                    curr = A.searchPart(partNum);
+                    curr = addPartHelper(A, partNum);
+                    wordTree.addPart(curr);
 
                     cout << "Part successfully added!\n   Place an order for this part? (y/n): ";
                     getline(cin, temp);
@@ -166,39 +190,40 @@ int main()
                 break;
             }
 
-            addPartHelper(A, partNum);
+            wordTree.addPart(addPartHelper(A, partNum));
 
             cout << "Part successfully added!" << endl;
 
             break;
         case 3:
+            cout << "Show a part in the inventory\n   Search by \n      (1) Part Number\n      (2) Name\n   >>";
 
-            t = true;
-            while (t)
+            getline(cin, temp);
+
+            if (temp == "1")
             {
-                cout << "Show a part in the inventory\n   Enter Part Number: ";
+                cout << "   Enter Part Number: \n   >>";
                 getline(cin, temp);
-                try
-                {
-                    partNum = stoi(temp);
-                    t = false;
-                }
-                catch (exception const &e)
-                {
-                    cout << e.what() << endl;
-                    t = true;
-                }
+                partNum = stoi(temp);
+                curr = A.searchPart(partNum);
             }
+            else if (temp == "2")
+            {
+                cout << "   Enter some or all of a part name: \n   >>";
+                getline(cin, temp);
 
-            curr = A.searchPart(partNum);
+                vector<Part *> commonParts;
+                curr = wordTree.searchPart(temp, commonParts);
+            }
 
             if (curr)
             {
                 printPartData(curr);
+                cout << endl;
             }
             else
             {
-                cout << "Error: part cannot be found in the inventory." << endl;
+                cout << "   Error: part cannot be found in the inventory." << endl;
             }
 
             // Shows Part data
@@ -241,7 +266,7 @@ Function facilitates adding a new part to the inventory via UI.
     Do not call this function if the part already exists.
     It would probably be fine,...but don't try it.
 */
-void addPartHelper(Connection &classObj, int partNum)
+Part *addPartHelper(Connection &classObj, int partNum)
 {
     string temp;
 
@@ -257,9 +282,7 @@ void addPartHelper(Connection &classObj, int partNum)
     getline(cin, temp);
     int count = stoi(temp);
 
-    classObj.addPart(partNum, count, name, description);
-
-    return;
+    return classObj.addPart(partNum, count, name, description);
 }
 
 void printPartData(Part *curr)
