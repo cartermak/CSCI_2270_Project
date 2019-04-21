@@ -1,9 +1,9 @@
 CC=gcc
-CXX=g++ -Wall -Wextra -std=c++11
+CXX=g++ -Wall -Wextra -std=c++11 -g
 RM=rm -f
 
 
-SRCS=Connection.cpp mainMenu.cpp strmod.cpp SaveMethod.cpp
+SRCS=Connection.cpp mainMenu.cpp strmod.cpp SaveMethod.cpp wordSearch.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
 
 all: a.out

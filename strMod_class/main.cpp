@@ -1,74 +1,73 @@
-#include <iostream>
-#include <string>
-#include <vector>
-#include <fstream>
+#include "strmod.hpp"
 
 using namespace std;
 
-class strmod
+struct testStruct
+{
+  strmod testStr;
+  int testInt;
+};
+
+class testClass
 {
 public:
-  // Instantiate a strmod
-  strmod()
+  testClass()
   {
   }
-  // Instantiate and intialize strmod as an input string
-  strmod(string instr)
+  ~testClass()
   {
-    for (char &c : instr)
+  }
+  void addElement(int num, string str)
+  {
+    testStruct A;
+    A.testInt = num;
+    A.testStr.setStr(str);
+
+    thestructs.push_back(A);
+  }
+  void printVector()
+  {
+    int counter = 0;
+
+    cout << "The vector is: " << endl;
+
+    for (vector<testStruct>::iterator i = thestructs.begin(); i < thestructs.end(); i++)
     {
-      str.push_back(c);
+      cout << "    Struct element " << counter++ << ": " << i->testStr.getStr() << " with int " << i->testInt << endl;
     }
-  }
-  // Destructor. Doesn't need to do...anything.
-  ~strmod()
-  {
-  }
-  // Setter
-  void setStr(string instr)
-  {
-    str.clear();
-    for (char &c : instr)
-    {
-      str.push_back(c);
-    }
-  }
-  // Append to the string
-  void apdStr(string apdstr)
-  {
-    for (char &c : apdstr)
-    {
-      str.push_back(c);
-    }
-  }
-  // Getter
-  string getStr()
-  {
-    string outstr;
-    for (vector<char>::iterator i = str.begin(); i < str.end(); i++)
-    {
-      outstr.push_back(*i);
-    }
-    return outstr;
   }
 
 private:
-  vector<char> str;
+  vector<testStruct> thestructs;
 };
 
 int main()
 {
-  strmod x("asdf motherfucker");
+  testClass A;
 
-  string outstr = x.getStr();
+  A.addElement(1, "asdf");
+  A.addElement(2, "sdfg");
+  A.addElement(3, "dfgh");
+  A.addElement(4, "wer");
+  A.addElement(5, "sdvsdf");
 
-  cout << outstr << endl;
+  A.printVector();
 
-  x.setStr("fdsa mafusa fucka");
+  string saveFile = "testSave";
 
-  outstr = x.getStr();
+  ofstream o(saveFile, ios::binary);
+  o.write((char *)&A, sizeof(A));
+  o.close();
 
-  cout << outstr << endl;
+  testClass B;
+
+  B.printVector();
+
+  ifstream i(saveFile, ios::binary);
+  i.read((char *)&B, sizeof(B));
+  i.close();
+
+  B.printVector();
 
   return 0;
 }

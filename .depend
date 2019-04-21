@@ -2,3 +2,4 @@ Connection.o: Connection.cpp project.hpp
 mainMenu.o: mainMenu.cpp project.hpp
 strmod.o: strmod.cpp project.hpp
 SaveMethod.o: SaveMethod.cpp project.hpp
+wordSearch.o: wordSearch.cpp project.hpp
