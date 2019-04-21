@@ -158,7 +158,7 @@ int Connection::hashFunction(int key)
         key = key / 10;
     }
 
-    return sum;
+    return sum%HASH_TABLE_SIZE;
 }
 
 /*

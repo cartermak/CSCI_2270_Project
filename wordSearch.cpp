@@ -169,13 +169,16 @@ wordNode *wordSearch::addNodeHelper(wordNode *currNode, string word, Part *part)
   curr->word = word;
   curr->parts.push_back(part);
 
-  if (isL)
+  if (curr != root)
   {
-    prev->left = curr;
-  }
-  else
-  {
-    prev->right = curr;
+    if (isL)
+    {
+      prev->left = curr;
+    }
+    else
+    {
+      prev->right = curr;
+    }
   }
   return currNode;
 }
