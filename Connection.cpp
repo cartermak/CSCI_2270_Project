@@ -85,7 +85,7 @@ Part *Connection::searchPart(int partNumber)
     // return temp;
 }
 
-bool Connection::addPart(int partNumber, int count, string name, string description)
+Part* Connection::addPart(int partNumber, int count, string name, string description)
 {
     Part *tmp = searchPart(partNumber);
 
@@ -93,7 +93,7 @@ bool Connection::addPart(int partNumber, int count, string name, string descript
     {
         cout << "Part already in inventory, incrementing count" << endl;
         tmp->count += count; // Iterate part count by the number of parts the user tried to add
-        return false;
+        return NULL;
     }
     else
     {
@@ -101,9 +101,7 @@ bool Connection::addPart(int partNumber, int count, string name, string descript
         int index = hashFunction(partNumber);
         partsTable[index].push_back(p);
 
-        // cout << "Connection::addPart -- the size of the vector at index " << index << " is " << partsTable[index].size() << endl;
-        // cout << "Connection::addPart -- the name of the first part is: " << partsTable[index][0].name << endl;
-        return true;
+        return &(*partsTable[index].rbegin());
     }
 }
 
