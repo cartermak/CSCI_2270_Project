@@ -85,7 +85,7 @@ Part *Connection::searchPart(int partNumber)
     // return temp;
 }
 
-Part* Connection::addPart(int partNumber, int count, string name, string description)
+Part *Connection::addPart(int partNumber, int count, string name, string description)
 {
     Part *tmp = searchPart(partNumber);
 
@@ -98,6 +98,13 @@ Part* Connection::addPart(int partNumber, int count, string name, string descrip
     else
     {
         Part p(partNumber, count, name, description);
+
+        // Enter correct part numbers in machinePart structs
+        for (int i = 0; i < NUM_OF_MACHINES; i++)
+        {
+            p.machines[i].partNum = partNumber;
+        }
+
         int index = hashFunction(partNumber);
         partsTable[index].push_back(p);
 
@@ -151,7 +158,7 @@ int Connection::hashFunction(int key)
         key = key / 10;
     }
 
-    return sum;
+    return sum % HASH_TABLE_SIZE;
 }
 
 /*
@@ -170,19 +177,19 @@ bool Connection::orderPart(Part *curr, int count, string mechanic, string notes,
     time_t currentTime = getCurrentTime();
     Request newRequest(currentTime, 0, 0, mechanic, notes, count, priority, curr->partNum); // Create new struct
     curr->requests.push_back(newRequest);                                                   // Add request to list
-    pq.push(newRequest);
+    q.push_back(&*curr->requests.rbegin());
     return true;
 }
 
-void Connection::printRequest(Request r)
+void Connection::printRequest(Request *r)
 {
     cout << "Request for: ";
-    cout << r.count << " of " << r.partNumber << " by " << r.mechanic.getStr();
-    cout << " with notes: " << r.notes.getStr() << " is ";
-    if (!r.dateOrdered)
+    cout << r->count << " of " << r->partNumber << " by " << r->mechanic.getStr();
+    cout << " with notes: " << r->notes.getStr() << " is ";
+    if (!r->dateOrdered)
         cout << "not ordered ";
-    else if (!r.dateFulfilled)
-        cout << "not fulfilled ";
+    else if (!r->dateFulfilled)
+        cout << "ordered but not fulfilled ";
     else
         cout << "fulfilled! ";
     cout << endl;
@@ -190,9 +197,104 @@ void Connection::printRequest(Request r)
 
 void Connection::printRequestQueue()
 {
-    while (!pq.empty())
+    for (vector<Request *>::iterator i = q.begin(); i < q.end(); i++)
     {
-        printRequest(pq.top());
-        pq.pop();
+        printRequest(*i);
     }
+}
+
+bool Connection::addReplacement(int machineNum, int partNum, int numOff, int numOn, string mechanic, string notes)
+{
+    Part *curr = searchPart(partNum);
+
+    if (curr)
+    {
+        if (machineNum > NUM_OF_MACHINES || machineNum < 1)
+        {
+            cout << "Error: Machine number out of range" << endl;
+        }
+        Replacement newRepl(numOff, numOn, getCurrentTime(), mechanic, notes); // Instantiate and populate new replacement struct
+        curr->machines[machineNum - 1].replacements.push_back(newRepl);        // Add the replacement to the replacement vector for that part
+
+        curr->count -= numOn;
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement *> &outVec)
+{
+    if (!curr)
+    {
+        curr = searchPart(partNum);
+
+        if (!curr)
+        {
+            cout << "Error: Part could not be found" << endl;
+            return;
+        }
+    }
+
+    for (vector<Replacement>::iterator i = curr->machines[machineNum - 1].replacements.begin(); i < curr->machines[machineNum - 1].replacements.end(); i++)
+    {
+        outVec.push_back(&*i);
+    }
+}
+
+void Connection::getRequests(vector<Request *> &q)
+{
+    q.clear();
+    q = this->q;
+    return;
+}
+
+bool Connection::placeOrder(Request *order, string notes)
+{
+    if (order)
+    {
+        order->dateOrdered = getCurrentTime();
+        order->notes.apdStr(" | Order Notes: " + notes);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+bool Connection::fulfillOrder(Request *order, string notes)
+{
+    if(order && order->dateOrdered)
+    {
+        order->dateFulfilled = getCurrentTime();
+        order->notes.apdStr(" | Fulfillment Notes: " + notes);
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+    
+}
+
+void Connection::getAllParts(vector<Part*> &parts)
+{
+    parts.clear();
+    
+    for(int i=0;i<HASH_TABLE_SIZE;i++)
+    {
+        for(vector<Part>::iterator j = partsTable[i].begin();j<partsTable[i].end();j++)
+        {
+            parts.push_back(&*j);
+        }
+    }
+}
+
+void Connection::closeRequest(Request* curr)
+{
+    q.erase(remove(q.begin(), q.end(), curr), q.end());
 }

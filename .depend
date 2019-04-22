@@ -1,5 +1,6 @@
 Connection.o: Connection.cpp project.hpp
-mainMenu.o: mainMenu.cpp project.hpp
+swig.o: swig.cpp /usr/lib/jvm/java-11-oracle/include/jni.h \
+ /usr/lib/jvm/java-11-oracle/include/linux/jni_md.h project.hpp
 strmod.o: strmod.cpp project.hpp
 SaveMethod.o: SaveMethod.cpp project.hpp
 wordSearch.o: wordSearch.cpp project.hpp

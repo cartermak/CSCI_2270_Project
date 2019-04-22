@@ -1,5 +1,5 @@
 CC=gcc
-CXX=g++ -Wall -Wextra -std=c++11 -g
+CXX=g++ -shared -fPIC -I/usr/lib/jvm/java-11-oracle/include -I/usr/lib/jvm/java-11-oracle/include/linux
 RM=rm -f
 
 
