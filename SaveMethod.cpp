@@ -48,7 +48,7 @@ void SaveMethod::save(Connection A)
     time_t currentTime = getCurrentTime(); // Get the current time
     Save currentSave;                      // Instantiate a Save struct
     currentSave.savTime = currentTime;     // Write the current time to the new Save struct
-    // cout << "We got here" << endl;
+    
     // Get string for the save time
     stringstream s;
     s << currentTime;
@@ -58,7 +58,6 @@ void SaveMethod::save(Connection A)
     currentSave.filename.setStr(filename);   // Write the save file name to the Save struct
 
     // ---Save the actual class---
-    // cout << "Maybe here" << endl;
     ofstream o(savDir + filename, ios::binary);
     o.write((char *)&A, sizeof(A));
     currentSave.size = o.tellp();
