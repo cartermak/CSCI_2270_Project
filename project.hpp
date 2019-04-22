@@ -55,11 +55,10 @@ struct Replacement
 // machine parts (stored in array for each part in hash table)
 struct MachinePart
 {
-  int count;                             // Number of this part on this machine
   int partNum;                           // Part number (may or may not use this)
   strmod notes;                          // Notes field for the part (e.g. "This screw has screwed me so many times")
   std::vector<Replacement> replacements; // Vector of repacements
-  MachinePart() : count(0), partNum(0), notes("") {}
+  MachinePart() : partNum(0), notes("") {}
 };
 // sorted chronologically per part per machine
 // for ordering tracking
@@ -159,7 +158,7 @@ public:
     Pass EITHER a part number or a part pointer. If both are passed, the pointer will be used.
     Machine numbers are 1-10 (as opposed to 0-9).
   */
-  void getReplacements(Part* curr, int partNum, int machineNum, vector<Replacement*> &outVec);
+  void getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement *> &outVec);
 
   // Add a replacement for a part
   bool addReplacement(int machineNum, int partNum, int numOff, int numOn, string mechanic, string notes);
@@ -167,14 +166,26 @@ public:
   // Place an order for a part
   bool orderPart(Part *curr, int count, string mechanic, string notes, int priority);
 
+  // Populate the input vector with the current vector of requests
+  void getRequests(vector<Request *> &q);
+
+  // Place a requested order
+  bool placeOrder(Request *order, string notes);
+
+  // Fulfill an order
+  bool fulfillOrder(Request *order, string notes);
+
+  // Populate the input vector with pointers to all parts in the tree
+  void getAllParts(vector<Part*> &parts);
+
   void printRequestQueue();
-  void printRequest(Request r);
+  void printRequest(Request* r);
   // Fields to store general info
   time_t timeOpened; // Field to store when the struct was instantiated
 
 private:
   vector<Part> partsTable[HASH_TABLE_SIZE]; // Statically allocated hash table
-  priority_queue<Request, vector<Request>, Compare> pq;
+  vector<Request *> q;
   int hashFunction(int key);
 };
 
