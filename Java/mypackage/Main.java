@@ -22,6 +22,9 @@ public class Main {
         // mother frame
         JFrame t = new JFrame("Connection Parts Inventory");
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int screenHeight = screenSize.height;
+        int screenWidth = screenSize.width;
         // import library from jar
         try {
             NativeUtils.loadLibraryFromJar("/share.so");
@@ -129,7 +132,7 @@ public class Main {
                             d.add(description);
 
                             d.add(editPart);
-                            d.setSize(750, 150);
+                            d.setSize(screenWidth / 5, screenHeight / 7);
                             d.setVisible(true);
 
                             f.repaint();
@@ -202,7 +205,7 @@ public class Main {
                         d.add(description);
 
                         d.add(editPart);
-                        d.setSize(300, 300);
+                        d.setSize(screenWidth / 5, screenHeight / 7);
                         d.setVisible(true);
 
                     }
@@ -327,7 +330,7 @@ public class Main {
                         d.add(descripT);
 
                         d.add(high);
-                        d.setSize(300, 300);
+                        d.setSize(screenWidth / 5, screenHeight / 7);
                         d.setVisible(true);
                         Part asd = C.searchPart(u);
                         int cont = 0;
@@ -344,7 +347,7 @@ public class Main {
                         d.add(new JLabel("Any notes"));
                         d.add(descripT);
                         d.add(button);
-                        d.setSize(300, 300);
+                        d.setSize(screenWidth / 5, screenHeight / 7);
                         d.setVisible(true);
 
                     }
@@ -364,7 +367,7 @@ public class Main {
                     d.add(new JLabel("Any notes"));
                     d.add(descripT);
                     d.add(button);
-                    d.setSize(300, 300);
+                    d.setSize(screenWidth / 5, screenHeight / 7);
                     d.setVisible(true);
                 }
 
@@ -381,7 +384,7 @@ public class Main {
                 int u = 0;
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Part Name", "# in inventory", "Description" }, 0));
-                jt.setBounds(20, 20, 450, 70);
+                jt.setMaximumSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 try {
                     u = Integer.parseInt(Number);
                 } catch (Exception poll) {
@@ -397,9 +400,9 @@ public class Main {
                     JPanel uriel = new JPanel();
                     DefaultTableModel model = (DefaultTableModel) jt.getModel();
                     model.addRow(new Object[] { Number, name, count, description });
-                    jt.setPreferredSize(new Dimension(500, 100));
+                    jt.setPreferredSize(new Dimension(screenWidth / 4, screenHeight / 5));
                     uriel.add(jt);
-                    UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                    UIManager.put("OptionPane.minimumSize", new Dimension(screenWidth / 4, screenHeight / 5));
                     JOptionPane.showMessageDialog(search, uriel, "Part Found", JOptionPane.INFORMATION_MESSAGE);
                     // jt.addColumn(column);
                     searching.setText("");
@@ -423,7 +426,7 @@ public class Main {
                 JPanel uriel = new JPanel();
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Part Name", "# in inventory", "Description" }, 0));
-                jt.setBounds(20, 20, 450, 70);
+                jt.setMaximumSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
                 if (commonParts.size() != 0) {
                     for (int i = 0; i < commonParts.size(); i++) {
@@ -435,10 +438,10 @@ public class Main {
                         String description = h.getDescription().getStr();
                         model.addRow(new Object[] { Number, name, count, description });
                     }
-                    jt.setPreferredSize(new Dimension(500, 100));
+                    jt.setPreferredSize(new Dimension(screenWidth / 4, screenHeight / 5));
                     JScrollPane pane = new JScrollPane(jt);
                     uriel.add(pane);
-                    UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                    UIManager.put("OptionPane.minimumSize", new Dimension(screenWidth / 4, screenHeight / 5));
                     JOptionPane.showMessageDialog(search, uriel, "Part Found", JOptionPane.INFORMATION_MESSAGE);
                     searching.setText("");
                 } else {
@@ -537,7 +540,7 @@ public class Main {
                 JPanel uriel = new JPanel();
                 JTable jt = new JTable(new DefaultTableModel(new Object[] { "Part Number", "Mechanic", "Notes",
                         "Number of part removed", "Number of part added", "Date of replacement" }, 0));
-                jt.setBounds(20, 20, 450, 70);
+                jt.setMaximumSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
                 for (int i = 0; i < commonParts.size(); i++) {
                     status.setText("Part Found!");
@@ -550,10 +553,10 @@ public class Main {
                     Date time = new java.util.Date((long) h.getDate() * 1000);
                     model.addRow(new Object[] { Number, mechanic, notes, count, removed, time });
                 }
-                jt.setPreferredSize(new Dimension(500, 100));
+                jt.setPreferredSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 JScrollPane pane = new JScrollPane(jt);
                 uriel.add(pane);
-                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                UIManager.put("OptionPane.minimumSize", new Dimension(screenWidth / 4, screenHeight / 5));
                 JOptionPane.showMessageDialog(search, uriel, "Part Inventory", JOptionPane.INFORMATION_MESSAGE);
                 searching.setText("");
 
@@ -566,7 +569,7 @@ public class Main {
                 JPanel uriel = new JPanel();
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Part Name", "# in inventory", "Description" }, 0));
-                jt.setBounds(20, 20, 450, 70);
+                jt.setMaximumSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
                 for (int i = 0; i < commonParts.size(); i++) {
                     status.setText("Part Found!");
@@ -577,10 +580,10 @@ public class Main {
                     String description = h.getDescription().getStr();
                     model.addRow(new Object[] { Number, name, count, description });
                 }
-                jt.setPreferredSize(new Dimension(500, 100));
+                jt.setPreferredSize(new Dimension(screenWidth / 4, screenHeight / 5));
                 JScrollPane pane = new JScrollPane(jt);
                 uriel.add(pane);
-                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                UIManager.put("OptionPane.minimumSize", new Dimension(screenWidth / 4, screenHeight / 4));
                 JOptionPane.showMessageDialog(search, uriel, "Part Inventory", JOptionPane.INFORMATION_MESSAGE);
                 searching.setText("");
 
@@ -594,15 +597,16 @@ public class Main {
         // show orders, place and fulfill orders
         JButton reveal = new JButton("Show Orders");
         JDialog show = new JDialog();
-        show.setSize(600, 300);
+        show.setSize(screenWidth / 3, screenHeight / 4);
         reveal.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 RequestPVector commonParts = new RequestPVector();
                 C.getRequests(commonParts);
                 JPanel uriel = new JPanel();
+                uriel.setSize(new Dimension(screenWidth/3, screenHeight/5));
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Mechanic Name", "# requested", "Notes", "Date Requested" }, 0));
-                jt.setBounds(20, 20, 650, 70);
+                jt.setMaximumSize(new Dimension(screenWidth / 3, screenHeight / 5));
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
                 for (int i = 0; i < commonParts.size(); i++) {
                     status.setText("Part Found!");
@@ -614,7 +618,7 @@ public class Main {
                     Date time = new java.util.Date((long) h.getDateOrdered() * 1000);
                     model.addRow(new Object[] { Number, name, count, description, time });
                 }
-                jt.setPreferredSize(new Dimension(800, 100));
+                jt.setPreferredSize(new Dimension(screenWidth / 3, screenHeight / 4));
                 ListSelectionModel select = jt.getSelectionModel();
                 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 select.addListSelectionListener(new ListSelectionListener() {
@@ -631,6 +635,7 @@ public class Main {
                         d.setLayout(new BorderLayout());
                         d.add(new JLabel("Order Notes: " + r.getNotes().getStr()));
                         d.add(new JLabel("Date Ordered " + time));
+                        d.setSize(new Dimension(screenWidth / 3, screenHeight / 4));
                         JButton place = new JButton("Place Order");
                         place.addActionListener(new ActionListener() {
 
@@ -662,13 +667,13 @@ public class Main {
                         });
                         d.add(place, BorderLayout.PAGE_START);
                         d.add(fulfillment, BorderLayout.PAGE_END);
-                        d.setSize(600, 300);
+                        d.setSize(screenWidth / 4, screenHeight / 4);
                         d.setVisible(true);
                     }
                 });
                 JScrollPane pane = new JScrollPane(jt);
                 uriel.add(pane);
-                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                UIManager.put("OptionPane.minimumSize", new Dimension(screenWidth / 4, screenHeight / 4));
                 show.add(uriel);
                 show.setVisible(true);
                 searching.setText("");
@@ -741,7 +746,7 @@ public class Main {
         // adding to mother frame
         JTabbedPane tp = new JTabbedPane();
         // Container tp = t.getContentPane();
-        tp.setBounds(0, 0, 1500, 1000);
+        tp.setBounds(0, 0, screenWidth / 2, screenHeight / 3);
 
         tp.add("Add a Part", f);
         tp.add("Order a Part", k);
@@ -753,11 +758,11 @@ public class Main {
 
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.add(tp);
-        t.setSize(1500, 400);// 400
-                             // width
-                             // and
-                             // 500
-                             // height
+        t.setSize(screenWidth / 2, screenHeight / 3);// 400
+        // width
+        // and
+        // 500
+        // height
 
         t.setLayout(null);// using no layout managers
 
