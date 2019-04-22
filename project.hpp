@@ -38,7 +38,7 @@ private:
   vector<char> str;
 };
 
-// 8=============================================================================D
+// =============================================================================
 
 struct Replacement
 {
@@ -46,7 +46,7 @@ struct Replacement
   int numOn;       // Number of parts installed
   time_t date;     // Date of replacement
   strmod mechanic; // Mechanic who replaced it
-  strmod notes;    // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody was killed by a bowling pin")
+  strmod notes;    // Notes on replacement (e.g. "This screw is a real pain")
 
   Replacement() : numOff(0), numOn(0), date(0), mechanic(""), notes("") {}
   Replacement(int numOff, int numOn, time_t currTime, string mechanic, string notes) : numOff(numOff), numOn(numOn), date(currTime), mechanic(mechanic), notes(notes) {}
@@ -56,7 +56,7 @@ struct Replacement
 struct MachinePart
 {
   int partNum;                           // Part number (may or may not use this)
-  strmod notes;                          // Notes field for the part (e.g. "This screw has screwed me so many times")
+  strmod notes;                          // Notes field for the part
   std::vector<Replacement> replacements; // Vector of repacements
   MachinePart() : partNum(0), notes("") {}
 };
@@ -68,7 +68,7 @@ struct Request
   time_t dateOrdered;   // Date the order was placed (e.g. by Nate)
   time_t dateFulfilled; // Date the order was fulfilled (receieved at the Connection)
   strmod mechanic;      // Mechanic who placed the order
-  strmod notes;         // Notes about the order (e.g. hurry it the fuck up)
+  strmod notes;         // Notes about the order (e.g. Urgent!)
   int count;            // Number of parts to order
   int priority;         //priority of order
   int partNumber;       //partNum of that part
@@ -93,7 +93,7 @@ struct Part
   Part(int partNumber, int count, string name, string description) : partNum(partNumber), count(count), name(name), description(description) {}
 };
 
-// 8=============================================================================D
+// =============================================================================
 
 struct wordNode
 {
@@ -123,17 +123,17 @@ private:
   void printTreeHelper(wordNode *currNode);
 };
 
-// 8=============================================================================D
+// =============================================================================
 
 const int HASH_TABLE_SIZE = 100; // Number of elements in the hash table
-class Compare
-{
-public:
-  bool operator()(Request one, Request two)
-  {
-    return one.priority > two.priority;
-  }
-};
+// class Compare
+// {
+// public:
+//   bool operator()(Request one, Request two)
+//   {
+//     return one.priority > two.priority;
+//   }
+// };
 // Class for the main stuff
 class Connection
 {
@@ -176,23 +176,33 @@ public:
   bool fulfillOrder(Request *order, string notes);
 
   // Populate the input vector with pointers to all parts in the tree
-  void getAllParts(vector<Part*> &parts);
+  void getAllParts(vector<Part *> &parts);
 
   // Remove the input request from the vector of open requests
-  void closeRequest(Request* curr);
+  void closeRequest(Request *curr);
 
+  // Print the queue of open (i.e. unfulfilled) requests
   void printRequestQueue();
-  void printRequest(Request* r);
-  // Fields to store general info
-  time_t timeOpened; // Field to store when the struct was instantiated
+
+  // called from printRequestQueue(), prints a specific request
+  void printRequest(Request *r);
+
+  // Field to store when the struct was instantiated
+  time_t timeOpened;
 
 private:
   vector<Part> partsTable[HASH_TABLE_SIZE]; // Statically allocated hash table
-  vector<Request *> q;
-  int hashFunction(int key);
+  vector<Request *> q;                      // Vector of open requests
+  int hashFunction(int key);                // Hash function
 };
 
-// 8=============================================================================D
+// =============================================================================
+
+/*
+SAVING:
+  Functions for these classes are imlemented in the source file saveMethod.cpp
+  These methods are incomplete and untested, but are included for future implementation.
+*/
 
 const int MAX_LOG_SIZE = 1e9;      // 1e9 characters...if a character is a byte, then like...1GB?
 const time_t MAX_FILE_AGE = 2.6e6; // roughly one month of seconds
@@ -217,7 +227,7 @@ public:
 
 private:
   strmod savDir;      // Directory to store saved files
-  int logSize;        // I know this sounds like the size of a shit, but it's actually the size of all the logs.
+  int logSize;        // Size of all the logs
   vector<Save> saves; // Vector of all saves, in chronological order
 
   void cleanLog();

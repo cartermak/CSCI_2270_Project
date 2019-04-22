@@ -177,8 +177,6 @@ public class testJNI {
   public final static native void wordSearch_addPart(long jarg1, wordSearch jarg1_, long jarg2, Part jarg2_);
   public final static native void wordSearch_printTree(long jarg1, wordSearch jarg1_);
   public final static native int HASH_TABLE_SIZE_get();
-  public final static native long new_Compare();
-  public final static native void delete_Compare(long jarg1);
   public final static native long new_Connection();
   public final static native void delete_Connection(long jarg1);
   public final static native long Connection_addPart(long jarg1, Connection jarg1_, int jarg2, int jarg3, String jarg4, String jarg5);

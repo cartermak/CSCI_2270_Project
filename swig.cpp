@@ -2928,28 +2928,6 @@ SWIGEXPORT jint JNICALL Java_mypackage_testJNI_HASH_1TABLE_1SIZE_1get(JNIEnv *je
 }
 
 
-SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Compare(JNIEnv *jenv, jclass jcls) {
-  jlong jresult = 0 ;
-  Compare *result = 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  result = (Compare *)new Compare();
-  *(Compare **)&jresult = result; 
-  return jresult;
-}
-
-
-SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Compare(JNIEnv *jenv, jclass jcls, jlong jarg1) {
-  Compare *arg1 = (Compare *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  arg1 = *(Compare **)&jarg1; 
-  delete arg1;
-}
-
-
 SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Connection(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   Connection *result = 0 ;

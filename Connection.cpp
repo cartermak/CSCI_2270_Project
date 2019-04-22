@@ -34,23 +34,8 @@ Connection::Connection()
 }
 Connection::~Connection()
 {
-    // EVERYTHING IS A VECTOR!!! As long as we never type "new", we gucci.
+    // EVERYTHING IS A VECTOR!!! As long as we never type "new", no need for a destructor.
 }
-
-/*
-deprecated/integrated into searchPart
-Part *Connection::findPart(int partNumber)
-{
-    Part v;
-    v.partNum = partNumber;
-    int index = hashFunction(partNumber);
-    vector<Part>::iterator it;
-    it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
-    int i = std::distance(partsTable[index]->inventory.begin(), it);
-    Part *p = &partsTable[index]->inventory.at(i);
-    return p;
-}
-*/
 
 Part *Connection::searchPart(int partNumber)
 {
@@ -67,22 +52,6 @@ Part *Connection::searchPart(int partNumber)
         }
     }
     return NULL; // If part isn't found, return NULL
-
-    // Code from different implementation:
-    // if (!partsTable[index])
-    //     return NULL;
-    // Part *temp = partsTable[index];
-    // if (temp->partNum != partNumber)
-    // {
-    //     Part v;
-    //     v.partNum = partNumber;
-    //     int index = hashFunction(partNumber);
-    //     vector<Part>::iterator it;
-    //     it = find(partsTable[index]->inventory.begin(), partsTable[index]->inventory.end(), v);
-    //     int i = std::distance(partsTable[index]->inventory.begin(), it);
-    //     temp = &partsTable[index]->inventory.at(i);
-    // }
-    // return temp;
 }
 
 Part *Connection::addPart(int partNumber, int count, string name, string description)
