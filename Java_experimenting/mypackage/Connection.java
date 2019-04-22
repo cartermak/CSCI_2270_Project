@@ -86,16 +86,16 @@ public class Connection {
     testJNI.Connection_getAllParts(swigCPtr, this, PartPVector.getCPtr(parts), parts);
   }
 
+  public void closeRequest(Request curr) {
+    testJNI.Connection_closeRequest(swigCPtr, this, Request.getCPtr(curr), curr);
+  }
+
   public void printRequestQueue() {
     testJNI.Connection_printRequestQueue(swigCPtr, this);
   }
 
   public void printRequest(Request r) {
     testJNI.Connection_printRequest(swigCPtr, this, Request.getCPtr(r), r);
-  }
-
-  public void closeRequest(Request curr) {
-    testJNI.Connection_closeRequest(swigCPtr, this, Request.getCPtr(curr), curr);
   }
 
   public void setTimeOpened(int value) {

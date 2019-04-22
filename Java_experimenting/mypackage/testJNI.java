@@ -192,9 +192,9 @@ public class testJNI {
   public final static native boolean Connection_placeOrder(long jarg1, Connection jarg1_, long jarg2, Request jarg2_, String jarg3);
   public final static native boolean Connection_fulfillOrder(long jarg1, Connection jarg1_, long jarg2, Request jarg2_, String jarg3);
   public final static native void Connection_getAllParts(long jarg1, Connection jarg1_, long jarg2, PartPVector jarg2_);
+  public final static native void Connection_closeRequest(long jarg1, Connection jarg1_, long jarg2, Request jarg2_);
   public final static native void Connection_printRequestQueue(long jarg1, Connection jarg1_);
   public final static native void Connection_printRequest(long jarg1, Connection jarg1_, long jarg2, Request jarg2_);
-  public final static native void Connection_closeRequest(long jarg1, Connection jarg1_, long jarg2, Request jarg2_);
   public final static native void Connection_timeOpened_set(long jarg1, Connection jarg1_, int jarg2);
   public final static native int Connection_timeOpened_get(long jarg1, Connection jarg1_);
   public final static native int MAX_LOG_SIZE_get();

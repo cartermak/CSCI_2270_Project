@@ -1,40 +1,31 @@
-# CSCI 2270 Project
-Carter Mak and William Walker
-
-### Macro
-- Inventory spare parts
-- Identify things in the inventory
-  - Sort by machine/type/whatever/part number
-  - Search by all of the above
-- Simple command line interface (or HTML?)
-- Track inidividual machines and the parts they contain
-
-### Shit to maybe use
-- Ultralight UI for integrating HTML UI with C++
-
-
-### File Saving
-- 
-- Store a file for each struct instance and its properties
-- Come up with some system for file naming, e.g. 1x109140151x12345 -> *machine 1* *part #109140151* *request identifier 12345*
-- Need to construct the naming system to form a clear file heiarchy
-- Only save the specific files being edited
-
-### UI Flowchart
-![mainMenu](https://user-images.githubusercontent.com/49076171/56089190-a1683f80-5e4c-11e9-978e-d68eb0ae0f72.png)
+#### CSCI 2270 Project
+# An Interactive Parts Inventory
+*Carter Mak and William Walker*
 
 ---
-**Carter, 13 April**
-- Copied functions `hashFunction` and `editPart` to the `Connection.cpp` file, moved original files to `/deprecated`
-- Edited the `Request` struct to have a `count` field for storing number of parts to order
-- Edited the way parts are stored in the hash table. Instead of the hash table containing pointers to one part, then vectors to other parts after that, the table is now simply a table of vectors of parts. This involved editing:
-  - `addPart`
-  - `searchPart`
-  - Constructor function
-  - header file
-- Edited `mainMenu.cpp`:
-  - Moved the menu printing to a separate function for cleanliness
-  - Built cases for adding a part, adding an order, and viewing a part
-  - Added functions for printing the contents of a part and adding a part
-- New functions in `Connection.cpp`/`project.hpp`:
-  - orderPart: adds a part order (`Request` struct). Initializes the ordered and fulfilled dates to 0, and sets the request date based on the current time. Set the accessors such that if these fields are zero, the part hasn't been ordered/fulfilled (as opposed to printing that they were ordered Jan 1, 1970)
+
+### Notes on compiling and running:
+- The script `compileAll.sh`  will produce a `project.jar` file to be run.
+- The program is built for Unix systems, specifically Linux. It may work on Apple Mac systems.
+- Running the program will require the Java JRE and JDK be installed. We used Oracle Java 11 for this project.
+
+---
+
+### Data Structures Used
+#### Hash Table:
+We use a table indexed by hashed part numbers to store the parts in inventory/on machines. Collisions are managed with chaining, using vectors in lieu of a manually implemented linked list because vectors are more conducive to serialization for saving. 
+#### Binary Search Tree:
+We use a binary search tree to store part name words and facilitate part search by name. The associated search algorithm returns all parts which contain all of the words input by the user (case-insensitive). 
+
+---
+
+### Future Developments
+Because this project is designed to be implemented for use after its completion with regards to the requirements of the CSCI 2270 project assignment, there are various developments which we already have planned/are implementing as improvements over this version.
+
+#### Saving
+We have already begun to implement backend code to periodically serialize and save data, then recall that saved data on startup (i.e. *autosave*). This also opens to the possibility of using an open source linux utility such as [RClone](https://rclone.org/) to facilitate periodic cloud backup. The latter functionality could be paired with separate file access and writing to facilitate basic remote access, e.g. through Google Drive.
+
+#### User Interface
+The Java GUI we've implemented is a functional demonstration of our data structures and of our general ability to create a graphical interface, however the final implementation of this program will likely involve a rearrangement of our UI to better cater to the needs of end users. Such a redesign might follow a plan akin to this:
+
+![mainMenu](https://user-images.githubusercontent.com/49076171/56089190-a1683f80-5e4c-11e9-978e-d68eb0ae0f72.png)

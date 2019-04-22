@@ -3277,6 +3277,20 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1getAllParts(JNIEnv *j
 }
 
 
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1closeRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Connection *arg1 = (Connection *) 0 ;
+  Request *arg2 = (Request *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Request **)&jarg2; 
+  (arg1)->closeRequest(arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequestQueue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   Connection *arg1 = (Connection *) 0 ;
   
@@ -3299,20 +3313,6 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequest(JNIEnv *
   arg1 = *(Connection **)&jarg1; 
   arg2 = *(Request **)&jarg2; 
   (arg1)->printRequest(arg2);
-}
-
-
-SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1closeRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
-  Connection *arg1 = (Connection *) 0 ;
-  Request *arg2 = (Request *) 0 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  (void)jarg2_;
-  arg1 = *(Connection **)&jarg1; 
-  arg2 = *(Request **)&jarg2; 
-  (arg1)->closeRequest(arg2);
 }
 
 
