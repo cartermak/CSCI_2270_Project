@@ -58,6 +58,14 @@ public class Connection {
     return testJNI.Connection_editPart(swigCPtr, this, Part.getCPtr(curr), curr, count, name, description);
   }
 
+  public void getReplacements(Part curr, int partNum, int machineNum, ReplacementPVector outVec) {
+    testJNI.Connection_getReplacements(swigCPtr, this, Part.getCPtr(curr), curr, partNum, machineNum, ReplacementPVector.getCPtr(outVec), outVec);
+  }
+
+  public boolean addReplacement(int machineNum, int partNum, int numOff, int numOn, String mechanic, String notes) {
+    return testJNI.Connection_addReplacement(swigCPtr, this, machineNum, partNum, numOff, numOn, mechanic, notes);
+  }
+
   public boolean orderPart(Part curr, int count, String mechanic, String notes, int priority) {
     return testJNI.Connection_orderPart(swigCPtr, this, Part.getCPtr(curr), curr, count, mechanic, notes, priority);
   }

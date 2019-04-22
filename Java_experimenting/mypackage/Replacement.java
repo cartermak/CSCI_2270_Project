@@ -35,6 +35,22 @@ public class Replacement {
     }
   }
 
+  public void setNumOff(int value) {
+    testJNI.Replacement_numOff_set(swigCPtr, this, value);
+  }
+
+  public int getNumOff() {
+    return testJNI.Replacement_numOff_get(swigCPtr, this);
+  }
+
+  public void setNumOn(int value) {
+    testJNI.Replacement_numOn_set(swigCPtr, this, value);
+  }
+
+  public int getNumOn() {
+    return testJNI.Replacement_numOn_get(swigCPtr, this);
+  }
+
   public void setDate(int value) {
     testJNI.Replacement_date_set(swigCPtr, this, value);
   }
@@ -62,7 +78,11 @@ public class Replacement {
   }
 
   public Replacement() {
-    this(testJNI.new_Replacement(), true);
+    this(testJNI.new_Replacement__SWIG_0(), true);
+  }
+
+  public Replacement(int numOff, int numOn, int currTime, String mechanic, String notes) {
+    this(testJNI.new_Replacement__SWIG_1(numOff, numOn, currTime, mechanic, notes), true);
   }
 
 }

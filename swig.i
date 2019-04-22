@@ -11,6 +11,7 @@ namespace std {
    %template(ReplacementVector) vector<Replacement>;
    %template(RequestVector) vector<Request>;
    %template(PartPVector) vector<Part*>;
+   %template(ReplacementPVector) vector<Replacement*>;
 }
 
 typedef long time_t;
