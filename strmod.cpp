@@ -38,10 +38,16 @@ void strmod::apdStr(string apdstr)
 // Getter
 string strmod::getStr()
 {
+  if(!str.size()){
+    throw invalid_argument("Null string");
+  }
   string outstr;
-  for (vector<char>::iterator i = str.begin(); i < str.end(); i++)
+  cout << "We got to the string" << endl;
+  cout << str.size() << endl;
+  for (vector<char>::iterator i = str.begin(); i != str.end(); i++)
   {
     outstr.push_back(*i);
+    cout << *i << endl;
   }
   return outstr;
 }

@@ -185,7 +185,7 @@ void Connection::printRequest(Request r)
 {
     cout << "Request for: ";
     cout << r.count << " of " << r.partNumber << " by " << r.mechanic.getStr();
-    cout << " with notes " << r.notes.getStr() << " is ";
+    cout << " with notes: " << r.notes.getStr() << " is ";
     if (!r.dateOrdered)
         cout << "not ordered ";
     else if (!r.dateFulfilled)
