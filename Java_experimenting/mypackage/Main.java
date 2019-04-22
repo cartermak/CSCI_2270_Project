@@ -18,11 +18,15 @@ public class Main {
     private static JDialog d;
 
     public static void main(String[] args) {
+        // mother frame
+        JFrame t = new JFrame("Connection Parts Inventory");
+        t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         // import library from jar
         try {
             NativeUtils.loadLibraryFromJar("/share.so");
         } catch (Exception temp) {
             System.out.println(temp.getLocalizedMessage());
+            JOptionPane.showMessageDialog(t, "Library failure", "Error", JOptionPane.ERROR_MESSAGE);
         }
         // new panels
         JPanel search = new JPanel(true);
@@ -46,25 +50,28 @@ public class Main {
         GroupLayout se = new GroupLayout(search);
         se.setAutoCreateContainerGaps(true);
         se.setAutoCreateGaps(true);
+        search.setLayout(se);
         // new layout for searching by name
         GroupLayout searchin = new GroupLayout(searchName);
         searchin.setAutoCreateContainerGaps(true);
         searchin.setAutoCreateGaps(true);
+        searchName.setLayout(searchin);
         // grouplayout for replacement
         GroupLayout replace = new GroupLayout(replacement);
         replace.setAutoCreateContainerGaps(true);
         replace.setAutoCreateGaps(true);
+        replacement.setLayout(replace);
         // viewing panel
         GroupLayout viewing = new GroupLayout(view);
         viewing.setAutoCreateContainerGaps(true);
         viewing.setAutoCreateGaps(true);
+        view.setLayout(viewing);
         // fulfill screen
         GroupLayout fulfill = new GroupLayout(viewOrder);
         fulfill.setAutoCreateContainerGaps(true);
         fulfill.setAutoCreateGaps(true);
-        // mother frame
-        JFrame t = new JFrame("Connection Parts Inventory");
-        t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        viewOrder.setLayout(fulfill);
+
         // constructing new connection
         Connection C = new Connection();
         wordSearch wordTree = new wordSearch();
@@ -92,13 +99,14 @@ public class Main {
                 try {
                     partNum = Integer.parseInt(n.getText());
                 } catch (Exception z) {
-
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                     System.out.println(z.getLocalizedMessage());
                 }
                 try {
                     count = Integer.parseInt(countT.getText());
                 } catch (Exception f) {
                     System.out.println(f.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 if (partNum != 0 && count != 0) {
                     // Part r = new Part();
@@ -153,16 +161,20 @@ public class Main {
             public void actionPerformed(ActionEvent action1) {
                 int count = 0;
                 int partNum = 0;
+                boolean error = false;
                 try {
                     partNum = Integer.parseInt(ordering.getText());
                 } catch (Exception z) {
-
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                     System.out.println(z.getLocalizedMessage());
+                    error = true;
                 }
                 try {
                     count = Integer.parseInt(countT.getText());
                 } catch (Exception f) {
                     System.out.println(f.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
+                    error = true;
                 }
                 if (nameT.getText() == "")
                     nameT.setText("Name");
@@ -192,10 +204,12 @@ public class Main {
                     vex = C.addPart(partNum, count, nameT.getText(), descripT.getText());
                     wordTree.addPart(vex);
                 }
-                if (vex != null) {
+                if (vex != null && !error) {
                     JOptionPane.showMessageDialog(k, "Added Successfully");
-                } else
+                } else {
+                    JOptionPane.showMessageDialog(k, "Failure");
                     System.out.println("Yikes");
+                }
                 d.setVisible(false);
 
                 countT.setText("");
@@ -208,16 +222,21 @@ public class Main {
             public void actionPerformed(ActionEvent e) {
                 int partNum = 0;
                 int count = 0;
+                boolean error = false;
                 try {
                     partNum = Integer.parseInt(nameT.getText());
                 } catch (Exception z) {
 
                     System.out.println(z.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
+                    error = true;
                 }
                 try {
                     count = Integer.parseInt(countT.getText());
                 } catch (Exception f) {
                     System.out.println(f.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
+                    error = true;
                 }
                 Part y = C.searchPart(partNum);
                 C.editPart(y, count, nameT.getText(), descripT.getText());
@@ -229,26 +248,31 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int c = 0;
-
+                boolean error = false;
                 String partName = ordering.getText();
                 int u = 0;
                 try {
                     c = Integer.parseInt(countT.getText());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception l) {
-
+                    error = true;
                     System.out.println(l.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 try {
                     u = Integer.parseInt(partName);
                 } catch (Exception poll) {
+                    error = true;
                     System.out.println(poll.getLocalizedMessage());
                 }
                 Part h = C.searchPart(u);
                 boolean y = C.orderPart(h, c, nameT.getText(), descripT.getText(), 1);
-                if (y) {
+                if (y && !error) {
                     JOptionPane.showMessageDialog(k, "Added Order Successfully");
-                } else
+                } else {
                     System.out.println("Yikes");
+                    JOptionPane.showMessageDialog(k, "Failure");
+                }
                 Main.d.setVisible(false);
                 ordering.setText("");
                 countT.setText("");
@@ -260,10 +284,13 @@ public class Main {
             public void actionPerformed(ActionEvent action) {
                 String partName = ordering.getText();
                 int u = 0;
+                boolean error = false;
                 try {
                     u = Integer.parseInt(partName);
                 } catch (Exception poll) {
                     System.out.println(poll.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
+                    error = true;
                 }
                 Part h = C.searchPart(u);
                 if (h == null) {
@@ -425,21 +452,25 @@ public class Main {
                     number = Integer.parseInt(no.getText());
                 } catch (Exception poll) {
                     System.out.println(poll.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 try {
                     count = Integer.parseInt(countTo.getText());
                 } catch (Exception p) {
                     System.out.println(p.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 try {
                     numberOn = Integer.parseInt(entry.getText());
                 } catch (Exception o) {
                     System.out.println(o.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 try {
                     numberOff = Integer.parseInt(numOff.getText());
                 } catch (Exception l) {
                     System.out.println(l.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 boolean y = C.addReplacement(count, number, numberOff, numberOn, mechanic, notes);
                 if (y) {
@@ -471,11 +502,14 @@ public class Main {
                     number = Integer.parseInt(text.getText());
                 } catch (Exception poll) {
                     System.out.println(poll.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
+
                 }
                 try {
                     machine = Integer.parseInt(texter.getText());
                 } catch (Exception po) {
                     System.out.println(po.getLocalizedMessage());
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 ReplacementPVector commonParts = new ReplacementPVector();
                 Part g = C.searchPart(number);
@@ -586,7 +620,8 @@ public class Main {
                                 long rough = date.getTime() / 1000;
                                 r.setDateOrdered((int) rough);
                                 uriel.add(new JLabel("Order Placed!"));
-                                JOptionPane.showMessageDialog(viewOrder,uriel, "Order Updated!", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(viewOrder, uriel, "Order Updated!",
+                                        JOptionPane.INFORMATION_MESSAGE);
                                 d.setVisible(false);
                             }
                         });
@@ -600,7 +635,8 @@ public class Main {
                                 r.setDateFulfilled((int) rough);
                                 C.closeRequest(r);
                                 uriel.add(new JLabel("Order Fulfilled!"));
-                                JOptionPane.showMessageDialog(viewOrder,uriel, "Order Updated!", JOptionPane.INFORMATION_MESSAGE);
+                                JOptionPane.showMessageDialog(viewOrder, uriel, "Order Updated!",
+                                        JOptionPane.INFORMATION_MESSAGE);
                                 d.setVisible(false);
                             }
                         });
@@ -631,8 +667,8 @@ public class Main {
         JLabel two = new JLabel("Enter a Part Number");
         se.setHorizontalGroup(se.createSequentialGroup().addComponent(two).addComponent(searching).addComponent(query)
                 .addComponent(status));
-        se.setVerticalGroup(se.createParallelGroup().addComponent(two).addComponent(searching).addComponent(query)
-                .addComponent(status));
+        se.setVerticalGroup(se.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(two)
+                .addComponent(searching).addComponent(query).addComponent(status));
 
         // order a part panel
         JLabel order = new JLabel("Place an order: Please enter a part number");
@@ -643,31 +679,47 @@ public class Main {
         // searching by name grouplayout
         searchin.setHorizontalGroup(
                 searchin.createSequentialGroup().addComponent(sName).addComponent(field).addComponent(huawei));
-        searchin.setVerticalGroup(
-                searchin.createParallelGroup().addComponent(sName).addComponent(field).addComponent(huawei));
+        searchin.setVerticalGroup(searchin.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(sName)
+                .addComponent(field).addComponent(huawei));
         // replacement grouplayout
-        replace.setHorizontalGroup(replace.createSequentialGroup().addComponent(machine).addComponent(countTo)
-                .addComponent(numo).addComponent(no).addComponent(new JLabel("Mechanic's Name")).addComponent(nameTo)
-                .addComponent(new JLabel("Any notes")).addComponent(descripTo)
-                .addComponent(new JLabel("Number of parts that are being removed")).addComponent(numOff)
-                .addComponent(new JLabel("Number of parts that are being added")).addComponent(entry)
-                .addComponent(queryy));
-        replace.setVerticalGroup(replace.createSequentialGroup().addComponent(machine).addComponent(countTo)
-                .addComponent(numo).addComponent(no).addComponent(nameTo).addComponent(descripTo).addComponent(numOff)
-                .addComponent(entry).addComponent(queryy));
+        JLabel mechName = new JLabel("Mechanic's Name");
+        JLabel partsRemoved = new JLabel("Number of parts that are being removed");
+        JLabel partsAdded = new JLabel("Number of parts that are being added");
+        JLabel notesAF = new JLabel("Any notes");
+        replace.setHorizontalGroup(replace.createSequentialGroup()
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(machine)
+                        .addComponent(partsRemoved))
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(countTo)
+                        .addComponent(numOff))
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(numo)
+                        .addComponent(partsAdded))
+                .addGroup(
+                        replace.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(no).addComponent(entry))
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.LEADING).addComponent(mechName)
+                        .addComponent(queryy))
+                .addComponent(nameTo).addComponent(notesAF).addComponent(descripTo));
+        replace.setVerticalGroup(replace.createSequentialGroup()
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(machine)
+                        .addComponent(countTo).addComponent(numo).addComponent(no).addComponent(mechName)
+                        .addComponent(nameTo).addComponent(notesAF).addComponent(descripTo))
+                .addGroup(replace.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(partsRemoved)
+                        .addComponent(numOff).addComponent(partsAdded).addComponent(entry).addComponent(queryy)));
         // viewing pane
-        viewing.setHorizontalGroup(viewing.createSequentialGroup().addComponent(new JLabel("Enter Part #"))
-                .addComponent(text).addComponent(new JLabel("Enter Machine #")).addComponent(texter)
-                .addComponent(viewReplacements).addComponent(viewInventory));
-        viewing.setVerticalGroup(viewing.createParallelGroup().addComponent(text).addComponent(texter)
-                .addComponent(viewReplacements).addComponent(viewInventory));
+        JLabel machineNum = new JLabel("Enter Machine #");
+        JLabel partNum = new JLabel("Enter Part #");
+        viewing.setHorizontalGroup(
+                viewing.createSequentialGroup().addComponent(partNum).addComponent(text).addComponent(machineNum)
+                        .addComponent(texter).addComponent(viewReplacements).addComponent(viewInventory));
+        viewing.setVerticalGroup(viewing.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(partNum)
+                .addComponent(text).addComponent(machineNum).addComponent(texter).addComponent(viewReplacements)
+                .addComponent(viewInventory));
         // view order pane
         fulfill.setHorizontalGroup(fulfill.createSequentialGroup().addComponent(reveal));
-        fulfill.setVerticalGroup(fulfill.createParallelGroup().addComponent(reveal));
+        fulfill.setVerticalGroup(fulfill.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(reveal));
         // adding to mother frame
         JTabbedPane tp = new JTabbedPane();
         // Container tp = t.getContentPane();
-        tp.setBounds(0, 0, 1000, 1000);
+        tp.setBounds(0, 0, 1500, 1000);
 
         tp.add("Add a Part", f);
         tp.add("Order a Part", k);
@@ -679,7 +731,7 @@ public class Main {
 
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.add(tp);
-        t.setSize(1000, 400);// 400
+        t.setSize(1500, 400);// 400
                              // width
                              // and
                              // 500
