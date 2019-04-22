@@ -42,10 +42,16 @@ private:
 
 struct Replacement
 {
+  int numOff;      // Number of parts removed
+  int numOn;       // Number of parts installed
   time_t date;     // Date of replacement
   strmod mechanic; // Mechanic who replaced it
-  strmod notes;    // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody wasn't killed by a bowling pin")
+  strmod notes;    // Notes on replacement (e.g. "This screw was so fucked when I pulled it out, idk how nobody was killed by a bowling pin")
+
+  Replacement() : numOff(0), numOn(0), date(0), mechanic(""), notes("") {}
+  Replacement(int numOff, int numOn, time_t currTime, string mechanic, string notes) : numOff(numOff), numOn(numOn), date(currTime), mechanic(mechanic), notes(notes) {}
 };
+
 // machine parts (stored in array for each part in hash table)
 struct MachinePart
 {
@@ -147,6 +153,16 @@ public:
 
   // Allows easy editing of part fields
   bool editPart(Part *curr, int count, string name, string description);
+
+  /*
+  Function to return a vector of all replacements for a part on a given machine.
+    Pass EITHER a part number or a part pointer. If both are passed, the pointer will be used.
+    Machine numbers are 1-10 (as opposed to 0-9).
+  */
+  void getReplacements(Part* curr, int partNum, int machineNum, vector<Replacement*> &outVec);
+
+  // Add a replacement for a part
+  bool addReplacement(int machineNum, int partNum, int numOff, int numOn, string mechanic, string notes);
 
   // Place an order for a part
   bool orderPart(Part *curr, int count, string mechanic, string notes, int priority);

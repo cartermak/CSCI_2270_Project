@@ -18,8 +18,9 @@ int main()
     // Declare various things
     string switc; // Damnit, Will
     string temp, fileName, mechanic, notes, priority;
-    int partNum, count;
+    int partNum, count, numOff, numOn, machineNum;
     Part *curr;
+    vector<Replacement *> replacements;
 
     /*
     Menu to load a save file
@@ -166,13 +167,56 @@ int main()
             // Give option to edit data. If yes, call editPart
             break;
         case 4:
-            cout << "Enter Machine #" << endl;
-            cout << "Enter Part number to replace" << endl;
-            cout << "Enter # of parts to be replaced" << endl;
+            cout << "Replace a part on a machine:\n";
+            cout << "   Enter Machine #:\n   >> ";
+            getline(cin, temp);
+            machineNum = stoi(temp);
+
+            cout << "   Enter Part number to replace:\n   >> ";
+            getline(cin, temp);
+            partNum = stoi(temp);
+
+            cout << "   Enter quantity of parts removed:\n   >> ";
+            getline(cin, temp);
+            numOff = stoi(temp);
+
+            cout << "   Enter quantity of parts added:\n   >>";
+            getline(cin, temp);
+            numOn = stoi(temp);
+
+            cout << "   Enter your name:\n   >>";
+            getline(cin, mechanic);
+
+            cout << "   Enter any notes:\n   >>";
+            getline(cin, notes);
+
+            A.addReplacement(machineNum, partNum, numOff, numOn, mechanic, notes);
             break;
         case 5:
-            cout << "Enter Machine #" << endl;
-            // display parts on machine given
+            cout << "Enter Machine #:\n   >>" << endl;
+            getline(cin, temp);
+            machineNum = stoi(temp);
+
+            cout << "Enter a part number:\n   >>";
+            getline(cin, temp);
+            partNum = stoi(temp);
+
+            A.getReplacements(NULL, partNum, machineNum, replacements);
+
+            cout << "All replacements:" << endl
+                 << endl;
+
+            for (unsigned int i = 0; i < replacements.size(); i++)
+            {
+                cout << "   Time: " << ctime(&replacements[i]->date) << endl;
+                cout << "   Mechanic: " << replacements[i]->mechanic.getStr() << endl;
+                cout << "   Number of parts removed: " << replacements[i]->numOff << endl;
+                cout << "   Number of parts installed: " << replacements[i]->numOn << endl;
+                cout << "   Notes: " << replacements[i]->notes.getStr() << endl;
+            }
+
+            replacements.clear();
+
             break;
         case 6:
             cout << "Goodbye!" << endl;
@@ -191,7 +235,7 @@ void printMainMenu()
     cout << "2. Add a part to the inventory" << endl;
     cout << "3. Show part in inventory" << endl;
     cout << "4. Replace a Part on a Machine" << endl;
-    cout << "5. See active parts" << endl;
+    cout << "5. See Part Replacements" << endl;
     cout << "6. Quit" << endl;
 }
 

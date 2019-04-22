@@ -85,7 +85,7 @@ Part *Connection::searchPart(int partNumber)
     // return temp;
 }
 
-Part* Connection::addPart(int partNumber, int count, string name, string description)
+Part *Connection::addPart(int partNumber, int count, string name, string description)
 {
     Part *tmp = searchPart(partNumber);
 
@@ -98,6 +98,13 @@ Part* Connection::addPart(int partNumber, int count, string name, string descrip
     else
     {
         Part p(partNumber, count, name, description);
+
+        // Enter correct part numbers in machinePart structs
+        for (int i = 0; i < NUM_OF_MACHINES; i++)
+        {
+            p.machines[i].partNum = partNumber;
+        }
+
         int index = hashFunction(partNumber);
         partsTable[index].push_back(p);
 
@@ -151,7 +158,7 @@ int Connection::hashFunction(int key)
         key = key / 10;
     }
 
-    return sum;
+    return sum % HASH_TABLE_SIZE;
 }
 
 /*
@@ -194,5 +201,45 @@ void Connection::printRequestQueue()
     {
         printRequest(pq.top());
         pq.pop();
+    }
+}
+
+bool Connection::addReplacement(int machineNum, int partNum, int numOff, int numOn, string mechanic, string notes)
+{
+    Part *curr = searchPart(partNum);
+
+    if (curr)
+    {
+        if (machineNum > NUM_OF_MACHINES || machineNum < 1)
+        {
+            cout << "Error: Machine number out of range" << endl;
+        }
+        Replacement newRepl(numOff, numOn, getCurrentTime(), mechanic, notes); // Instantiate and populate new replacement struct
+        curr->machines[machineNum - 1].replacements.push_back(newRepl);        // Add the replacement to the replacement vector for that part
+        curr->machines[machineNum - 1].count += (numOn - numOff);              // Iterate the number of parts on the machine by the user-input count
+
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement*> &outVec)
+{
+    if (!curr)
+    {
+        curr = searchPart(partNum);
+
+        if (!curr)
+        {
+            cout << "Error: Part could not be found" << endl;
+        }
+    }
+
+    for (vector<Replacement>::iterator i = curr->machines[machineNum-1].replacements.begin(); i < curr->machines[machineNum-1].replacements.end(); i++)
+    {
+        outVec.push_back(&*i);
     }
 }

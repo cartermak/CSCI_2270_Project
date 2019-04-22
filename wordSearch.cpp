@@ -9,6 +9,7 @@ bool comparePtrToPart(Part *a, Part *b)
 
 wordSearch::wordSearch()
 {
+  root = NULL;
 }
 
 wordSearch::~wordSearch()
@@ -86,7 +87,9 @@ Part *wordSearch::searchPart(string words, vector<Part *> &commonParts)
   {
     findCommonPtrs(commonParts, maybeParts[i]);
   }
+
   return NULL;
+
   /*
   At this point, the commonParts vector contains pointers to the parts which match the user's query/ies.
   The following are only print statements for diagnostics; return at this point to avoid printing.
