@@ -21,6 +21,7 @@ int main()
     int partNum, count, numOff, numOn, machineNum;
     Part *curr;
     vector<Replacement *> replacements;
+    vector<Part*> allParts;
 
     /*
     Menu to load a save file
@@ -219,6 +220,16 @@ int main()
 
             break;
         case 6:
+            A.getAllParts(allParts);
+
+            cout << "All Parts in the Library:" << endl;
+
+            for(vector<Part*>::iterator i = allParts.begin();i<allParts.end();i++)
+            {
+                printPartData(*i);
+            }
+            break;
+        case 7:
             cout << "Goodbye!" << endl;
             A.printRequestQueue();
             return 0;
@@ -236,7 +247,8 @@ void printMainMenu()
     cout << "3. Show part in inventory" << endl;
     cout << "4. Replace a Part on a Machine" << endl;
     cout << "5. See Part Replacements" << endl;
-    cout << "6. Quit" << endl;
+    cout << "6. See All Parts" << endl;
+    cout << "7. Quit" << endl;
 }
 
 /*
