@@ -152,6 +152,13 @@ public:
   // Allows easy editing of part fields
   bool editPart(Part *curr, int count, string name, string description);
 
+  /*
+  Function to return a vector of all replacements for a part on a given machine.
+    Pass EITHER a part number or a part pointer. If both are passed, the pointer will be used.
+    Machine numbers are 1-10 (as opposed to 0-9).
+  */
+  void getReplacements(Part* curr, int partNum, int machineNum, vector<Replacement*> &outVec);
+
   // Add a replacement for a part
   bool addReplacement(int machineNum, int partNum, int numOff, int numOn, string mechanic, string notes);
 

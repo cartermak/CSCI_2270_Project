@@ -158,7 +158,7 @@ int Connection::hashFunction(int key)
         key = key / 10;
     }
 
-    return sum%HASH_TABLE_SIZE;
+    return sum % HASH_TABLE_SIZE;
 }
 
 /*
@@ -223,5 +223,23 @@ bool Connection::addReplacement(int machineNum, int partNum, int numOff, int num
     else
     {
         return false;
+    }
+}
+
+void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement*> &outVec)
+{
+    if (!curr)
+    {
+        curr = searchPart(partNum);
+
+        if (!curr)
+        {
+            cout << "Error: Part could not be found" << endl;
+        }
+    }
+
+    for (vector<Replacement>::iterator i = curr->machines[machineNum-1].replacements.begin(); i < curr->machines[machineNum-1].replacements.end(); i++)
+    {
+        outVec.push_back(&*i);
     }
 }
