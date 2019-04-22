@@ -226,7 +226,7 @@ bool Connection::addReplacement(int machineNum, int partNum, int numOff, int num
     }
 }
 
-void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement*> &outVec)
+void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector<Replacement *> &outVec)
 {
     if (!curr)
     {
@@ -238,7 +238,7 @@ void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector
         }
     }
 
-    for (vector<Replacement>::iterator i = curr->machines[machineNum-1].replacements.begin(); i < curr->machines[machineNum-1].replacements.end(); i++)
+    for (vector<Replacement>::iterator i = curr->machines[machineNum - 1].replacements.begin(); i < curr->machines[machineNum - 1].replacements.end(); i++)
     {
         outVec.push_back(&*i);
     }

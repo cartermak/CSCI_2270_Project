@@ -327,6 +327,20 @@ SWIGINTERN void std_vector_Sl_Part_Sm__Sg__set(std::vector< Part * > *self,int i
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN std::vector< Replacement * >::const_reference std_vector_Sl_Replacement_Sm__Sg__get(std::vector< Replacement * > *self,int i){
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    return (*self)[i];
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+SWIGINTERN void std_vector_Sl_Replacement_Sm__Sg__set(std::vector< Replacement * > *self,int i,std::vector< Replacement * >::value_type const &val){
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    (*self)[i] = val;
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
 
 #ifdef __cplusplus
 extern "C" {
@@ -1360,6 +1374,176 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1PartPVector(JNIEnv *jenv,
 }
 
 
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1ReplacementPVector_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  std::vector< Replacement * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (std::vector< Replacement * > *)new std::vector< Replacement * >();
+  *(std::vector< Replacement * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1ReplacementPVector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  std::vector< Replacement * >::size_type arg1 ;
+  std::vector< Replacement * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (std::vector< Replacement * >::size_type)jarg1; 
+  result = (std::vector< Replacement * > *)new std::vector< Replacement * >(arg1);
+  *(std::vector< Replacement * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_ReplacementPVector_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  std::vector< Replacement * >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  result = ((std::vector< Replacement * > const *)arg1)->size();
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_ReplacementPVector_1capacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  std::vector< Replacement * >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  result = ((std::vector< Replacement * > const *)arg1)->capacity();
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_ReplacementPVector_1reserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  std::vector< Replacement * >::size_type arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  arg2 = (std::vector< Replacement * >::size_type)jarg2; 
+  (arg1)->reserve(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_ReplacementPVector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  result = (bool)((std::vector< Replacement * > const *)arg1)->empty();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_ReplacementPVector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  (arg1)->clear();
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_ReplacementPVector_1add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  std::vector< Replacement * >::value_type *arg2 = 0 ;
+  std::vector< Replacement * >::value_type temp2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  temp2 = *(std::vector< Replacement * >::value_type *)&jarg2;
+  arg2 = (std::vector< Replacement * >::value_type *)&temp2; 
+  (arg1)->push_back((std::vector< Replacement * >::value_type const &)*arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_ReplacementPVector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  int arg2 ;
+  std::vector< Replacement * >::value_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< Replacement * >::value_type *) &std_vector_Sl_Replacement_Sm__Sg__get(arg1,arg2);
+  }
+  catch(std::out_of_range &_e) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+    return 0;
+  }
+  
+  *(std::vector< Replacement * >::value_type *)&jresult = *result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_ReplacementPVector_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  int arg2 ;
+  std::vector< Replacement * >::value_type *arg3 = 0 ;
+  std::vector< Replacement * >::value_type temp3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = *(std::vector< Replacement * >::value_type *)&jarg3;
+  arg3 = (std::vector< Replacement * >::value_type *)&temp3; 
+  try {
+    std_vector_Sl_Replacement_Sm__Sg__set(arg1,arg2,(Replacement *const &)*arg3);
+  }
+  catch(std::out_of_range &_e) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+    return ;
+  }
+  
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1ReplacementPVector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  std::vector< Replacement * > *arg1 = (std::vector< Replacement * > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::vector< Replacement * > **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT jint JNICALL Java_mypackage_testJNI_getCurrentTime(JNIEnv *jenv, jclass jcls) {
   jint jresult = 0 ;
   time_t result;
@@ -1470,6 +1654,62 @@ SWIGEXPORT jstring JNICALL Java_mypackage_testJNI_strmod_1getStr(JNIEnv *jenv, j
 }
 
 
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1numOff_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->numOff = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Replacement_1numOff_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Replacement *arg1 = (Replacement *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  result = (int) ((arg1)->numOff);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1numOn_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  Replacement *arg1 = (Replacement *) 0 ;
+  int arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  arg2 = (int)jarg2; 
+  if (arg1) (arg1)->numOn = arg2;
+}
+
+
+SWIGEXPORT jint JNICALL Java_mypackage_testJNI_Replacement_1numOn_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jint jresult = 0 ;
+  Replacement *arg1 = (Replacement *) 0 ;
+  int result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Replacement **)&jarg1; 
+  result = (int) ((arg1)->numOn);
+  jresult = (jint)result; 
+  return jresult;
+}
+
+
 SWIGEXPORT void JNICALL Java_mypackage_testJNI_Replacement_1date_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
   Replacement *arg1 = (Replacement *) 0 ;
   time_t arg2 ;
@@ -1556,13 +1796,49 @@ SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_Replacement_1notes_1get(JNIEnv *
 }
 
 
-SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Replacement(JNIEnv *jenv, jclass jcls) {
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Replacement_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   Replacement *result = 0 ;
   
   (void)jenv;
   (void)jcls;
   result = (Replacement *)new Replacement();
+  *(Replacement **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1Replacement_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jint jarg1, jint jarg2, jint jarg3, jstring jarg4, jstring jarg5) {
+  jlong jresult = 0 ;
+  int arg1 ;
+  int arg2 ;
+  time_t arg3 ;
+  std::string arg4 ;
+  std::string arg5 ;
+  Replacement *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (int)jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (time_t)jarg3; 
+  if(!jarg4) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg4_pstr = (const char *)jenv->GetStringUTFChars(jarg4, 0); 
+  if (!arg4_pstr) return 0;
+  (&arg4)->assign(arg4_pstr);
+  jenv->ReleaseStringUTFChars(jarg4, arg4_pstr); 
+  if(!jarg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg5_pstr = (const char *)jenv->GetStringUTFChars(jarg5, 0); 
+  if (!arg5_pstr) return 0;
+  (&arg5)->assign(arg5_pstr);
+  jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
+  result = (Replacement *)new Replacement(arg1,arg2,arg3,arg4,arg5);
   *(Replacement **)&jresult = result; 
   return jresult;
 }
@@ -2644,6 +2920,72 @@ SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1editPart(JNIEnv *
   (&arg5)->assign(arg5_pstr);
   jenv->ReleaseStringUTFChars(jarg5, arg5_pstr); 
   result = (bool)(arg1)->editPart(arg2,arg3,arg4,arg5);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1getReplacements(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jint jarg3, jint jarg4, jlong jarg5, jobject jarg5_) {
+  Connection *arg1 = (Connection *) 0 ;
+  Part *arg2 = (Part *) 0 ;
+  int arg3 ;
+  int arg4 ;
+  std::vector< Replacement * > *arg5 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  (void)jarg5_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Part **)&jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = *(std::vector< Replacement * > **)&jarg5;
+  if (!arg5) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< Replacement * > & reference is null");
+    return ;
+  } 
+  (arg1)->getReplacements(arg2,arg3,arg4,*arg5);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1addReplacement(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jint jarg3, jint jarg4, jint jarg5, jstring jarg6, jstring jarg7) {
+  jboolean jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  int arg2 ;
+  int arg3 ;
+  int arg4 ;
+  int arg5 ;
+  std::string arg6 ;
+  std::string arg7 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = (int)jarg2; 
+  arg3 = (int)jarg3; 
+  arg4 = (int)jarg4; 
+  arg5 = (int)jarg5; 
+  if(!jarg6) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg6_pstr = (const char *)jenv->GetStringUTFChars(jarg6, 0); 
+  if (!arg6_pstr) return 0;
+  (&arg6)->assign(arg6_pstr);
+  jenv->ReleaseStringUTFChars(jarg6, arg6_pstr); 
+  if(!jarg7) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg7_pstr = (const char *)jenv->GetStringUTFChars(jarg7, 0); 
+  if (!arg7_pstr) return 0;
+  (&arg7)->assign(arg7_pstr);
+  jenv->ReleaseStringUTFChars(jarg7, arg7_pstr); 
+  result = (bool)(arg1)->addReplacement(arg2,arg3,arg4,arg5,arg6,arg7);
   jresult = (jboolean)result; 
   return jresult;
 }
