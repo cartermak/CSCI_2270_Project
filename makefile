@@ -9,7 +9,7 @@ OBJS=$(subst .cpp,.o,$(SRCS))
 all: a.out
 
 a.out: $(OBJS)
-	$(CXX) $(LDFLAGS) -o share.so $(OBJS) $(LDLIBS) 
+	$(CXX) $(LDFLAGS) -o Java_experimenting/mypackage/classes/share.so $(OBJS) $(LDLIBS) 
 
 depend: .depend
 
