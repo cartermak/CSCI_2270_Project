@@ -2,8 +2,10 @@ package mypackage;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import java.awt.event.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 // import java.util.*;
 
 public class Main {
@@ -322,23 +324,7 @@ public class Main {
                     searching.setText("");
                 }
                 if (h == null) {
-                    status.setText("Part not Found");
-                    Component test[] = query.getComponents();
-                    boolean eh = false;
-                    for (int i = 0; i < test.length; i++) {
-                        if (test[i] instanceof JTable) {
-
-                            eh = true;
-                            break;
-                        }
-                    }
-                    if (eh) {
-                        System.out.println("Testing");
-                        query.remove(jt);
-                        query.revalidate();
-                        query.repaint();
-                    }
-                    eh = false;
+                    JOptionPane.showMessageDialog(search, "Part not found", "Error", JOptionPane.ERROR_MESSAGE);
 
                 }
                 searching.setText("");
@@ -370,7 +356,8 @@ public class Main {
                         model.addRow(new Object[] { Number, name, count, description });
                     }
                     jt.setPreferredSize(new Dimension(500, 100));
-                    uriel.add(jt);
+                    JScrollPane pane = new JScrollPane(jt);
+                    uriel.add(pane);
                     UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
                     JOptionPane.showMessageDialog(search, uriel, "Part Found", JOptionPane.INFORMATION_MESSAGE);
                     searching.setText("");
@@ -382,9 +369,7 @@ public class Main {
         // setting grouplayouts
         gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
                 .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
-                .addComponent(descripT).addComponent(b).addComponent(o)
-
-        );
+                .addComponent(descripT).addComponent(b).addComponent(o));
         gr.setVerticalGroup(gr.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(l).addComponent(num)
                 .addComponent(n).addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT)
                 .addComponent(descrip).addComponent(descripT).addComponent(b).addComponent(o));
@@ -409,11 +394,14 @@ public class Main {
                 searchin.createParallelGroup().addComponent(sName).addComponent(field).addComponent(huawei));
         // adding to mother frame
         JTabbedPane tp = new JTabbedPane();
+        // Container tp = t.getContentPane();
         tp.setBounds(0, 0, 1000, 1000);
+
         tp.add("Add a Part", f);
         tp.add("Order a Part", k);
         tp.add("Search by part #", search);
-        tp.add("Search by name",searchName);
+        tp.add("Search by name", searchName);
+        
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.add(tp);
         t.setSize(1000, 400);// 400
@@ -421,6 +409,7 @@ public class Main {
                              // and
                              // 500
                              // height
+        
         t.setLayout(null);// using no layout managers
 
         t.setVisible(true);// making the frame visible
