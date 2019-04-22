@@ -1,15 +1,15 @@
 CC=gcc
-CXX=g++ -shared -fPIC -I/usr/lib/jvm/java-11-oracle/include -I/usr/lib/jvm/java-11-oracle/include/linux
+CXX=g++
 RM=rm -f
 
 
-SRCS=Connection.cpp swig.cpp strmod.cpp SaveMethod.cpp wordSearch.cpp
-OBJS=$(subst .cpp,.o,$(SRCS))
+SRCS=mainMenu.cpp Connection.cpp strmod.cpp SaveMethod.cpp wordSearch.cpp
+OBJS=$(subst .cc,.o,$(SRCS))
 
 all: a.out
 
 a.out: $(OBJS)
-	$(CXX) $(LDFLAGS) -o share.so $(OBJS) $(LDLIBS) 
+	$(CXX) $(LDFLAGS) -o a.out $(OBJS) $(LDLIBS) 
 
 depend: .depend
 

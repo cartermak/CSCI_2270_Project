@@ -178,6 +178,9 @@ public:
   // Populate the input vector with pointers to all parts in the tree
   void getAllParts(vector<Part*> &parts);
 
+  // Remove the input request from the vector of open requests
+  void closeRequest(Request* curr);
+
   void printRequestQueue();
   void printRequest(Request* r);
   // Fields to store general info

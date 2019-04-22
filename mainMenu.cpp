@@ -33,15 +33,15 @@ int main()
     // {
     //     saver.printSaveHistory();
     // }
-    curr = A.addPart(111111111, 1, "A part", "");
+    curr = A.addPart(111111111, 1, "First sample part", "First description");
     wordTree.addPart(curr);
-    curr = A.addPart(222222222, 2, "Another fucking part", "description");
+    curr = A.addPart(222222222, 2, "Second sample part", "Second description");
     wordTree.addPart(curr);
-    curr = A.addPart(333333333, 3, "Another motherfucking part", "description");
+    curr = A.addPart(333333333, 3, "Another one!", "Another description");
     wordTree.addPart(curr);
-    curr = A.addPart(444444444, 4, "Call this fucker a piece", "description");
+    curr = A.addPart(444444444, 4, "Nuts and Bolts", "Miscellany");
     wordTree.addPart(curr);
-    curr = A.addPart(555555555, 5, "Call fucking box", "description");
+    curr = A.addPart(555555555, 5, "Very specific bolt", "A very specific part with an inportant purpose");
     wordTree.addPart(curr);
 
     wordTree.printTree();
