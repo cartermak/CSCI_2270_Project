@@ -171,7 +171,6 @@ wordNode *wordSearch::addNodeHelper(wordNode *currNode, string word, Part *part)
   curr = new wordNode;
   curr->word = word;
   curr->parts.push_back(part);
-
   if (curr != root)
   {
     if (isL)
