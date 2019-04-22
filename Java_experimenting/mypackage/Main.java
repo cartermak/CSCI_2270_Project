@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -116,19 +117,22 @@ public class Main {
                                 "Part is already in inventory, would you like to edit it?");
                         if (b == JOptionPane.YES_OPTION) {
                             d = new JDialog(t, "Editing part " + nameT.getText() + " to inventory", true);
-
+                            JTextField description = new JTextField(descripT.getText(), 10);
+                            JTextField name = new JTextField(nameT.getText(), 10);
+                            JTextField cnt = new JTextField(countT.getText(), 10);
                             d.setLayout(new FlowLayout());
+                            d.add(new JLabel("Count"));
                             d.add(cnt);
-                            d.add(countT);
-                            d.add(nme);
-                            d.add(nameT);
-                            d.add(descrip);
-                            d.add(descripT);
+                            d.add(new JLabel("Part Name"));
+                            d.add(name);
+                            d.add(new JLabel("Part Description"));
+                            d.add(description);
 
                             d.add(editPart);
-                            d.setSize(300, 300);
+                            d.setSize(750, 150);
                             d.setVisible(true);
 
+                            f.repaint();
                         }
                     } else {
 
@@ -186,14 +190,16 @@ public class Main {
                     int b = JOptionPane.showConfirmDialog(k, "Part is not in inventory, would you like to add it?");
                     if (b == JOptionPane.YES_OPTION) {
                         d = new JDialog(t, "Adding part " + nameT.getText() + " to inventory", true);
-
+                        JTextField description = new JTextField(descripT.getText());
+                        JTextField name = new JTextField(nameT.getText());
+                        JTextField cnt = new JTextField(countT.getText());
                         d.setLayout(new FlowLayout());
+                        d.add(new JLabel("Count"));
                         d.add(cnt);
-                        d.add(countT);
-                        d.add(nme);
-                        d.add(nameT);
-                        d.add(descrip);
-                        d.add(descripT);
+                        d.add(new JLabel("Part Name"));
+                        d.add(name);
+                        d.add(new JLabel("Part Description"));
+                        d.add(description);
 
                         d.add(editPart);
                         d.setSize(300, 300);
@@ -221,26 +227,40 @@ public class Main {
         editPart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 int partNum = 0;
-                int count = 0;
-                boolean error = false;
+                int count = -1;
+                String name = "";
+                String description = "";
+                // boolean error = false;
                 try {
-                    partNum = Integer.parseInt(nameT.getText());
+                    partNum = Integer.parseInt(n.getText());
                 } catch (Exception z) {
 
                     System.out.println(z.getLocalizedMessage());
-                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
-                    error = true;
+                    JOptionPane.showMessageDialog(t, "Input failure part number", "Error", JOptionPane.ERROR_MESSAGE);
+                    // error = true;
                 }
                 try {
                     count = Integer.parseInt(countT.getText());
                 } catch (Exception f) {
                     System.out.println(f.getLocalizedMessage());
-                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
-                    error = true;
+                    JOptionPane.showMessageDialog(t, "Input failure part count", "Error", JOptionPane.ERROR_MESSAGE);
+                    // error = true;
+                }
+                try {
+                    name = nameT.getText();
+                } catch (Exception q) {
+                    name = "";
+                }
+                try {
+                    description = descripT.getText();
+                } catch (Exception g) {
+                    description = "";
                 }
                 Part y = C.searchPart(partNum);
-                C.editPart(y, count, nameT.getText(), descripT.getText());
+                C.editPart(y, count, name, description);
                 d.setVisible(false);
+                f.repaint();
+                // t.repaint();
             }
         });
         button.addActionListener(new ActionListener() {
@@ -284,13 +304,13 @@ public class Main {
             public void actionPerformed(ActionEvent action) {
                 String partName = ordering.getText();
                 int u = 0;
-                boolean error = false;
+                // boolean error = false;
                 try {
                     u = Integer.parseInt(partName);
                 } catch (Exception poll) {
                     System.out.println(poll.getLocalizedMessage());
                     JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
-                    error = true;
+                    // error = true;
                 }
                 Part h = C.searchPart(u);
                 if (h == null) {
@@ -656,6 +676,7 @@ public class Main {
         });
 
         // setting grouplayouts
+        // grouplayout for adding panel
         gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
                 .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
                 .addComponent(descripT).addComponent(b).addComponent(o));
@@ -665,6 +686,7 @@ public class Main {
 
         // f.add(o);
         JLabel two = new JLabel("Enter a Part Number");
+        // group layout for ordering panel
         se.setHorizontalGroup(se.createSequentialGroup().addComponent(two).addComponent(searching).addComponent(query)
                 .addComponent(status));
         se.setVerticalGroup(se.createParallelGroup(GroupLayout.Alignment.BASELINE).addComponent(two)
