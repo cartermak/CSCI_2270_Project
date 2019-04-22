@@ -10,6 +10,7 @@ namespace std {
    %template(PartVector) vector<Part>;
    %template(ReplacementVector) vector<Replacement>;
    %template(RequestVector) vector<Request>;
+   %template(RequestPVector) vector<Request*>;
    %template(PartPVector) vector<Part*>;
    %template(ReplacementPVector) vector<Replacement*>;
 }

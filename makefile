@@ -5,11 +5,11 @@ RM=rm -f
 
 SRCS=Connection.cpp swig.cpp strmod.cpp SaveMethod.cpp wordSearch.cpp
 OBJS=$(subst .cpp,.o,$(SRCS))
+EXECUTABLE_FILES = Java_experimenting/mypackage/classes/share.so
+build: $(EXECUTABLE_FILES)
 
-all: a.out
-
-a.out: $(OBJS)
-	$(CXX) $(LDFLAGS) -o share.so $(OBJS) $(LDLIBS) 
+$(EXECUTABLE_FILES): $(OBJS)
+	$(CXX) $(LDFLAGS) -o $@ $(OBJS) $(LDLIBS) 
 
 depend: .depend
 

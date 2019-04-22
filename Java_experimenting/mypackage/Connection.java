@@ -70,12 +70,32 @@ public class Connection {
     return testJNI.Connection_orderPart(swigCPtr, this, Part.getCPtr(curr), curr, count, mechanic, notes, priority);
   }
 
+  public void getRequests(RequestPVector q) {
+    testJNI.Connection_getRequests(swigCPtr, this, RequestPVector.getCPtr(q), q);
+  }
+
+  public boolean placeOrder(Request order, String notes) {
+    return testJNI.Connection_placeOrder(swigCPtr, this, Request.getCPtr(order), order, notes);
+  }
+
+  public boolean fulfillOrder(Request order, String notes) {
+    return testJNI.Connection_fulfillOrder(swigCPtr, this, Request.getCPtr(order), order, notes);
+  }
+
+  public void getAllParts(PartPVector parts) {
+    testJNI.Connection_getAllParts(swigCPtr, this, PartPVector.getCPtr(parts), parts);
+  }
+
   public void printRequestQueue() {
     testJNI.Connection_printRequestQueue(swigCPtr, this);
   }
 
   public void printRequest(Request r) {
     testJNI.Connection_printRequest(swigCPtr, this, Request.getCPtr(r), r);
+  }
+
+  public void closeRequest(Request curr) {
+    testJNI.Connection_closeRequest(swigCPtr, this, Request.getCPtr(curr), curr);
   }
 
   public void setTimeOpened(int value) {

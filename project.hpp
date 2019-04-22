@@ -180,6 +180,7 @@ public:
 
   void printRequestQueue();
   void printRequest(Request* r);
+  void closeRequest(Request* curr);
   // Fields to store general info
   time_t timeOpened; // Field to store when the struct was instantiated
 

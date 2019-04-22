@@ -235,6 +235,7 @@ void Connection::getReplacements(Part *curr, int partNum, int machineNum, vector
         if (!curr)
         {
             cout << "Error: Part could not be found" << endl;
+            return;
         }
     }
 
@@ -291,4 +292,9 @@ void Connection::getAllParts(vector<Part*> &parts)
             parts.push_back(&*j);
         }
     }
+}
+
+void Connection::closeRequest(Request* curr)
+{
+    q.erase(remove(q.begin(), q.end(), curr), q.end());
 }

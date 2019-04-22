@@ -1,10 +1,12 @@
 package mypackage;
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
+import java.util.*;
 
 // import java.util.*;
 
@@ -29,6 +31,7 @@ public class Main {
         JPanel searchName = new JPanel();
         JPanel replacement = new JPanel();
         JPanel view = new JPanel();
+        JPanel viewOrder = new JPanel();
         // layout for ordering panel
         GroupLayout group = new GroupLayout(k);
         group.setAutoCreateGaps(true);
@@ -55,6 +58,10 @@ public class Main {
         GroupLayout viewing = new GroupLayout(view);
         viewing.setAutoCreateContainerGaps(true);
         viewing.setAutoCreateGaps(true);
+        // fulfill screen
+        GroupLayout fulfill = new GroupLayout(viewOrder);
+        fulfill.setAutoCreateContainerGaps(true);
+        fulfill.setAutoCreateGaps(true);
         // mother frame
         JFrame t = new JFrame("Connection Parts Inventory");
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -294,6 +301,24 @@ public class Main {
                         d.setVisible(true);
 
                     }
+                } else {
+                    Part asd = C.searchPart(u);
+                    int cont = 0;
+                    cont += asd.getCount();
+                    strmod you = asd.getName();
+                    String your = you.getStr();
+                    d = new JDialog(t, "Ordering " + your, true);
+                    d.setLayout(new FlowLayout());
+                    d.add(new JLabel("Part found! there are " + cont + " in the inventory"));
+                    d.add(new JLabel("Number to be ordered"));
+                    d.add(countT);
+                    d.add(new JLabel("Mechanic's Name"));
+                    d.add(nameT);
+                    d.add(new JLabel("Any notes"));
+                    d.add(descripT);
+                    d.add(button);
+                    d.setSize(300, 300);
+                    d.setVisible(true);
                 }
 
             }
@@ -324,7 +349,6 @@ public class Main {
 
                     JPanel uriel = new JPanel();
                     DefaultTableModel model = (DefaultTableModel) jt.getModel();
-                    model.addRow(new Object[] { "Part Number", "Part Name", "# in inventory", "Description" });
                     model.addRow(new Object[] { Number, name, count, description });
                     jt.setPreferredSize(new Dimension(500, 100));
                     uriel.add(jt);
@@ -354,7 +378,6 @@ public class Main {
                         new Object[] { "Part Number", "Part Name", "# in inventory", "Description" }, 0));
                 jt.setBounds(20, 20, 450, 70);
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
-                model.addRow(new Object[] { "Part Number", "Part Name", "# in inventory", "Description" });
                 if (commonParts.size() != 0) {
                     for (int i = 0; i < commonParts.size(); i++) {
                         status.setText("Part Found!");
@@ -379,7 +402,6 @@ public class Main {
 
         // Replacement screen
 
-        
         JLabel numo = new JLabel("Part #");
         JLabel machine = new JLabel("Machine #");
         JTextField entry = new JTextField(10);
@@ -439,34 +461,164 @@ public class Main {
         // JLabel label = new JLabel("Make Replacement");
         JButton viewReplacements = new JButton("View Replacements");
         JButton viewInventory = new JButton("View Inventory");
-        ActionListener viewer = new ActionListener(){
-            public void actionPerformed(ActionEvent e){
+        JTextField text = new JTextField(10);
+        JTextField texter = new JTextField(10);
+        ActionListener viewer = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int number = 0;
+                int machine = 0;
+                try {
+                    number = Integer.parseInt(text.getText());
+                } catch (Exception poll) {
+                    System.out.println(poll.getLocalizedMessage());
+                }
+                try {
+                    machine = Integer.parseInt(texter.getText());
+                } catch (Exception po) {
+                    System.out.println(po.getLocalizedMessage());
+                }
+                ReplacementPVector commonParts = new ReplacementPVector();
+                Part g = C.searchPart(number);
+                C.getReplacements(g, number, machine, commonParts);
+                JPanel uriel = new JPanel();
+                JTable jt = new JTable(new DefaultTableModel(new Object[] { "Part Number", "Mechanic", "Notes",
+                        "Number of part removed", "Number of part added", "Date of replacement" }, 0));
+                jt.setBounds(20, 20, 450, 70);
+                DefaultTableModel model = (DefaultTableModel) jt.getModel();
+                for (int i = 0; i < commonParts.size(); i++) {
+                    status.setText("Part Found!");
+                    Replacement h = commonParts.get(i);
+                    int Number = g.getPartNum();
+                    String count = Integer.toString(h.getNumOff());
+                    String mechanic = h.getMechanic().getStr();
+                    String notes = h.getNotes().getStr();
+                    String removed = Integer.toString(h.getNumOn());
+                    Date time = new java.util.Date((long) h.getDate() * 1000);
+                    model.addRow(new Object[] { Number, mechanic, notes, count, removed, time });
+                }
+                jt.setPreferredSize(new Dimension(500, 100));
+                JScrollPane pane = new JScrollPane(jt);
+                uriel.add(pane);
+                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                JOptionPane.showMessageDialog(search, uriel, "Part Inventory", JOptionPane.INFORMATION_MESSAGE);
+                searching.setText("");
+
+            }
+        };
+        ActionListener viewingReplacements = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 PartPVector commonParts = new PartPVector();
-                
+                C.getAllParts(commonParts);
                 JPanel uriel = new JPanel();
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Part Name", "# in inventory", "Description" }, 0));
                 jt.setBounds(20, 20, 450, 70);
                 DefaultTableModel model = (DefaultTableModel) jt.getModel();
-                model.addRow(new Object[] { "Part Number", "Part Name", "# in inventory", "Description" });
-                    for (int i = 0; i < commonParts.size(); i++) {
-                        status.setText("Part Found!");
-                        Part h = commonParts.get(i);
-                        int Number = h.getPartNum();
-                        String count = Integer.toString(h.getCount());
-                        String name = h.getName().getStr();
-                        String description = h.getDescription().getStr();
-                        model.addRow(new Object[] { Number, name, count, description });
-                    }
-                    jt.setPreferredSize(new Dimension(500, 100));
-                    JScrollPane pane = new JScrollPane(jt);
-                    uriel.add(pane);
-                    UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
-                    JOptionPane.showMessageDialog(search, uriel, "Part Inventory", JOptionPane.INFORMATION_MESSAGE);
-                    searching.setText("");
-                
+                for (int i = 0; i < commonParts.size(); i++) {
+                    status.setText("Part Found!");
+                    Part h = commonParts.get(i);
+                    int Number = h.getPartNum();
+                    String count = Integer.toString(h.getCount());
+                    String name = h.getName().getStr();
+                    String description = h.getDescription().getStr();
+                    model.addRow(new Object[] { Number, name, count, description });
+                }
+                jt.setPreferredSize(new Dimension(500, 100));
+                JScrollPane pane = new JScrollPane(jt);
+                uriel.add(pane);
+                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                JOptionPane.showMessageDialog(search, uriel, "Part Inventory", JOptionPane.INFORMATION_MESSAGE);
+                searching.setText("");
+
             }
         };
+
+        viewInventory.addActionListener(viewingReplacements);
+        viewReplacements.addActionListener(viewer);
+
+        // order fulfillment screen
+        // show orders, place and fulfill orders
+        JButton reveal = new JButton("Show Orders");
+        JDialog show = new JDialog();
+        show.setSize(600, 300);
+        reveal.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                RequestPVector commonParts = new RequestPVector();
+                C.getRequests(commonParts);
+                JPanel uriel = new JPanel();
+                JTable jt = new JTable(new DefaultTableModel(
+                        new Object[] { "Part Number", "Mechanic Name", "# requested", "Notes", "Date Requested" }, 0));
+                jt.setBounds(20, 20, 650, 70);
+                DefaultTableModel model = (DefaultTableModel) jt.getModel();
+                for (int i = 0; i < commonParts.size(); i++) {
+                    status.setText("Part Found!");
+                    Request h = commonParts.get(i);
+                    String Number = Integer.toString(h.getPartNumber());
+                    String count = Integer.toString(h.getCount());
+                    String name = h.getMechanic().getStr();
+                    String description = h.getNotes().getStr();
+                    Date time = new java.util.Date((long) h.getDateOrdered() * 1000);
+                    model.addRow(new Object[] { Number, name, count, description, time });
+                }
+                jt.setPreferredSize(new Dimension(800, 100));
+                ListSelectionModel select = jt.getSelectionModel();
+                select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+                select.addListSelectionListener(new ListSelectionListener() {
+                    public void valueChanged(ListSelectionEvent list) {
+                        uriel.setVisible(false);
+                        search.setVisible(false);
+                        show.setVisible(false);
+                        d.setVisible(false);
+                        int[] row = jt.getSelectedRows();
+                        System.out.println(row.length);
+                        Request r = commonParts.get(row.length - 1);
+                        Date time = new java.util.Date((long) r.getDateOrdered() * 1000);
+                        d = new JDialog(t, "Order by " + (r.getMechanic().getStr()) + " for part " + r.getPartNumber());
+                        d.setLayout(new BorderLayout());
+                        d.add(new JLabel("Order Notes: " + r.getNotes().getStr()));
+                        d.add(new JLabel("Date Ordered " + time));
+                        JButton place = new JButton("Place Order");
+                        place.addActionListener(new ActionListener() {
+
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Date date = new Date();
+                                long rough = date.getTime() / 1000;
+                                r.setDateOrdered((int) rough);
+                                uriel.add(new JLabel("Order Placed!"));
+                                JOptionPane.showMessageDialog(viewOrder,uriel, "Order Updated!", JOptionPane.INFORMATION_MESSAGE);
+                                d.setVisible(false);
+                            }
+                        });
+                        JButton fulfillment = new JButton("Fulfill Order");
+                        fulfillment.addActionListener(new ActionListener() {
+
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                Date date = new Date();
+                                long rough = date.getTime() / 1000;
+                                r.setDateFulfilled((int) rough);
+                                C.closeRequest(r);
+                                uriel.add(new JLabel("Order Fulfilled!"));
+                                JOptionPane.showMessageDialog(viewOrder,uriel, "Order Updated!", JOptionPane.INFORMATION_MESSAGE);
+                                d.setVisible(false);
+                            }
+                        });
+                        d.add(place, BorderLayout.PAGE_START);
+                        d.add(fulfillment, BorderLayout.PAGE_END);
+                        d.setSize(600, 300);
+                        d.setVisible(true);
+                    }
+                });
+                JScrollPane pane = new JScrollPane(jt);
+                uriel.add(pane);
+                UIManager.put("OptionPane.minimumSize", new Dimension(600, 120));
+                show.add(uriel);
+                show.setVisible(true);
+                searching.setText("");
+            }
+        });
+
         // setting grouplayouts
         gr.setHorizontalGroup(gr.createSequentialGroup().addComponent(l).addComponent(num).addComponent(n)
                 .addComponent(cnt).addComponent(countT).addComponent(nme).addComponent(nameT).addComponent(descrip)
@@ -503,6 +655,15 @@ public class Main {
         replace.setVerticalGroup(replace.createSequentialGroup().addComponent(machine).addComponent(countTo)
                 .addComponent(numo).addComponent(no).addComponent(nameTo).addComponent(descripTo).addComponent(numOff)
                 .addComponent(entry).addComponent(queryy));
+        // viewing pane
+        viewing.setHorizontalGroup(viewing.createSequentialGroup().addComponent(new JLabel("Enter Part #"))
+                .addComponent(text).addComponent(new JLabel("Enter Machine #")).addComponent(texter)
+                .addComponent(viewReplacements).addComponent(viewInventory));
+        viewing.setVerticalGroup(viewing.createParallelGroup().addComponent(text).addComponent(texter)
+                .addComponent(viewReplacements).addComponent(viewInventory));
+        // view order pane
+        fulfill.setHorizontalGroup(fulfill.createSequentialGroup().addComponent(reveal));
+        fulfill.setVerticalGroup(fulfill.createParallelGroup().addComponent(reveal));
         // adding to mother frame
         JTabbedPane tp = new JTabbedPane();
         // Container tp = t.getContentPane();
@@ -513,6 +674,8 @@ public class Main {
         tp.add("Search by part #", search);
         tp.add("Search by name", searchName);
         tp.add("Replace a part", replacement);
+        tp.add("View Inventory", view);
+        tp.add("View Orders", viewOrder);
 
         t.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         t.add(tp);

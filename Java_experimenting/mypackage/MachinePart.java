@@ -35,14 +35,6 @@ public class MachinePart {
     }
   }
 
-  public void setCount(int value) {
-    testJNI.MachinePart_count_set(swigCPtr, this, value);
-  }
-
-  public int getCount() {
-    return testJNI.MachinePart_count_get(swigCPtr, this);
-  }
-
   public void setPartNum(int value) {
     testJNI.MachinePart_partNum_set(swigCPtr, this, value);
   }

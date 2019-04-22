@@ -313,6 +313,20 @@ SWIGINTERN void std_vector_Sl_Request_Sg__set(std::vector< Request > *self,int i
                 else
                     throw std::out_of_range("vector index out of range");
             }
+SWIGINTERN std::vector< Request * >::const_reference std_vector_Sl_Request_Sm__Sg__get(std::vector< Request * > *self,int i){
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    return (*self)[i];
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
+SWIGINTERN void std_vector_Sl_Request_Sm__Sg__set(std::vector< Request * > *self,int i,std::vector< Request * >::value_type const &val){
+                int size = int(self->size());
+                if (i>=0 && i<size)
+                    (*self)[i] = val;
+                else
+                    throw std::out_of_range("vector index out of range");
+            }
 SWIGINTERN std::vector< Part * >::const_reference std_vector_Sl_Part_Sm__Sg__get(std::vector< Part * > *self,int i){
                 int size = int(self->size());
                 if (i>=0 && i<size)
@@ -1204,6 +1218,176 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1RequestVector(JNIEnv *jen
 }
 
 
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1RequestPVector_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
+  jlong jresult = 0 ;
+  std::vector< Request * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  result = (std::vector< Request * > *)new std::vector< Request * >();
+  *(std::vector< Request * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1RequestPVector_1_1SWIG_11(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  jlong jresult = 0 ;
+  std::vector< Request * >::size_type arg1 ;
+  std::vector< Request * > *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = (std::vector< Request * >::size_type)jarg1; 
+  result = (std::vector< Request * > *)new std::vector< Request * >(arg1);
+  *(std::vector< Request * > **)&jresult = result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_RequestPVector_1size(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  std::vector< Request * >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  result = ((std::vector< Request * > const *)arg1)->size();
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_RequestPVector_1capacity(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jlong jresult = 0 ;
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  std::vector< Request * >::size_type result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  result = ((std::vector< Request * > const *)arg1)->capacity();
+  jresult = (jlong)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_RequestPVector_1reserve(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2) {
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  std::vector< Request * >::size_type arg2 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  arg2 = (std::vector< Request * >::size_type)jarg2; 
+  (arg1)->reserve(arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_RequestPVector_1isEmpty(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  jboolean jresult = 0 ;
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  result = (bool)((std::vector< Request * > const *)arg1)->empty();
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_RequestPVector_1clear(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  (arg1)->clear();
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_RequestPVector_1add(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  std::vector< Request * >::value_type *arg2 = 0 ;
+  std::vector< Request * >::value_type temp2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  temp2 = *(std::vector< Request * >::value_type *)&jarg2;
+  arg2 = (std::vector< Request * >::value_type *)&temp2; 
+  (arg1)->push_back((std::vector< Request * >::value_type const &)*arg2);
+}
+
+
+SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_RequestPVector_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
+  jlong jresult = 0 ;
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  int arg2 ;
+  std::vector< Request * >::value_type *result = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  try {
+    result = (std::vector< Request * >::value_type *) &std_vector_Sl_Request_Sm__Sg__get(arg1,arg2);
+  }
+  catch(std::out_of_range &_e) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+    return 0;
+  }
+  
+  *(std::vector< Request * >::value_type *)&jresult = *result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_RequestPVector_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2, jlong jarg3, jobject jarg3_) {
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  int arg2 ;
+  std::vector< Request * >::value_type *arg3 = 0 ;
+  std::vector< Request * >::value_type temp3 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg3_;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  arg2 = (int)jarg2; 
+  temp3 = *(std::vector< Request * >::value_type *)&jarg3;
+  arg3 = (std::vector< Request * >::value_type *)&temp3; 
+  try {
+    std_vector_Sl_Request_Sm__Sg__set(arg1,arg2,(Request *const &)*arg3);
+  }
+  catch(std::out_of_range &_e) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaIndexOutOfBoundsException, (&_e)->what());
+    return ;
+  }
+  
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1RequestPVector(JNIEnv *jenv, jclass jcls, jlong jarg1) {
+  std::vector< Request * > *arg1 = (std::vector< Request * > *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  arg1 = *(std::vector< Request * > **)&jarg1; 
+  delete arg1;
+}
+
+
 SWIGEXPORT jlong JNICALL Java_mypackage_testJNI_new_1PartPVector_1_1SWIG_10(JNIEnv *jenv, jclass jcls) {
   jlong jresult = 0 ;
   std::vector< Part * > *result = 0 ;
@@ -1851,34 +2035,6 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_delete_1Replacement(JNIEnv *jenv,
   (void)jcls;
   arg1 = *(Replacement **)&jarg1; 
   delete arg1;
-}
-
-
-SWIGEXPORT void JNICALL Java_mypackage_testJNI_MachinePart_1count_1set(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jint jarg2) {
-  MachinePart *arg1 = (MachinePart *) 0 ;
-  int arg2 ;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MachinePart **)&jarg1; 
-  arg2 = (int)jarg2; 
-  if (arg1) (arg1)->count = arg2;
-}
-
-
-SWIGEXPORT jint JNICALL Java_mypackage_testJNI_MachinePart_1count_1get(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
-  jint jresult = 0 ;
-  MachinePart *arg1 = (MachinePart *) 0 ;
-  int result;
-  
-  (void)jenv;
-  (void)jcls;
-  (void)jarg1_;
-  arg1 = *(MachinePart **)&jarg1; 
-  result = (int) ((arg1)->count);
-  jresult = (jint)result; 
-  return jresult;
 }
 
 
@@ -3031,6 +3187,96 @@ SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1orderPart(JNIEnv 
 }
 
 
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1getRequests(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Connection *arg1 = (Connection *) 0 ;
+  std::vector< Request * > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(std::vector< Request * > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< Request * > & reference is null");
+    return ;
+  } 
+  (arg1)->getRequests(*arg2);
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1placeOrder(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jstring jarg3) {
+  jboolean jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  Request *arg2 = (Request *) 0 ;
+  std::string arg3 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Request **)&jarg2; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  (&arg3)->assign(arg3_pstr);
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (bool)(arg1)->placeOrder(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT jboolean JNICALL Java_mypackage_testJNI_Connection_1fulfillOrder(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_, jstring jarg3) {
+  jboolean jresult = 0 ;
+  Connection *arg1 = (Connection *) 0 ;
+  Request *arg2 = (Request *) 0 ;
+  std::string arg3 ;
+  bool result;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Request **)&jarg2; 
+  if(!jarg3) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "null string");
+    return 0;
+  } 
+  const char *arg3_pstr = (const char *)jenv->GetStringUTFChars(jarg3, 0); 
+  if (!arg3_pstr) return 0;
+  (&arg3)->assign(arg3_pstr);
+  jenv->ReleaseStringUTFChars(jarg3, arg3_pstr); 
+  result = (bool)(arg1)->fulfillOrder(arg2,arg3);
+  jresult = (jboolean)result; 
+  return jresult;
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1getAllParts(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Connection *arg1 = (Connection *) 0 ;
+  std::vector< Part * > *arg2 = 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(std::vector< Part * > **)&jarg2;
+  if (!arg2) {
+    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "std::vector< Part * > & reference is null");
+    return ;
+  } 
+  (arg1)->getAllParts(*arg2);
+}
+
+
 SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequestQueue(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_) {
   Connection *arg1 = (Connection *) 0 ;
   
@@ -3044,21 +3290,29 @@ SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequestQueue(JNI
 
 SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1printRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
   Connection *arg1 = (Connection *) 0 ;
-  Request arg2 ;
-  Request *argp2 ;
+  Request *arg2 = (Request *) 0 ;
   
   (void)jenv;
   (void)jcls;
   (void)jarg1_;
   (void)jarg2_;
   arg1 = *(Connection **)&jarg1; 
-  argp2 = *(Request **)&jarg2; 
-  if (!argp2) {
-    SWIG_JavaThrowException(jenv, SWIG_JavaNullPointerException, "Attempt to dereference null Request");
-    return ;
-  }
-  arg2 = *argp2; 
+  arg2 = *(Request **)&jarg2; 
   (arg1)->printRequest(arg2);
+}
+
+
+SWIGEXPORT void JNICALL Java_mypackage_testJNI_Connection_1closeRequest(JNIEnv *jenv, jclass jcls, jlong jarg1, jobject jarg1_, jlong jarg2, jobject jarg2_) {
+  Connection *arg1 = (Connection *) 0 ;
+  Request *arg2 = (Request *) 0 ;
+  
+  (void)jenv;
+  (void)jcls;
+  (void)jarg1_;
+  (void)jarg2_;
+  arg1 = *(Connection **)&jarg1; 
+  arg2 = *(Request **)&jarg2; 
+  (arg1)->closeRequest(arg2);
 }
 
 
