@@ -78,7 +78,11 @@ public class Main {
 
         // constructing new connection
         Connection C = new Connection();
+        
+
         wordSearch wordTree = new wordSearch();
+        Part thing = C.addPart(1,10,"name","description");
+        wordTree.addPart(thing);
         // add a part panel
         JLabel l = new JLabel("Please enter new part information");
         JLabel num = new JLabel("Part #");
