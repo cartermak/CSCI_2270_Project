@@ -276,9 +276,9 @@ public class Main {
                 int u = 0;
                 try {
                     c = Integer.parseInt(countT.getText());
-                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (Exception l) {
                     error = true;
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                     System.out.println(l.getLocalizedMessage());
                     JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                 }
@@ -286,6 +286,7 @@ public class Main {
                     u = Integer.parseInt(partName);
                 } catch (Exception poll) {
                     error = true;
+                    JOptionPane.showMessageDialog(t, "Input failure", "Error", JOptionPane.ERROR_MESSAGE);
                     System.out.println(poll.getLocalizedMessage());
                 }
                 Part h = C.searchPart(u);

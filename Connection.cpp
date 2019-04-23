@@ -183,6 +183,7 @@ bool Connection::addReplacement(int machineNum, int partNum, int numOff, int num
             cout << "Error: Machine number out of range" << endl;
         }
         Replacement newRepl(numOff, numOn, getCurrentTime(), mechanic, notes); // Instantiate and populate new replacement struct
+        cout << "Current time is: " << ctime(&newRepl.date) << endl;
         curr->machines[machineNum - 1].replacements.push_back(newRepl);        // Add the replacement to the replacement vector for that part
 
         curr->count -= numOn;
@@ -237,33 +238,34 @@ bool Connection::placeOrder(Request *order, string notes)
 
 bool Connection::fulfillOrder(Request *order, string notes)
 {
-    if(order && order->dateOrdered)
+    if (order && order->dateOrdered)
     {
         order->dateFulfilled = getCurrentTime();
         order->notes.apdStr(" | Fulfillment Notes: " + notes);
+        Part *curr = searchPart(order->partNumber);
+        curr->count += order->count;
         return true;
     }
     else
     {
         return false;
     }
-    
 }
 
-void Connection::getAllParts(vector<Part*> &parts)
+void Connection::getAllParts(vector<Part *> &parts)
 {
     parts.clear();
-    
-    for(int i=0;i<HASH_TABLE_SIZE;i++)
+
+    for (int i = 0; i < HASH_TABLE_SIZE; i++)
     {
-        for(vector<Part>::iterator j = partsTable[i].begin();j<partsTable[i].end();j++)
+        for (vector<Part>::iterator j = partsTable[i].begin(); j < partsTable[i].end(); j++)
         {
             parts.push_back(&*j);
         }
     }
 }
 
-void Connection::closeRequest(Request* curr)
+void Connection::closeRequest(Request *curr)
 {
     q.erase(remove(q.begin(), q.end(), curr), q.end());
 }
