@@ -78,11 +78,43 @@ public class Main {
 
         // constructing new connection
         Connection C = new Connection();
-        
+
+        /*
+         *
+         *
+         *
+         *
+         * 
+         * 
+         * 
+         */
 
         wordSearch wordTree = new wordSearch();
-        Part thing = C.addPart(1,10,"name","description");
+        Part thing = C.addPart(1, 10, "name", "description");
         wordTree.addPart(thing);
+        // thing = C.addPart(2, 10, "Bowling Pin", "They are really heavy");
+        // wordTree.addPart(thing);
+        // thing = C.addPart(3, 10, "Bowling Pun", "lol");
+        // wordTree.addPart(thing);
+        // thing = C.addPart(4, 10, "Bumper rail", "the front bit");
+        // wordTree.addPart(thing);
+        // thing = C.addPart(5, 10, "mid bumper rail", "the middly diddly bit");
+        // wordTree.addPart(thing);
+        // thing = C.addPart(6, 10, "bumper rail", "end bit");
+        // wordTree.addPart(thing);
+        // thing = C.addPart(7, 10, "cookie", "shuttle fin (shuttle fun)");
+        // wordTree.addPart(thing);
+
+        /*
+         *
+         *
+         *
+         *
+         * 
+         * 
+         * 
+         */
+
         // add a part panel
         JLabel l = new JLabel("Please enter new part information");
         JLabel num = new JLabel("Part #");
@@ -607,7 +639,7 @@ public class Main {
                 RequestPVector commonParts = new RequestPVector();
                 C.getRequests(commonParts);
                 JPanel uriel = new JPanel();
-                uriel.setSize(new Dimension(screenWidth/3, screenHeight/5));
+                uriel.setSize(new Dimension(screenWidth / 3, screenHeight / 5));
                 JTable jt = new JTable(new DefaultTableModel(
                         new Object[] { "Part Number", "Mechanic Name", "# requested", "Notes", "Date Requested" }, 0));
                 jt.setMaximumSize(new Dimension(screenWidth / 3, screenHeight / 5));
